@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BEACON HILL RUGS - JS Interactivity & Web Application Logic
+   NOOR ORIENTAL RUGS - JS Interactivity & Web Application Logic
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     homeTrialBtn.addEventListener('click', () => {
         // Find current selected rug info
         const activeRug = document.querySelector('.rug-select-btn.active');
-        const activeRugTitle = activeRug ? activeRug.getAttribute('data-title') : 'Beacon Hill Classic';
+        const activeRugTitle = activeRug ? activeRug.getAttribute('data-title') : 'Noor Esfahan Classic';
         
         // Select the "In-Home Trial" option in the dropdown
         requestSelect.value = 'trial';
