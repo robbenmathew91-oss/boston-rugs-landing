@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the history, artistry, and maintenance of fine handmade rugs. Educational articles by Noor Oriental Rugs, Inc. in Cambridge, MA.">
+    <title>Educational Blog & Rug History | Noor Oriental Rugs, Inc.</title>
+    
+    <!-- Google Fonts: Playfair Display for headers, Outfit for body and interface -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">NOOR ORIENTAL</span>
+                <span class="logo-subtext">RUGS</span>
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html#heritage" class="nav-link">Our Heritage</a></li>
+                    <li><a href="index.html#collections" class="nav-link">Collections</a></li>
+                    <li><a href="index.html#visualizer" class="nav-link">Virtual Showroom</a></li>
+                    <li><a href="index.html#charity" class="nav-link">Donations</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                </ul>
+            </nav>
+            
+            <a href="index.html#contact" class="btn btn-outline nav-cta">Book Consultation</a>
+            
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <span class="section-tag">Educational Resource</span>
+            <h1 class="section-title" style="font-size: 3.5rem; color: var(--color-text);">History & Art of Handmade Rugs</h1>
+            <p class="section-desc max-w-600">Preserving three centuries of weaving legacy. Read our educational articles on traditional dyes, regional classifications, and care techniques.</p>
+        </div>
+    </section>
+
+    <!-- Search & Filter Area -->
+    <div class="blog-search-container">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="blog-search" class="blog-search-input" placeholder="Search articles by title or keyword...">
+    </div>
+
+    <!-- Blog Posts Section -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="blog-grid" id="blog-posts-grid">
+                
+                <!-- Article 1 -->
+                <article class="blog-card" data-id="1">
+                    <div class="blog-card-img-wrapper">
+                        <img src="https://noororientalrugs.com/wp-content/uploads/2018/10/IMG_6415.jpg" alt="Rugs as Human Document" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-card-tag">History & Art</span>
+                        <h2 class="blog-card-title">Rugs as Human Document</h2>
+                        <p class="blog-card-excerpt">Every part of a rug tells a story. The wool and dye reveal its origin, water sources, local flora, and herds, reflecting a weaver's unique soul.</p>
+                        <span class="blog-card-link">Read Article <i class="fa-solid fa-arrow-right-long"></i></span>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="blog-card" data-id="2">
+                    <div class="blog-card-img-wrapper">
+                        <img src="https://noororientalrugs.com/wp-content/uploads/2018/10/history-handmade-rugs.jpg" alt="Introduction" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-card-tag">History & Art</span>
+                        <h2 class="blog-card-title">Introduction</h2>
+                        <p class="blog-card-excerpt">Traditional Eastern art forms blend form, decoration, and function within an integrated whole, converging beautifully in handmade rugs.</p>
+                        <span class="blog-card-link">Read Article <i class="fa-solid fa-arrow-right-long"></i></span>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="blog-card" data-id="3">
+                    <div class="blog-card-img-wrapper">
+                        <img src="https://noororientalrugs.com/wp-content/uploads/2018/10/3807092914_300eab065c_z.jpg" alt="Weaving Rugs" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-card-tag">Techniques</span>
+                        <h2 class="blog-card-title">Weaving Rugs</h2>
+                        <p class="blog-card-excerpt">Rugs are woven either in city workshops or by villagers and nomads who make rugs part-time for functional and artistic purposes.</p>
+                        <span class="blog-card-link">Read Article <i class="fa-solid fa-arrow-right-long"></i></span>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="blog-card" data-id="4">
+                    <div class="blog-card-img-wrapper">
+                        <img src="https://noororientalrugs.com/wp-content/uploads/2018/10/640px-Indian_pigments.jpg" alt="Dyes" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-card-tag">Materials</span>
+                        <h2 class="blog-card-title">Dyes</h2>
+                        <p class="blog-card-excerpt">Dyeing is more art-form than science. Master dyers occupy elevated positions in weaving societies, passing secrets down families.</p>
+                        <span class="blog-card-link">Read Article <i class="fa-solid fa-arrow-right-long"></i></span>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="blog-card" data-id="5">
+                    <div class="blog-card-img-wrapper">
+                        <img src="https://noororientalrugs.com/wp-content/uploads/2018/10/moo.jpg" alt="Authenticity" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-card-tag">Education</span>
+                        <h2 class="blog-card-title">Authenticity</h2>
+                        <p class="blog-card-excerpt">Authenticity is based on three key components: handspun wool, organic vegetable dyes, and traditional hand-knotting methods.</p>
+                        <span class="blog-card-link">Read Article <i class="fa-solid fa-arrow-right-long"></i></span>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="blog-card" data-id="6">
+                    <div class="blog-card-img-wrapper">
+                        <img src="https://noororientalrugs.com/wp-content/uploads/2018/10/shutterstock_734821915-e1539377477254.jpg" alt="How Rugs are Classified" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-card-tag">Education</span>
+                        <h2 class="blog-card-title">How Rugs are Classified</h2>
+                        <p class="blog-card-excerpt">Rugs may be categorized according to various criteria including place of origin, weaving category, age, or composition.</p>
+                        <span class="blog-card-link">Read Article <i class="fa-solid fa-arrow-right-long"></i></span>
+                    </div>
+                </article>
+
+                <!-- Article 7 -->
+                <article class="blog-card" data-id="7">
+                    <div class="blog-card-img-wrapper">
+                        <img src="https://noororientalrugs.com/wp-content/uploads/2018/10/IMG_6146-2.jpg" alt="Beautiful Flaws" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-card-tag">History & Art</span>
+                        <h2 class="blog-card-title">Beautiful “Flaws”</h2>
+                        <p class="blog-card-excerpt">Variations in color, pattern symmetry, or knotting tightness are reminders of handcrafting, adding unique value to a rug.</p>
+                        <span class="blog-card-link">Read Article <i class="fa-solid fa-arrow-right-long"></i></span>
+                    </div>
+                </article>
+
+                <!-- Article 8 -->
+                <article class="blog-card" data-id="8">
+                    <div class="blog-card-img-wrapper">
+                        <img src="https://noororientalrugs.com/wp-content/uploads/2018/10/Zagros_Mountains_Khuzestan.jpg" alt="Wool from the Mountains" class="blog-card-img">
+                    </div>
+                    <div class="blog-card-content">
+                        <span class="blog-card-tag">Materials</span>
+                        <h2 class="blog-card-title">Wool from the Mountains</h2>
+                        <p class="blog-card-excerpt">Geography and climate play a paramount role in rug wool quality. Explore the resilient highland wool of the Zagros Mountains.</p>
+                        <span class="blog-card-link">Read Article <i class="fa-solid fa-arrow-right-long"></i></span>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading Modal Overlay -->
+    <div class="blog-modal" id="article-modal">
+        <div class="blog-modal-content">
+            <button class="blog-modal-close" id="modal-close-btn" aria-label="Close article"><i class="fa-solid fa-xmark"></i></button>
+            <img src="" alt="" class="blog-modal-header-img" id="modal-img">
+            <div class="blog-modal-body">
+                <div class="blog-modal-meta">
+                    <span id="modal-category">History & Art</span>
+                </div>
+                <h2 class="blog-modal-title" id="modal-title"></h2>
+                <div class="blog-modal-text" id="modal-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">NOOR ORIENTAL</span>
+                    <span class="logo-subtext">RUGS</span>
+                </a>
+                <p>Purveyors of fine, hand-woven luxury textiles. Built on trust, legacy, and three centuries of family artistry.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Collections</h4>
+                <ul>
+                    <li><a href="index.html#collections">Traditional (Beacon Hill)</a></li>
+                    <li><a href="index.html#collections">Modern (Seaport)</a></li>
+                    <li><a href="index.html#collections">Vintage (Back Bay)</a></li>
+                    <li><a href="blog.html">Educational Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="index.html#services">Organic Washing</a></li>
+                    <li><a href="index.html#services">Fringe & Pile Repair</a></li>
+                    <li><a href="index.html#services">Appraisal & Authentication</a></li>
+                    <li><a href="index.html#contact">Trade Program</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Noor Oriental Rugs, Inc. All rights reserved. Made in Cambridge, MA.</p>
+        </div>
+    </footer>
+
+    <script src="blog.js"></script>
+</body>
+</html>
