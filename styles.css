@@ -1179,3 +1179,32 @@ h1, h2, h3, h4 {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* ==========================================================================
+   Charitable Giving Section
+   ========================================================================== */
+.charity {
+    padding: 8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, 0.005);
+}
+
+.gallery-item {
+    transition: var(--transition-smooth);
+}
+
+.gallery-item:hover {
+    border-color: var(--color-border-hover) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05) !important;
+}
+
+@media (max-width: 991px) {
+    .charity .grid-2 {
+        grid-template-columns: 1fr !important;
+    }
+}
