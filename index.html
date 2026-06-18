@@ -31,6 +31,160 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Local Business Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["LocalBusiness", "HomeGoodsStore"],
+      "name": "Noor Oriental Rugs, Inc.",
+      "image": "https://noororientalrugs.com/images/showroom.png",
+      "url": "https://noororientalrugs.com/",
+      "telephone": "+1-617-868-6667",
+      "email": "info@noororientalrugs.com",
+      "priceRange": "$$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "769 Concord Ave.",
+        "addressLocality": "Cambridge",
+        "addressRegion": "MA",
+        "postalCode": "02138",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 42.3907993,
+        "longitude": -71.1543205
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "08:00", "closes": "15:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "08:00", "closes": "15:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "08:00", "closes": "15:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "15:00" }
+      ],
+      "founder": {
+        "@type": "Person",
+        "name": "Mohammad \"Mo\" Nooraee"
+      },
+      "foundingDate": "1979",
+      "sameAs": [
+        "https://www.facebook.com/noororientalrugs/",
+        "https://www.yelp.com/biz/noor-oriental-rugs-cambridge-2",
+        "https://www.bbb.org/us/ma/cambridge/profile/new-carpet/noor-oriental-rugs-inc-0021-22320"
+      ]
+    }
+    </script>
+    
+    <!-- Services Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Oriental Rug Restoration & Repair",
+        "provider": {
+          "@type": "LocalBusiness",
+          "name": "Noor Oriental Rugs, Inc.",
+          "url": "https://noororientalrugs.com/"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Greater Boston Area"
+        },
+        "description": "Museum-quality conservation, fringe repair, pile re-weaving, moth damage restoration, and color touch-ups of fine Persian and Oriental rugs.",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "description": "Complimentary virtual estimation and evaluations."
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Traditional Persian Rug Cleaning",
+        "provider": {
+          "@type": "LocalBusiness",
+          "name": "Noor Oriental Rugs, Inc.",
+          "url": "https://noororientalrugs.com/"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Greater Boston Area"
+        },
+        "description": "Traditional organic hand washing for Persian & Oriental rugs using green shampoos, natural mothproofing, and sun-drying techniques.",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "description": "Complimentary local pickup and delivery service."
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Certified Rug Appraisals & Valuations",
+        "provider": {
+          "@type": "LocalBusiness",
+          "name": "Noor Oriental Rugs, Inc.",
+          "url": "https://noororientalrugs.com/"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Greater Boston Area"
+        },
+        "description": "Certified Oriental rug appraisals for insurance, estates, and IRS Form 8283 charitable tax deductions by Harvard Law alumnus Mo Nooraee."
+      }
+    ]
+    </script>
+
+    <!-- FAQ Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How often should Persian rugs be cleaned?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fine handmade Persian and Oriental rugs should be professionally cleaned using traditional organic hand washing every 3 to 5 years, depending on traffic, to prevent abrasive soil from damaging foundation fibers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does rug restoration cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The cost of rug restoration is determined by the size of the damaged area, knot density (KPSI), and the materials required (such as matching handspun highland wool and vegetable dyes). Noor provides complimentary evaluations to establish a precise estimate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a certified rug appraisal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A certified rug appraisal is an official document detailing a rug's origin, age, knot density, materials, condition, and fair market value. It is required for insurance coverage, estate distribution, and tax deductions on donations over $500 (IRS Form 8283)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does rug restoration take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depending on the complexity of the re-weaving and matching raw materials, restoration typically takes anywhere from 4 weeks to several months for extensive, museum-quality conservation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are antique rugs worth restoring?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Antique hand-knotted rugs represent valuable artistic and historical legacies. Restoring them preserves their structural integrity, aesthetic value, and resale worth, outlasting modern machine-made alternatives."
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
 
@@ -70,7 +224,7 @@
             <div class="hero-content">
                 <span class="hero-tagline">Three Centuries of Weaving, Repair & Restoration</span>
                 <h1 class="hero-title">Museum-Quality Conservation and Master Craftsmanship</h1>
-                <p class="hero-description">Led by master weaver Mo Nooraee. Restoring and preserving fine hand-knotted rugs using traditional methods, handspun wool, and organic dyes.</p>
+                <p class="hero-description">Led by Harvard Law alumnus and master weaver Mo Nooraee. Restoring and preserving fine hand-knotted rugs since 1979 using traditional methods, handspun wool, and organic dyes.</p>
                 <div class="hero-actions">
                     <a href="#collections" class="btn btn-primary">Explore Collections</a>
                     <a href="#visualizer" class="btn btn-secondary">Try Virtual Visualizer</a>
@@ -102,7 +256,7 @@
                 <div class="heritage-text reveal">
                     <span class="section-tag">Woven History</span>
                     <h2 class="section-title">Three Centuries of Weaving Artistry</h2>
-                    <p class="section-desc">For over three hundred years, the Nooraee family has transmitted the precious heritage of weaving Persian rugs from generation to generation. Today, founder and president Mo Nooraee continues that legacy as one of the world's foremost appraisers and restorers of fine rugs.</p>
+                    <p class="section-desc">For over three hundred years, the Nooraee family has transmitted the precious heritage of weaving Persian rugs from generation to generation. Today, founder, Harvard Law alumnus, and president Mo Nooraee continues that legacy as a master weaver and one of the nation's foremost certified appraisers and restorers of fine hand-knotted rugs.</p>
                     
                     <div class="features-list">
                         <div class="feature-item">
