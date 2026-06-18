@@ -805,7 +805,7 @@ h1, h2, h3, h4 {
     object-fit: cover;
 }
 
-.selector-info h4 {
+.selector-info h3 {
     font-size: 1.05rem;
     margin-bottom: 0.15rem;
 }
@@ -955,7 +955,7 @@ h1, h2, h3, h4 {
     font-size: 1.1rem;
 }
 
-.contact-detail-item h4 {
+.contact-detail-item h3 {
     font-size: 1.1rem;
     margin-bottom: 0.3rem;
 }
@@ -1119,7 +1119,7 @@ h1, h2, h3, h4 {
     max-width: 320px;
 }
 
-.footer-links h4 {
+.footer-links h3 {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 2px;
