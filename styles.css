@@ -1603,3 +1603,108 @@ body.modal-open {
 .accordion-body strong {
     color: var(--color-text);
 }
+
+/* ==========================================================================
+   PHASE 2 - Testimonials & File Upload Styles
+   ========================================================================== */
+
+/* Testimonials Section */
+.testimonials {
+    padding: 8rem 0;
+    background: linear-gradient(rgba(10, 10, 10, 0.95), rgba(18, 18, 18, 0.95));
+    border-top: 1px solid rgba(212, 175, 55, 0.05);
+}
+
+.testimonial-card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    padding: 3rem 2.5rem;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.testimonial-card:hover {
+    border-color: var(--color-border-hover);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.testimonial-quote-icon {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2rem;
+    color: rgba(212, 175, 55, 0.08);
+}
+
+.testimonial-stars {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.testimonial-text {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.testimonial-author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-author {
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-text);
+}
+
+.testimonial-city {
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    margin-top: 0.2rem;
+    letter-spacing: 0.5px;
+}
+
+/* File Upload Field styling */
+.file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed var(--color-border);
+    padding: 1.2rem;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    transition: var(--transition-quick);
+}
+
+.file-upload-label:hover {
+    border-color: var(--color-primary);
+    color: var(--color-text);
+    background: rgba(212, 175, 55, 0.03);
+}
+
+.file-upload-label i {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+}
+
+.file-name-display {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    font-style: italic;
+}

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NOOR ORIENTAL RUGS - Educational Blog & History Interactivity
+   NOOR ORIENTAL RUGS - Educational Knowledge Center & History Interactivity
    ========================================================================== */
 
 // Authentic full text articles database
@@ -12,6 +12,7 @@ const articlesData = {
             <p>Every part of a rug tells a story. As we have seen, the wool and dye reveal much about the rug's place of origin; its mountains, water sources, local trees and flowers, and herds of sheep or goats. The design tells us a story about a tribe, a village, a family, about art and tradition passed from generation to generation. Just as no two hand-knotted rugs are exactly alike, so each rug is from the hand of an individual, a window into the unique soul of its weaver.</p>
             <p>Some rugs reflect the weaver’s immediate environment or the natural setting of the weaver’s home or village or encampment. Other rugs display celestial inspiration: stars, suns, and moons. Some rugs have a clearly spiritual dimension represented by a tree of life or the ultimate aspiration: the garden of Paradise.</p>
             <p>Let your own eyes, hands, feet and spirit experience the story and the joy of hand-made rugs. Mohammad Nooraee will be delighted to welcome you and be your guide.</p>
+            <div style="margin-top: 2rem;"><a href="gallery.html" class="btn btn-primary btn-sm" style="display: inline-flex;">Browse Our Collections</a></div>
         `
     },
     "2": {
@@ -22,6 +23,7 @@ const articlesData = {
             <p>Traditional Eastern art forms blend form, decoration, and function within an integrated whole. Where better do beauty and function converge than in a hand-woven rug?</p>
             <p>From the simple nomadic floor covering to the sophisticated silk carpets of the Safavid court, rugs have served as functional art pieces for centuries.</p>
             <p>The craft of weaving has been passed down through generations, preserving ancient symbols, motifs, and techniques. At Noor Oriental Rugs, we are dedicated to celebrating this history and helping you understand the origin and pedigree of your unique piece.</p>
+            <div style="margin-top: 2rem;"><a href="gallery.html" class="btn btn-primary btn-sm" style="display: inline-flex;">Explore Hand-Woven Collections</a></div>
         `
     },
     "3": {
@@ -31,6 +33,7 @@ const articlesData = {
         content: `
             <p>Rugs may be woven either in city workshops or by villagers or nomads who make rugs part-time for functional purposes. City carpets are characterized by highly symmetrical, pre-drawn patterns executed on vertical looms, often requiring months or years of meticulous work by teams of skilled weavers.</p>
             <p>Nomadic and village carpets, on the other hand, are typically woven on horizontal, portable looms. These weavers draw patterns from memory or immediate natural surroundings. The irregularities and variations in their designs are not defects, but rather a reflection of the weaver's personal expressions and changing life conditions.</p>
+            <div style="margin-top: 2rem;"><a href="gallery.html" class="btn btn-primary btn-sm" style="display: inline-flex;">View Masterpiece Rugs</a></div>
         `
     },
     "4": {
@@ -40,6 +43,7 @@ const articlesData = {
         content: `
             <p>Dying is more art-form than science. Dyers occupy an elevated position in weaving societies and pass their secrets from generation to generation. They possess an intimate knowledge of local plants, minerals, and insects to produce natural, light-fast colors that age gracefully over decades.</p>
             <p>Organic dyes react dynamically with wool, creating depth and warmth that synthetic colors cannot replicate. At Noor, we prioritize rugs made with these traditional dyes and source matching natural wool and dyes for all our restoration work.</p>
+            <div style="margin-top: 2rem;"><a href="rug-restoration.html" class="btn btn-primary btn-sm" style="display: inline-flex;">Learn About Rug Restoration</a></div>
         `
     },
     "5": {
@@ -49,6 +53,7 @@ const articlesData = {
         content: `
             <p>A few terms are employed to convey the degree of authenticity of a rug. Authentic rugs are hand-woven with at least three key components: handspun wool, organic vegetable dyes, and traditional hand-knotting methods characteristic of their region. These hand-knotted pieces represent genuine historical pedigree.</p>
             <p>In contrast, machine-made rugs or those utilizing synthetic backing materials lack the longevity, breathability, and aesthetic value of handmade carpets. Mo Nooraee provides certified appraisals to document your rug's authenticity and historical value.</p>
+            <div style="margin-top: 2rem;"><a href="rug-appraisals.html" class="btn btn-primary btn-sm" style="display: inline-flex;">Book Certified Appraisal</a></div>
         `
     },
     "6": {
@@ -58,6 +63,7 @@ const articlesData = {
         content: `
             <p>Rugs may be categorized according to various criteria including place of origin, weaving category, age, composition (wool, silk, or a blend), and design type. Place of origin is highly specific, often naming the exact town, province, or tribe (e.g., Isfahan, Tabriz, Heriz, Qashqai) where the weaving took place.</p>
             <p>Age is typically classified as Antique (100+ years), Semi-Antique (50-90 years), or Modern. The classification of a rug is crucial for determining its care requirements, tax appraisal value, and historical context.</p>
+            <div style="margin-top: 2rem;"><a href="rug-appraisals.html" class="btn btn-primary btn-sm" style="display: inline-flex;">Request Rug Classification</a></div>
         `
     },
     "7": {
@@ -69,6 +75,7 @@ const articlesData = {
             <p>Western buyers sometimes note that a pattern has an interrupted motif, or a non-symmetrical layout, or sides not perfectly in alignment. Such instances usually have more to do with cultural norms or personal events rather than the ineptness of the weaver. Weavers as a sign of humility may not correct a flaw in their work; recognizing only God as perfect, they do not wish to appear vain or to be the target of envy.</p>
             <p>Often a variation in shade and tint appears horizontally within a single band of color across an Oriental rug. This phenomenon is called abrash, and may be caused by variations in yarn diameter, the use of yarn from different dye lots, uneven exposure to sunlight over time, or by differences in the amount of lanolin in the yarn which affect how well the dye “takes”. Abrash can add stunning dimension to a rug and is considered a very desirable trait in tribal rugs.</p>
             <p>Rugs that reach Western markets are usually sold “as is”, because every collector has his/her own tastes. Some perceive the bruises of history on a rug as a vital part of its unique story. Should you wish to a repair a rug, Mr. Nooraee will always ask you to be specific about what aspects of the rug you wish to fix and those you wish to preserve.</p>
+            <div style="margin-top: 2rem;"><a href="rug-restoration.html" class="btn btn-primary btn-sm" style="display: inline-flex;">Inquire About Restoration</a></div>
         `
     },
     "8": {
@@ -78,11 +85,12 @@ const articlesData = {
         content: `
             <p>Geography and climate have played a paramount role in the development of rug types as we know them today. The highlands of the Zagros Mountains, spanning through Persia and Khuzestan, provide optimal conditions for raising sheep with exceptionally thick, resilient coats rich in lanolin.</p>
             <p>This lanolin-rich highland wool yields fibers that are strong, naturally stain-resistant, and possess a natural luster when dyed. Using these regional wools ensures the rug outlives generations while growing softer and more beautiful over time.</p>
+            <div style="margin-top: 2rem;"><a href="rug-cleaning.html" class="btn btn-primary btn-sm" style="display: inline-flex;">Traditional Rug Cleaning Services</a></div>
         `
     },
     "9": {
         title: "Donation of Rugs for Charitable Purposes",
-        category: "Donations",
+        category: "Community Impact",
         img: "images/charity_sufi_service.jpg",
         content: `
             <h3>What is Sufi Service Committee (Boston)?</h3>
@@ -109,11 +117,12 @@ const articlesData = {
                 <li><strong>Rugs worth more than $500:</strong> The IRS requires a certified appraiser to complete Section III of Form 8283 (appraisal fee is paid by the donor).</li>
             </ul>
             <p><strong>Timeline:</strong> The donation process normally takes at least one year, plus the time needed for cleaning and restoration. Noor does not provide tax or legal advice, and owners are encouraged to consult their tax specialists.</p>
+            <div style="margin-top: 2rem;"><a href="community-impact.html" class="btn btn-primary btn-sm" style="display: inline-flex;">Inquire About Rug Donations</a></div>
         `
     },
     "10": {
         title: "Donate Your Rugs: Why, How, and FAQs",
-        category: "Donations",
+        category: "Community Impact",
         img: "images/charity_faq_donate.jpg",
         content: `
             <h3>Why Donate Instead of Sell Your Fine Rugs?</h3>
@@ -137,6 +146,7 @@ const articlesData = {
             
             <h4>Is the donation reversible?</h4>
             <p>No. Once the donor and Noor enter into an agreement and the rug is processed, the donation is legally binding and irrevocable. The rug becomes the property of the receiving charity or is liquidated to forward 100% of the net proceeds to them.</p>
+            <div style="margin-top: 2rem;"><a href="community-impact.html" class="btn btn-primary btn-sm" style="display: inline-flex;">Inquire About Rug Donations</a></div>
         `
     }
 };

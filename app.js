@@ -196,4 +196,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- 8. File Upload Input Interactivity ---
+    const fileInput = document.getElementById('rug-photos');
+    const fileDisplay = document.getElementById('file-name-display');
+    if (fileInput && fileDisplay) {
+        fileInput.addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                fileDisplay.textContent = files.length === 1 
+                    ? files[0].name 
+                    : `${files.length} photos selected`;
+            } else {
+                fileDisplay.textContent = 'No files selected';
+            }
+        });
+    }
+
 });
