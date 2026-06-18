@@ -1508,3 +1508,98 @@ h1, h2, h3, h4 {
 body.modal-open {
     overflow: hidden;
 }
+
+/* Charity Policy Accordion Details */
+.charity-policy-accordion {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.accordion-item {
+    border: 1px solid var(--color-border);
+    background-color: var(--color-card-bg);
+    margin-bottom: 1rem;
+    transition: var(--transition-smooth);
+}
+
+.accordion-item:hover, .accordion-item.active {
+    border-color: var(--color-border-hover);
+}
+
+.accordion-item.active {
+    background-color: rgba(212, 175, 55, 0.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.accordion-header {
+    width: 100%;
+    padding: 1.5rem 2rem !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--color-text);
+    transition: var(--transition-quick);
+}
+
+.accordion-header:hover {
+    color: var(--color-primary);
+}
+
+.accordion-header i {
+    font-size: 1rem;
+    color: var(--color-primary);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.accordion-item.active .accordion-header i {
+    transform: rotate(180deg);
+    color: var(--color-primary-hover);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.accordion-body {
+    padding: 0 2rem 2.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.accordion-body p {
+    margin-bottom: 1.2rem;
+}
+
+.accordion-body p:last-child {
+    margin-bottom: 0;
+}
+
+.accordion-body ul {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.accordion-body ul li {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.accordion-body ul li i {
+    color: var(--color-primary);
+    margin-top: 0.3rem;
+}
+
+.accordion-body strong {
+    color: var(--color-text);
+}

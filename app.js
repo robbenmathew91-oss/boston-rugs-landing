@@ -166,4 +166,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500);
     });
 
+    // --- 7. Charity Section Accordion Logic ---
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        const content = item.querySelector('.accordion-content');
+        
+        header.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close other items if open for clean accordion behavior
+            accordionItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.accordion-content').style.maxHeight = '0px';
+                }
+            });
+            
+            // Toggle active state
+            if (isActive) {
+                item.classList.remove('active');
+                content.style.maxHeight = '0px';
+            } else {
+                item.classList.add('active');
+                // Set max-height dynamically to scrollHeight for smooth transition
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+
 });
