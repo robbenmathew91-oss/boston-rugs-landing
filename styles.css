@@ -253,12 +253,13 @@ h1, h2, h3, h4 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-right: 2rem; /* Ensure spacing between logo and nav links */
+    margin-right: 1rem; /* Ensure spacing between logo and nav links */
+    flex-shrink: 0;
 }
 
 .logo-text {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 1.35rem; /* Slightly smaller logo on desktop for better fit */
     letter-spacing: 2px;
     font-weight: 700;
     color: var(--color-text);
@@ -267,8 +268,8 @@ h1, h2, h3, h4 {
 }
 
 .logo-subtext {
-    font-size: 0.7rem;
-    letter-spacing: 8px;
+    font-size: 0.65rem;
+    letter-spacing: 7px;
     color: var(--color-primary);
     font-weight: 500;
     margin-top: 2px;
@@ -277,21 +278,32 @@ h1, h2, h3, h4 {
 .nav-list {
     display: flex;
     list-style: none;
-    gap: 1.5rem; /* Reduced for better spacing and to prevent touch-overlap */
+    gap: 0.8rem; /* Compact gap for 6 items in header */
     align-items: center;
 }
 
 .nav-link {
-    font-size: 0.85rem;
+    font-size: 0.75rem; /* Slightly smaller text for 6 items */
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     color: var(--color-text-muted);
     white-space: nowrap; /* Prevent menu link wrapping */
 }
 
 .nav-link:hover, .nav-link.active {
     color: var(--color-primary);
+}
+
+.btn.nav-cta {
+    padding: 0.65rem 1.15rem; /* Slightly more compact CTA button */
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+.nav {
+    flex-shrink: 0;
 }
 
 /* Mobile Nav Styles */
@@ -311,7 +323,7 @@ h1, h2, h3, h4 {
     transition: var(--transition-quick);
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1200px) {
     .mobile-nav-toggle {
         display: flex;
     }
@@ -333,7 +345,7 @@ h1, h2, h3, h4 {
     }
     
     .nav.open {
-        height: 250px;
+        height: 380px; /* Increased from 330px to accommodate all 6 nav links without clipping */
         border-bottom: 1px solid var(--color-border);
     }
     
@@ -1214,23 +1226,7 @@ h1, h2, h3, h4 {
     }
 }
 
-/* Dynamic laptop spacing updates (992px to 1200px) */
-@media (min-width: 992px) and (max-width: 1200px) {
-    .header-container {
-        padding: 0 1rem;
-    }
-    .nav-list {
-        gap: 1.2rem;
-    }
-    .nav-link {
-        font-size: 0.8rem;
-        letter-spacing: 1px;
-    }
-    .btn.nav-cta {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.8rem;
-    }
-}
+
 
 /* ==========================================================================
    Blog Page & Reading Modal Styles
