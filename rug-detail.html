@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View the details of our handmade Persian and Oriental rugs.">
+    <title>Rug Details | Noor Oriental Rugs</title>
+    
+    <!-- We will use JS to update the canonical tag dynamically if possible, but for static base: -->
+    <link rel="canonical" href="https://noororientalrugs.com/rug-detail.html">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.4">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="header scrolled">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">NOOR ORIENTAL</span>
+                <span class="logo-subtext">RUGS</span>
+            </a>
+            
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html#heritage" class="nav-link">Our Heritage</a></li>
+                    <li><a href="gallery.html" class="nav-link">Collections</a></li>
+                    <li><a href="rugs-for-sale.html" class="nav-link">Inventory</a></li>
+                    <li><a href="restoration-gallery.html" class="nav-link">Before & After</a></li>
+                    <li><a href="index.html#charity" class="nav-link">Community Impact</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                </ul>
+            </nav>
+            
+            <a href="index.html#contact" class="btn btn-outline nav-cta">Book Consultation</a>
+            
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Section - Dynamic Detail Mount Point -->
+    <section style="padding: 10rem 0 6rem 0; background: var(--color-bg); min-height: 80vh;">
+        <div class="container">
+            <a href="rugs-for-sale.html" class="back-link" style="display: inline-block; margin-bottom: 2rem; color: var(--color-text-muted); text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Back to Inventory</a>
+            
+            <div id="rug-detail-container">
+                <!-- Javascript will inject rug details here -->
+                <div style="text-align: center; color: var(--color-text-muted); padding: 4rem;">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>Loading rug details...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <span class="logo-text">NOOR ORIENTAL</span>
+                    <span class="logo-subtext">RUGS</span>
+                </a>
+                <p>Purveyors of fine, hand-woven luxury textiles. Built on trust, legacy, and three centuries of family artistry.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Collections</h3>
+                <ul>
+                    <li><a href="gallery.html">Traditional (Beacon Hill)</a></li>
+                    <li><a href="gallery.html">Modern (Seaport)</a></li>
+                    <li><a href="gallery.html">Vintage (Back Bay)</a></li>
+                    <li><a href="rugs-for-sale.html">Browse Inventory</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="rug-cleaning.html">Organic Washing</a></li>
+                    <li><a href="rug-restoration.html">Fringe & Pile Repair</a></li>
+                    <li><a href="rug-appraisals.html">Appraisal & Authentication</a></li>
+                    <li><a href="index.html#contact">Trade Program</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Noor Oriental Rugs, Inc. All rights reserved. Made in Cambridge, MA.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

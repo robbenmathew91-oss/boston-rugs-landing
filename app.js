@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="rug-card-footer">
                             <span class="rug-card-price">${formatPrice}</span>
-                            <a href="#" class="btn btn-primary rug-card-btn">View Details</a>
+                            <a href="rug-detail.html?slug=${rug.slug}" class="btn btn-primary rug-card-btn">View Details</a>
                         </div>
                     </div>
                 `;
@@ -357,6 +357,130 @@ document.addEventListener('DOMContentLoaded', () => {
                 inventoryGridContainer.appendChild(card);
             });
         });
+    }
+    // --- 11. Dynamic Detail Page Loading (rug-detail.html) ---
+    const detailContainer = document.getElementById('rug-detail-container');
+    if (detailContainer) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const slug = urlParams.get('slug');
+        
+        if (!slug) {
+            detailContainer.innerHTML = `
+                <div class="error-container">
+                    <h1 class="error-title">No Rug Selected</h1>
+                    <p style="color: var(--color-text-muted); margin-bottom: 2rem;">Please select a rug from our inventory.</p>
+                    <a href="rugs-for-sale.html" class="btn btn-primary">Browse Inventory</a>
+                </div>
+            `;
+        } else {
+            const inventoryManager = new InventoryManager();
+            inventoryManager.fetchInventory().then(rugs => {
+                const rug = rugs.find(r => r.slug === slug);
+                
+                if (!rug) {
+                    detailContainer.innerHTML = `
+                        <div class="error-container">
+                            <h1 class="error-title">Rug Not Found</h1>
+                            <p style="color: var(--color-text-muted); margin-bottom: 2rem;">The rug you are looking for may have been sold or removed.</p>
+                            <a href="rugs-for-sale.html" class="btn btn-primary">Browse Inventory</a>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Update page title
+                document.title = `${rug.name} | Noor Oriental Rugs`;
+                
+                const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
+                const formatPrice = `$${rug.price.toLocaleString()}`;
+                
+                let specsHTML = '';
+                if (rug.specifications) {
+                    if (rug.specifications.knotDensity) {
+                        specsHTML += `
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Knot Density</span>
+                                <span class="rug-detail-spec-value">${rug.specifications.knotDensity}</span>
+                            </div>
+                        `;
+                    }
+                    if (rug.specifications.pileHeight) {
+                        specsHTML += `
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Pile Height</span>
+                                <span class="rug-detail-spec-value">${rug.specifications.pileHeight}</span>
+                            </div>
+                        `;
+                    }
+                    if (rug.specifications.dyes) {
+                        specsHTML += `
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Dyes</span>
+                                <span class="rug-detail-spec-value">${rug.specifications.dyes}</span>
+                            </div>
+                        `;
+                    }
+                    if (rug.specifications.foundation) {
+                        specsHTML += `
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Foundation</span>
+                                <span class="rug-detail-spec-value">${rug.specifications.foundation}</span>
+                            </div>
+                        `;
+                    }
+                }
+                
+                detailContainer.className = 'rug-detail-layout';
+                detailContainer.innerHTML = `
+                    <div class="rug-detail-image-column">
+                        <div class="rug-detail-image-wrapper">
+                            <img src="${imgSrc}" alt="${rug.name}" class="rug-detail-main-img">
+                        </div>
+                    </div>
+                    <div class="rug-detail-info">
+                        <h1 class="rug-detail-title">${rug.name}</h1>
+                        <span class="rug-detail-origin">${rug.origin}</span>
+                        
+                        <div class="rug-detail-price">${formatPrice}</div>
+                        
+                        <div class="rug-detail-specs-grid">
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Availability</span>
+                                <span class="rug-detail-spec-value" style="color: var(--color-primary);">${rug.availability}</span>
+                            </div>
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Size</span>
+                                <span class="rug-detail-spec-value">${rug.size}</span>
+                            </div>
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Style</span>
+                                <span class="rug-detail-spec-value">${rug.style}</span>
+                            </div>
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Material</span>
+                                <span class="rug-detail-spec-value">${rug.material}</span>
+                            </div>
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Age</span>
+                                <span class="rug-detail-spec-value">${rug.age}</span>
+                            </div>
+                            <div class="rug-detail-spec-box">
+                                <span class="rug-detail-spec-label">Condition</span>
+                                <span class="rug-detail-spec-value">${rug.condition}</span>
+                            </div>
+                        </div>
+                        
+                        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-text);">About This Piece</h3>
+                        <p class="rug-detail-desc">${rug.description || 'A beautiful piece curated by Noor Oriental Rugs.'}</p>
+                        
+                        ${specsHTML ? `
+                            <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--color-text);">Technical Specifications</h3>
+                            <div class="rug-detail-specs-grid">${specsHTML}</div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+        }
     }
 
 });
