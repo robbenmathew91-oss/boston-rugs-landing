@@ -2096,3 +2096,96 @@ body.modal-open {
         padding: 0 1rem 3rem;
     }
 }
+
+/* --- Dynamic Rug Card --- */
+.rug-card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rug-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.rug-card-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.rug-card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.rug-card-header {
+    margin-bottom: 1rem;
+}
+
+.rug-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: 0.25rem;
+    color: var(--color-text);
+}
+
+.rug-card-origin {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.rug-card-specs {
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.rug-card-spec-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+}
+
+.rug-card-spec-item:last-child {
+    border-bottom: none;
+}
+
+.rug-card-spec-label {
+    color: var(--color-text-muted);
+}
+
+.rug-card-spec-value {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.rug-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.rug-card-price {
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.rug-card-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+}

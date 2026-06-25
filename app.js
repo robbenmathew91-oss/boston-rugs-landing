@@ -305,4 +305,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- 10. Full Inventory Grid Loading (rugs-for-sale.html) ---
+    const inventoryGridContainer = document.getElementById('inventory-grid-container');
+    if (inventoryGridContainer) {
+        // Reuse the InventoryManager defined earlier in app.js
+        const inventoryManager = new InventoryManager();
+        
+        inventoryManager.fetchInventory().then(rugs => {
+            inventoryGridContainer.innerHTML = ''; // Clear loading spinner
+            
+            if (rugs.length === 0) {
+                inventoryGridContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-text-muted);">No inventory available at the moment.</p>';
+                return;
+            }
+            
+            rugs.forEach(rug => {
+                const card = document.createElement('article');
+                card.className = 'rug-card';
+                
+                const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
+                const formatPrice = `From $${rug.price.toLocaleString()}`;
+                
+                card.innerHTML = `
+                    <img src="${imgSrc}" alt="${rug.name}" class="rug-card-image" loading="lazy">
+                    <div class="rug-card-content">
+                        <div class="rug-card-header">
+                            <h2 class="rug-card-title">${rug.name}</h2>
+                            <span class="rug-card-origin">${rug.origin}</span>
+                        </div>
+                        <div class="rug-card-specs">
+                            <div class="rug-card-spec-item">
+                                <span class="rug-card-spec-label">Size</span>
+                                <span class="rug-card-spec-value">${rug.size}</span>
+                            </div>
+                            <div class="rug-card-spec-item">
+                                <span class="rug-card-spec-label">Material</span>
+                                <span class="rug-card-spec-value">${rug.material}</span>
+                            </div>
+                            <div class="rug-card-spec-item">
+                                <span class="rug-card-spec-label">Condition</span>
+                                <span class="rug-card-spec-value">${rug.condition}</span>
+                            </div>
+                        </div>
+                        <div class="rug-card-footer">
+                            <span class="rug-card-price">${formatPrice}</span>
+                            <a href="#" class="btn btn-primary rug-card-btn">View Details</a>
+                        </div>
+                    </div>
+                `;
+                
+                inventoryGridContainer.appendChild(card);
+            });
+        });
+    }
+
 });
