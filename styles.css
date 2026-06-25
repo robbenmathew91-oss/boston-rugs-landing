@@ -2190,6 +2190,121 @@ body.modal-open {
     padding: 0.5rem 1rem;
 }
 
+/* --- Inventory Filtering Layout --- */
+.inventory-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+@media (max-width: 992px) {
+    .inventory-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+.filter-sidebar {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    padding: 2rem;
+    position: sticky;
+    top: 100px;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.btn-clear-filters {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: var(--transition-quick);
+}
+
+.btn-clear-filters:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+}
+
+.filter-group {
+    margin-bottom: 2rem;
+}
+
+.filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.filter-title {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+/* Custom scrollbar for filter options */
+.filter-options::-webkit-scrollbar {
+    width: 4px;
+}
+.filter-options::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+.filter-options::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: var(--transition-quick);
+}
+
+.filter-label:hover {
+    color: var(--color-text);
+}
+
+.filter-label input[type="checkbox"],
+.filter-label input[type="radio"] {
+    accent-color: var(--color-primary);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.inventory-results-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* --- Dynamic Rug Detail Page --- */
 .rug-detail-layout {
     display: grid;

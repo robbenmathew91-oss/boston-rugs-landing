@@ -305,57 +305,177 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 10. Full Inventory Grid Loading (rugs-for-sale.html) ---
+    // --- 10. Full Inventory Grid & Filtering (rugs-for-sale.html) ---
     const inventoryGridContainer = document.getElementById('inventory-grid-container');
     if (inventoryGridContainer) {
-        // Reuse the InventoryManager defined earlier in app.js
         const inventoryManager = new InventoryManager();
-        
+        let allRugs = [];
+        let activeFilters = {
+            style: new Set(),
+            size: new Set(),
+            material: new Set(),
+            price: null
+        };
+
+        const filterStyleContainer = document.getElementById('filter-style');
+        const filterSizeContainer = document.getElementById('filter-size');
+        const filterMaterialContainer = document.getElementById('filter-material');
+        const inventoryCount = document.getElementById('inventory-count');
+        const clearFiltersBtn = document.getElementById('clear-filters-btn');
+
         inventoryManager.fetchInventory().then(rugs => {
-            inventoryGridContainer.innerHTML = ''; // Clear loading spinner
+            allRugs = rugs;
             
-            if (rugs.length === 0) {
-                inventoryGridContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-text-muted);">No inventory available at the moment.</p>';
-                return;
-            }
+            // 1. Extract dynamic filter options
+            const styles = new Set();
+            const sizes = new Set();
+            const materials = new Set();
             
             rugs.forEach(rug => {
-                const card = document.createElement('article');
-                card.className = 'rug-card';
-                
-                const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
-                const formatPrice = `From $${rug.price.toLocaleString()}`;
-                
-                card.innerHTML = `
-                    <img src="${imgSrc}" alt="${rug.name}" class="rug-card-image" loading="lazy">
-                    <div class="rug-card-content">
-                        <div class="rug-card-header">
-                            <h2 class="rug-card-title">${rug.name}</h2>
-                            <span class="rug-card-origin">${rug.origin}</span>
-                        </div>
-                        <div class="rug-card-specs">
-                            <div class="rug-card-spec-item">
-                                <span class="rug-card-spec-label">Size</span>
-                                <span class="rug-card-spec-value">${rug.size}</span>
-                            </div>
-                            <div class="rug-card-spec-item">
-                                <span class="rug-card-spec-label">Material</span>
-                                <span class="rug-card-spec-value">${rug.material}</span>
-                            </div>
-                            <div class="rug-card-spec-item">
-                                <span class="rug-card-spec-label">Condition</span>
-                                <span class="rug-card-spec-value">${rug.condition}</span>
-                            </div>
-                        </div>
-                        <div class="rug-card-footer">
-                            <span class="rug-card-price">${formatPrice}</span>
-                            <a href="rug-detail.html?slug=${rug.slug}" class="btn btn-primary rug-card-btn">View Details</a>
-                        </div>
-                    </div>
-                `;
-                
-                inventoryGridContainer.appendChild(card);
+                if (rug.style) styles.add(rug.style);
+                if (rug.size) sizes.add(rug.size);
+                if (rug.material) materials.add(rug.material);
             });
+
+            // 2. Render Checkboxes
+            const renderCheckboxes = (container, items, filterType) => {
+                if (!container) return;
+                Array.from(items).sort().forEach(item => {
+                    const label = document.createElement('label');
+                    label.className = 'filter-label';
+                    label.innerHTML = `<input type="checkbox" value="${item}" data-filter-type="${filterType}"> <span>${item}</span>`;
+                    container.appendChild(label);
+                });
+            };
+
+            renderCheckboxes(filterStyleContainer, styles, 'style');
+            renderCheckboxes(filterSizeContainer, sizes, 'size');
+            renderCheckboxes(filterMaterialContainer, materials, 'material');
+
+            // 3. Attach Event Listeners
+            const attachFilterEvents = () => {
+                const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
+                checkboxes.forEach(cb => {
+                    cb.addEventListener('change', (e) => {
+                        const type = e.target.getAttribute('data-filter-type');
+                        if (e.target.checked) {
+                            activeFilters[type].add(e.target.value);
+                        } else {
+                            activeFilters[type].delete(e.target.value);
+                        }
+                        renderGrid();
+                    });
+                });
+
+                const radioButtons = document.querySelectorAll('.filter-options input[type="radio"]');
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        if (e.target.checked) {
+                            activeFilters.price = e.target.value;
+                            renderGrid();
+                        }
+                    });
+                });
+
+                if (clearFiltersBtn) {
+                    clearFiltersBtn.addEventListener('click', () => {
+                        activeFilters.style.clear();
+                        activeFilters.size.clear();
+                        activeFilters.material.clear();
+                        activeFilters.price = null;
+                        
+                        document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => cb.checked = false);
+                        document.querySelectorAll('.filter-options input[type="radio"]').forEach(radio => radio.checked = false);
+                        
+                        renderGrid();
+                    });
+                }
+            };
+
+            attachFilterEvents();
+
+            // 4. Render Grid Logic
+            const renderGrid = () => {
+                let filteredRugs = allRugs;
+
+                // Apply Styles
+                if (activeFilters.style.size > 0) {
+                    filteredRugs = filteredRugs.filter(rug => activeFilters.style.has(rug.style));
+                }
+                
+                // Apply Sizes
+                if (activeFilters.size.size > 0) {
+                    filteredRugs = filteredRugs.filter(rug => activeFilters.size.has(rug.size));
+                }
+
+                // Apply Materials
+                if (activeFilters.material.size > 0) {
+                    filteredRugs = filteredRugs.filter(rug => activeFilters.material.has(rug.material));
+                }
+
+                // Apply Price
+                if (activeFilters.price) {
+                    filteredRugs = filteredRugs.filter(rug => {
+                        const price = rug.price;
+                        if (activeFilters.price === 'under-1k') return price < 1000;
+                        if (activeFilters.price === '1k-2.5k') return price >= 1000 && price <= 2500;
+                        if (activeFilters.price === '2.5k-5k') return price > 2500 && price <= 5000;
+                        if (activeFilters.price === 'above-5k') return price > 5000;
+                        return true;
+                    });
+                }
+
+                // Update UI
+                inventoryGridContainer.innerHTML = '';
+                if (inventoryCount) {
+                    inventoryCount.textContent = `Showing ${filteredRugs.length} ${filteredRugs.length === 1 ? 'rug' : 'rugs'}`;
+                }
+
+                if (filteredRugs.length === 0) {
+                    inventoryGridContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--color-text-muted); padding: 4rem;">No rugs found matching your filters. Try adjusting your selections.</p>';
+                    return;
+                }
+
+                filteredRugs.forEach(rug => {
+                    const card = document.createElement('article');
+                    card.className = 'rug-card';
+                    
+                    const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
+                    const formatPrice = `$${rug.price.toLocaleString()}`;
+                    
+                    card.innerHTML = `
+                        <img src="${imgSrc}" alt="${rug.name}" class="rug-card-image" loading="lazy">
+                        <div class="rug-card-content">
+                            <div class="rug-card-header">
+                                <h2 class="rug-card-title">${rug.name}</h2>
+                                <span class="rug-card-origin">${rug.origin}</span>
+                            </div>
+                            <div class="rug-card-specs">
+                                <div class="rug-card-spec-item">
+                                    <span class="rug-card-spec-label">Size</span>
+                                    <span class="rug-card-spec-value">${rug.size}</span>
+                                </div>
+                                <div class="rug-card-spec-item">
+                                    <span class="rug-card-spec-label">Material</span>
+                                    <span class="rug-card-spec-value">${rug.material}</span>
+                                </div>
+                                <div class="rug-card-spec-item">
+                                    <span class="rug-card-spec-label">Condition</span>
+                                    <span class="rug-card-spec-value">${rug.condition}</span>
+                                </div>
+                            </div>
+                            <div class="rug-card-footer">
+                                <span class="rug-card-price">${formatPrice}</span>
+                                <a href="rug-detail.html?slug=${rug.slug}" class="btn btn-primary rug-card-btn">View Details</a>
+                            </div>
+                        </div>
+                    `;
+                    inventoryGridContainer.appendChild(card);
+                });
+            };
+
+            // Initial Render
+            renderGrid();
         });
     }
     // --- 11. Dynamic Detail Page Loading (rug-detail.html) ---
