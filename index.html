@@ -392,54 +392,24 @@
                     <h2 class="section-title">See It in Your Space</h2>
                     <p class="section-desc">Toggle between our different collection styles to see how they lie on the floor and harmonise with a premium residential interior.</p>
                     
-                    <div class="rug-selectors">
-                        <!-- Option 1: Classic -->
-                        <button class="rug-select-btn active" data-rug-src="images/classic_rug.png" data-title="Noor Esfahan Classic" data-price="From $4,200" data-origin="Hand-Knotted in Esfahan, Persia">
-                            <div class="selector-thumb">
-                                <img src="images/classic_rug.png" alt="Classic Rug Thumbnail" width="1024" height="1024">
-                            </div>
-                            <div class="selector-info">
-                                <h3>Noor Esfahan Classic</h3>
-                                <p>Traditional / Red & Navy</p>
-                            </div>
-                        </button>
-                        
-                        <!-- Option 2: Modern -->
-                        <button class="rug-select-btn" data-rug-src="images/modern_rug.png" data-title="Seaport Abstract" data-price="From $3,600" data-origin="Hand-Knotted in Kathmandu, Nepal">
-                            <div class="selector-thumb">
-                                <img src="images/modern_rug.png" alt="Modern Rug Thumbnail" width="1024" height="1024">
-                            </div>
-                            <div class="selector-info">
-                                <h3>Seaport Abstract</h3>
-                                <p>Modern / Cream & Slate</p>
-                            </div>
-                        </button>
-                        
-                        <!-- Option 3: Vintage -->
-                        <button class="rug-select-btn" data-rug-src="images/vintage_rug.png" data-title="Back Bay Vintage" data-price="From $5,500" data-origin="Oushak, Vintage Restored">
-                            <div class="selector-thumb">
-                                <img src="images/vintage_rug.png" alt="Vintage Rug Thumbnail" width="1024" height="1024">
-                            </div>
-                            <div class="selector-info">
-                                <h3>Back Bay Vintage</h3>
-                                <p>Antique / Sage & Blush</p>
-                            </div>
-                        </button>
+                    <div class="rug-selectors" id="visualizer-options-container">
+                        <!-- Options will be injected here dynamically by app.js from inventory.json -->
+                        <p style="color: var(--color-text-muted); font-size: 0.9rem; padding: 1rem;">Loading curated collections...</p>
                     </div>
 
                     <!-- Selected Rug Specs Card -->
                     <div class="rug-specs-card">
                         <div class="spec-row">
                             <span class="spec-label">Selected Style:</span>
-                            <span class="spec-value" id="spec-title">Noor Esfahan Classic</span>
+                            <span class="spec-value" id="spec-title">...</span>
                         </div>
                         <div class="spec-row">
                             <span class="spec-label">Origin:</span>
-                            <span class="spec-value" id="spec-origin">Hand-Knotted in Esfahan, Persia</span>
+                            <span class="spec-value" id="spec-origin">...</span>
                         </div>
                         <div class="spec-row">
                             <span class="spec-label">Estimated Value:</span>
-                            <span class="spec-value highlight" id="spec-price">From $4,200</span>
+                            <span class="spec-value highlight" id="spec-price">...</span>
                         </div>
                         <div class="spec-note">
                             <i class="fa-solid fa-circle-info"></i>

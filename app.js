@@ -69,8 +69,30 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => revealObserver.observe(el));
 
 
-    // --- 4. Interactive Virtual Showroom Rug Visualizer ---
-    const rugButtons = document.querySelectorAll('.rug-select-btn');
+    // --- 4. Interactive Virtual Showroom Rug Visualizer (Dynamic Integration) ---
+    class InventoryManager {
+        constructor() {
+            this.inventory = [];
+        }
+
+        async fetchInventory() {
+            try {
+                const response = await fetch('inventory.json');
+                if (!response.ok) throw new Error('Network response was not ok');
+                this.inventory = await response.json();
+                return this.inventory;
+            } catch (error) {
+                console.error("Could not load inventory data:", error);
+                return [];
+            }
+        }
+
+        getFeaturedRugs(limit = 3) {
+            return this.inventory.filter(rug => rug.featured).slice(0, limit);
+        }
+    }
+
+    const visualizerContainer = document.getElementById('visualizer-options-container');
     const activeOverlay = document.getElementById('active-rug-overlay');
     const visualizerLoader = document.getElementById('visualizer-loader');
     
@@ -78,45 +100,99 @@ document.addEventListener('DOMContentLoaded', () => {
     const specOrigin = document.getElementById('spec-origin');
     const specPrice = document.getElementById('spec-price');
     
-    rugButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Avoid action if button already active
-            if (btn.classList.contains('active')) return;
+    if (visualizerContainer) {
+        const inventoryManager = new InventoryManager();
+        
+        inventoryManager.fetchInventory().then(rugs => {
+            if (rugs.length === 0) {
+                visualizerContainer.innerHTML = '<p style="color: var(--color-text-muted); padding: 1rem;">Failed to load collections.</p>';
+                return;
+            }
             
-            // Toggle active state on buttons
-            rugButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            // Get featured rugs to show as options
+            const featuredOptions = inventoryManager.getFeaturedRugs(3);
             
-            // Show loader & fade out current rug
-            visualizerLoader.classList.add('active');
-            activeOverlay.style.opacity = '0';
+            // Clear loading text
+            visualizerContainer.innerHTML = '';
             
-            // Extract data attributes
-            const targetSrc = btn.getAttribute('data-rug-src');
-            const targetTitle = btn.getAttribute('data-title');
-            const targetPrice = btn.getAttribute('data-price');
-            const targetOrigin = btn.getAttribute('data-origin');
-            
-            // Load the new image in background
-            const tempImg = new Image();
-            tempImg.src = targetSrc;
-            tempImg.onload = () => {
-                // Update image src
-                activeOverlay.setAttribute('src', targetSrc);
-                activeOverlay.style.opacity = '0.95';
+            // Generate buttons
+            featuredOptions.forEach((rug, index) => {
+                const isFirst = index === 0;
                 
-                // Update Specs Card
-                specTitle.textContent = targetTitle;
-                specOrigin.textContent = targetOrigin;
-                specPrice.textContent = targetPrice;
+                const btn = document.createElement('button');
+                btn.className = `rug-select-btn ${isFirst ? 'active' : ''}`;
                 
-                // Hide loader
-                setTimeout(() => {
-                    visualizerLoader.classList.remove('active');
-                }, 300);
-            };
+                const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
+                const formatPrice = `From $${rug.price.toLocaleString()}`;
+                
+                btn.setAttribute('data-rug-src', imgSrc);
+                btn.setAttribute('data-title', rug.name);
+                btn.setAttribute('data-price', formatPrice);
+                btn.setAttribute('data-origin', rug.origin);
+                
+                btn.innerHTML = `
+                    <div class="selector-thumb">
+                        <img src="${imgSrc}" alt="${rug.name} Thumbnail" width="1024" height="1024">
+                    </div>
+                    <div class="selector-info">
+                        <h3>${rug.name}</h3>
+                        <p>${rug.style}</p>
+                    </div>
+                `;
+                
+                visualizerContainer.appendChild(btn);
+            });
+            
+            // Wire up event listeners
+            const generatedButtons = document.querySelectorAll('.rug-select-btn');
+            
+            generatedButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (btn.classList.contains('active')) return;
+                    
+                    generatedButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    visualizerLoader.classList.add('active');
+                    if (activeOverlay) activeOverlay.style.opacity = '0';
+                    
+                    const targetSrc = btn.getAttribute('data-rug-src');
+                    const targetTitle = btn.getAttribute('data-title');
+                    const targetPrice = btn.getAttribute('data-price');
+                    const targetOrigin = btn.getAttribute('data-origin');
+                    
+                    const tempImg = new Image();
+                    tempImg.src = targetSrc;
+                    tempImg.onload = () => {
+                        if (activeOverlay) {
+                            activeOverlay.setAttribute('src', targetSrc);
+                            activeOverlay.style.opacity = '0.95';
+                        }
+                        
+                        if (specTitle) specTitle.textContent = targetTitle;
+                        if (specOrigin) specOrigin.textContent = targetOrigin;
+                        if (specPrice) specPrice.textContent = targetPrice;
+                        
+                        setTimeout(() => {
+                            if (visualizerLoader) visualizerLoader.classList.remove('active');
+                        }, 300);
+                    };
+                });
+            });
+            
+            // Trigger initial specs card population based on the first featured rug
+            if (generatedButtons.length > 0) {
+                const firstBtn = generatedButtons[0];
+                if (specTitle) specTitle.textContent = firstBtn.getAttribute('data-title');
+                if (specOrigin) specOrigin.textContent = firstBtn.getAttribute('data-origin');
+                if (specPrice) specPrice.textContent = firstBtn.getAttribute('data-price');
+                if (activeOverlay) {
+                    activeOverlay.setAttribute('src', firstBtn.getAttribute('data-rug-src'));
+                    activeOverlay.style.opacity = '0.95';
+                }
+            }
         });
-    });
+    }
 
 
     // --- 5. "Request In-Home Trial" Linkage ---
