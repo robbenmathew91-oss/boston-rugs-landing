@@ -125,46 +125,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const optTrial = document.getElementById('opt-trial');
     const formMessage = document.getElementById('message');
     
-    homeTrialBtn.addEventListener('click', () => {
-        // Find current selected rug info
-        const activeRug = document.querySelector('.rug-select-btn.active');
-        const activeRugTitle = activeRug ? activeRug.getAttribute('data-title') : 'Noor Esfahan Classic';
-        
-        // Select the "In-Home Trial" option in the dropdown
-        requestSelect.value = 'trial';
-        
-        // Auto-fill details in text area
-        formMessage.value = `I would like to request a 3-Day In-Home Trial for: "${activeRugTitle}". Let's arrange a time to review options in my home.`;
-        
-        // Smooth scroll to the contact form
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-    });
+    if (homeTrialBtn && requestSelect && formMessage) {
+        homeTrialBtn.addEventListener('click', () => {
+            // Find current selected rug info
+            const activeRug = document.querySelector('.rug-select-btn.active');
+            const activeRugTitle = activeRug ? activeRug.getAttribute('data-title') : 'Noor Esfahan Classic';
+            
+            // Select the "In-Home Trial" option in the dropdown
+            requestSelect.value = 'trial';
+            
+            // Auto-fill details in text area
+            formMessage.value = `I would like to request a 3-Day In-Home Trial for: "${activeRugTitle}". Let's arrange a time to review options in my home.`;
+            
+            // Smooth scroll to the contact form
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        });
+    }
 
 
     // --- 6. Form Submission Handling ---
     const form = document.getElementById('consultation-form');
     const successMsg = document.getElementById('form-success');
     
-    form.addEventListener('submit', (e) => {
-        e.preventDefault(); // Prevent actual submission
-        
-        // Simulate sending animation
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Request...';
-        
-        setTimeout(() => {
-            // Hide the form with a nice fade out
-            form.style.opacity = '0';
+    if (form && successMsg) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent actual submission
             
-            // Show the success panel
+            // Simulate sending animation
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Request...';
+            
             setTimeout(() => {
-                form.style.display = 'none';
-                successMsg.classList.add('active');
-            }, 400);
-        }, 1500);
-    });
+                // Hide the form with a nice fade out
+                form.style.opacity = '0';
+                
+                // Show the success panel
+                setTimeout(() => {
+                    form.style.display = 'none';
+                    successMsg.classList.add('active');
+                }, 400);
+            }, 1500);
+        });
+    }
 
     // --- 7. Charity Section Accordion Logic ---
     const accordionItems = document.querySelectorAll('.accordion-item');
@@ -173,27 +177,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const header = item.querySelector('.accordion-header');
         const content = item.querySelector('.accordion-content');
         
-        header.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            
-            // Close other items if open for clean accordion behavior
-            accordionItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                    otherItem.querySelector('.accordion-content').style.maxHeight = '0px';
+        if (header && content) {
+            header.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close other items if open for clean accordion behavior
+                accordionItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.accordion-content').style.maxHeight = '0px';
+                    }
+                });
+                
+                // Toggle active state
+                if (isActive) {
+                    item.classList.remove('active');
+                    content.style.maxHeight = '0px';
+                } else {
+                    item.classList.add('active');
+                    // Set max-height dynamically to scrollHeight for smooth transition
+                    content.style.maxHeight = content.scrollHeight + 'px';
                 }
             });
-            
-            // Toggle active state
-            if (isActive) {
-                item.classList.remove('active');
-                content.style.maxHeight = '0px';
-            } else {
-                item.classList.add('active');
-                // Set max-height dynamically to scrollHeight for smooth transition
-                content.style.maxHeight = content.scrollHeight + 'px';
-            }
-        });
+        }
     });
 
     // --- 8. File Upload Input Interactivity ---
@@ -211,5 +217,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- 9. Before/After Slider Logic ---
+    const baSliders = document.querySelectorAll('.ba-slider');
+    baSliders.forEach(slider => {
+        const range = slider.querySelector('.ba-range');
+        if (range) {
+            range.addEventListener('input', (e) => {
+                slider.style.setProperty('--clip-pos', e.target.value + '%');
+            });
+        }
+    });
 
 });

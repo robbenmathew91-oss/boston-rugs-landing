@@ -29,7 +29,7 @@
     <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="styles.css?v=1.0.3">
+    <link rel="stylesheet" href="styles.css?v=1.0.4">
 </head>
 <body>
 
@@ -44,7 +44,8 @@
             <nav class="nav">
                 <ul class="nav-list">
                     <li><a href="index.html#heritage" class="nav-link">Our Heritage</a></li>
-                    <li><a href="index.html#collections" class="nav-link">Collections</a></li>
+                    <li><a href="gallery.html" class="nav-link">Collections</a></li>
+                    <li><a href="restoration-gallery.html" class="nav-link">Before & After</a></li>
                     <li><a href="index.html#charity" class="nav-link">Community Impact</a></li>
                     <li><a href="index.html#services" class="nav-link">Services</a></li>
                     <li><a href="blog.html" class="nav-link">Knowledge Center</a></li>
@@ -68,6 +69,23 @@
             <h1 class="section-title" style="font-size: 3.5rem; color: var(--color-text);">Oriental Rug Restoration Boston</h1>
             <p class="section-desc max-w-600">Invisible hand-knotted pile re-weaving, fringe reconstruction, and museum-grade conservation by master weaver Mo Nooraee.</p>
         </div>
+    </section>
+
+    <!-- Before/After Image Slider Section -->
+    <section class="ba-slider-container reveal">
+        <div class="ba-slider" style="--clip-pos: 50%;">
+            <div class="ba-before">
+                <img src="images/restoration-gallery/hero-restoration-before.jpg" alt="Before: Damaged pile and moth damage on antique Persian rug" width="1200" height="900">
+                <span class="ba-label ba-label-before">Before Restoration</span>
+            </div>
+            <div class="ba-after">
+                <img src="images/restoration-gallery/hero-restoration-after.jpg" alt="After: Re-woven pile and restored structure on antique Persian rug" width="1200" height="900">
+                <span class="ba-label ba-label-after">After Restoration</span>
+            </div>
+            <div class="ba-handle"></div>
+            <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Before and after comparison slider">
+        </div>
+        <p class="ba-caption">Drag the slider to view the restoration detail. <a href="restoration-gallery.html" class="ba-gallery-link">See more before & after results →</a></p>
     </section>
 
     <!-- Main Content Section -->
@@ -113,10 +131,11 @@
             <div class="footer-links">
                 <h3>Collections</h3>
                 <ul>
-                    <li><a href="index.html#collections">Traditional (Beacon Hill)</a></li>
-                    <li><a href="index.html#collections">Modern (Seaport)</a></li>
-                    <li><a href="index.html#collections">Vintage (Back Bay)</a></li>
-                    <li><a href="index.html#visualizer">Virtual Showroom</a></li>
+                    <li><a href="gallery.html">Traditional (Beacon Hill)</a></li>
+                    <li><a href="gallery.html">Modern (Seaport)</a></li>
+                    <li><a href="gallery.html">Vintage (Back Bay)</a></li>
+                    <li><a href="restoration-gallery.html">Before & After</a></li>
+                    <li><a href="gallery.html">Virtual Showroom</a></li>
                     <li><a href="blog.html">Knowledge Center</a></li>
                 </ul>
             </div>
