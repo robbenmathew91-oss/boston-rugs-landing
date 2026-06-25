@@ -388,10 +388,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
-                // Update page title
-                document.title = `${rug.name} | Noor Oriental Rugs`;
+                // --- SEO: Update Dynamic Metadata ---
+                // Title Tag
+                document.title = rug.seo && rug.seo.title ? rug.seo.title : `${rug.name} | Noor Oriental Rugs`;
                 
+                // Meta Description
+                let metaDesc = document.querySelector('meta[name="description"]');
+                if (!metaDesc) {
+                    metaDesc = document.createElement('meta');
+                    metaDesc.name = 'description';
+                    document.head.appendChild(metaDesc);
+                }
+                const defaultDesc = (rug.description || 'Browse our handmade Persian and Oriental rugs.').substring(0, 155) + '...';
+                metaDesc.content = rug.seo && rug.seo.description ? rug.seo.description : defaultDesc;
+
+                // --- Content Generation ---
                 const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
+                const imgAlt = rug.images && rug.images.length > 0 && rug.images[0].alt ? rug.images[0].alt : rug.name;
                 const formatPrice = `$${rug.price.toLocaleString()}`;
                 
                 let specsHTML = '';
@@ -434,10 +447,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailContainer.innerHTML = `
                     <div class="rug-detail-image-column">
                         <div class="rug-detail-image-wrapper">
-                            <img src="${imgSrc}" alt="${rug.name}" class="rug-detail-main-img">
+                            <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img">
                         </div>
                     </div>
                     <div class="rug-detail-info">
+                        <!-- H1: Main Title -->
                         <h1 class="rug-detail-title">${rug.name}</h1>
                         <span class="rug-detail-origin">${rug.origin}</span>
                         
@@ -470,13 +484,26 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         
-                        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-text);">About This Piece</h3>
+                        <!-- Semantic H2 Headings -->
+                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-text);">Description</h2>
                         <p class="rug-detail-desc">${rug.description || 'A beautiful piece curated by Noor Oriental Rugs.'}</p>
                         
                         ${specsHTML ? `
-                            <h3 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--color-text);">Technical Specifications</h3>
+                            <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--color-text);">Specifications</h2>
                             <div class="rug-detail-specs-grid">${specsHTML}</div>
                         ` : ''}
+
+                        <!-- Internal Contextual Links -->
+                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 3rem; margin-bottom: 1rem; color: var(--color-text);">Related Rugs & Services</h2>
+                        <ul style="list-style: none; padding: 0; line-height: 1.8; margin-bottom: 2rem;">
+                            <li><i class="fa-solid fa-arrow-right" style="color: var(--color-primary); font-size: 0.8rem; margin-right: 0.5rem;"></i> <a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: underline;">Browse More Rugs for Sale</a></li>
+                            <li><i class="fa-solid fa-arrow-right" style="color: var(--color-primary); font-size: 0.8rem; margin-right: 0.5rem;"></i> <a href="rug-cleaning.html" style="color: var(--color-text-muted); text-decoration: underline;">Professional Rug Cleaning</a></li>
+                            <li><i class="fa-solid fa-arrow-right" style="color: var(--color-primary); font-size: 0.8rem; margin-right: 0.5rem;"></i> <a href="rug-restoration.html" style="color: var(--color-text-muted); text-decoration: underline;">Rug Restoration Services</a></li>
+                            <li><i class="fa-solid fa-arrow-right" style="color: var(--color-primary); font-size: 0.8rem; margin-right: 0.5rem;"></i> <a href="restoration-gallery.html" style="color: var(--color-text-muted); text-decoration: underline;">Restoration Before & After Gallery</a></li>
+                        </ul>
+
+                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--color-text);">Visit Our Showroom</h2>
+                        <p style="color: var(--color-text-muted); margin-bottom: 1rem;">Interested in this piece? <a href="index.html#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">Contact us for a free evaluation</a> or to schedule an in-home trial in the Boston area.</p>
                     </div>
                 `;
             });
