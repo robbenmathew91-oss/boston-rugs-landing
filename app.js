@@ -352,7 +352,50 @@ document.addEventListener('DOMContentLoaded', () => {
             renderCheckboxes(filterSizeContainer, sizes, 'size');
             renderCheckboxes(filterMaterialContainer, materials, 'material');
 
-            // 3. Attach Event Listeners
+            // 3. Sync Logic & Event Listeners
+            const updateURL = () => {
+                const params = new URLSearchParams();
+                
+                if (activeFilters.style.size > 0) params.set('style', Array.from(activeFilters.style).join(','));
+                if (activeFilters.size.size > 0) params.set('size', Array.from(activeFilters.size).join(','));
+                if (activeFilters.material.size > 0) params.set('material', Array.from(activeFilters.material).join(','));
+                if (activeFilters.price) params.set('price', activeFilters.price);
+                
+                const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+                window.history.pushState({ filters: true }, '', newUrl);
+            };
+
+            const loadFiltersFromURL = () => {
+                const params = new URLSearchParams(window.location.search);
+                
+                activeFilters.style.clear();
+                activeFilters.size.clear();
+                activeFilters.material.clear();
+                activeFilters.price = null;
+                
+                const styleParam = params.get('style');
+                if (styleParam) styleParam.split(',').forEach(s => activeFilters.style.add(s));
+                
+                const sizeParam = params.get('size');
+                if (sizeParam) sizeParam.split(',').forEach(s => activeFilters.size.add(s));
+                
+                const materialParam = params.get('material');
+                if (materialParam) materialParam.split(',').forEach(m => activeFilters.material.add(m));
+                
+                const priceParam = params.get('price');
+                if (priceParam) activeFilters.price = priceParam;
+                
+                // Sync UI checkboxes and radios
+                document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => {
+                    const type = cb.getAttribute('data-filter-type');
+                    cb.checked = activeFilters[type].has(cb.value);
+                });
+                
+                document.querySelectorAll('.filter-options input[type="radio"]').forEach(radio => {
+                    radio.checked = activeFilters.price === radio.value;
+                });
+            };
+
             const attachFilterEvents = () => {
                 const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
                 checkboxes.forEach(cb => {
@@ -363,6 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         } else {
                             activeFilters[type].delete(e.target.value);
                         }
+                        updateURL();
                         renderGrid();
                     });
                 });
@@ -372,6 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     radio.addEventListener('change', (e) => {
                         if (e.target.checked) {
                             activeFilters.price = e.target.value;
+                            updateURL();
                             renderGrid();
                         }
                     });
@@ -387,9 +432,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => cb.checked = false);
                         document.querySelectorAll('.filter-options input[type="radio"]').forEach(radio => radio.checked = false);
                         
+                        updateURL();
                         renderGrid();
                     });
                 }
+                
+                // Handle browser Back/Forward navigation
+                window.addEventListener('popstate', () => {
+                    loadFiltersFromURL();
+                    renderGrid();
+                });
             };
 
             attachFilterEvents();
@@ -475,6 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             // Initial Render
+            loadFiltersFromURL();
             renderGrid();
         });
     }
