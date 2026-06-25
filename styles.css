@@ -676,7 +676,7 @@ h1, h2, h3, h4 {
 }
 
 .card-content {
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -684,7 +684,9 @@ h1, h2, h3, h4 {
 
 .card-content h3 {
     font-size: 1.5rem;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+    min-height: 3.9rem; /* Equal Title Area (supports 2 lines) */
 }
 
 .card-tag {
@@ -693,30 +695,35 @@ h1, h2, h3, h4 {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 600;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    min-height: 2.2rem; /* Equal Subtitle Area */
 }
 
 .card-content p {
     color: var(--color-text-muted);
     font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    min-height: 7.6rem; /* Equal Description Area (supports longest text) */
 }
 
 .card-details {
     list-style: none;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 1.2rem;
+    padding-top: 1.5rem;
     margin-top: auto;
     font-size: 0.85rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
 .card-details li {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 110px 1fr; /* Two-column layout */
+    gap: 0.5rem;
+    align-items: flex-start;
 }
 
 .card-details strong {
