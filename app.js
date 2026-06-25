@@ -506,6 +506,62 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p style="color: var(--color-text-muted); margin-bottom: 1rem;">Interested in this piece? <a href="index.html#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">Contact us for a free evaluation</a> or to schedule an in-home trial in the Boston area.</p>
                     </div>
                 `;
+
+                // --- Schema Markup (JSON-LD) ---
+                let availabilitySchema = "https://schema.org/InStock";
+                if (rug.availability && rug.availability.toLowerCase().includes("reserved")) {
+                    availabilitySchema = "https://schema.org/LimitedAvailability";
+                } else if (rug.availability && rug.availability.toLowerCase().includes("sold")) {
+                    availabilitySchema = "https://schema.org/SoldOut";
+                }
+                
+                const currentUrl = window.location.href;
+                
+                // Build additionalProperty array for specifications
+                const additionalProperties = [];
+                if (rug.specifications) {
+                    if (rug.specifications.foundation) additionalProperties.push({ "@type": "PropertyValue", "name": "Foundation", "value": rug.specifications.foundation });
+                    if (rug.specifications.knotDensity) additionalProperties.push({ "@type": "PropertyValue", "name": "Knot Density", "value": rug.specifications.knotDensity });
+                    if (rug.specifications.dyes) additionalProperties.push({ "@type": "PropertyValue", "name": "Dyes", "value": rug.specifications.dyes });
+                }
+                if (rug.age) additionalProperties.push({ "@type": "PropertyValue", "name": "Age", "value": rug.age });
+
+                const productSchema = {
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": rug.name,
+                    "description": rug.description || defaultDesc,
+                    "image": rug.images && rug.images.length > 0 ? rug.images.map(img => window.location.origin + '/' + img.file) : [],
+                    "sku": rug.inventory_id,
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "Noor Oriental Rugs"
+                    },
+                    "material": rug.material,
+                    "category": rug.style,
+                    "itemCondition": rug.condition ? `Condition: ${rug.condition}` : "https://schema.org/UsedCondition",
+                    "size": rug.size,
+                    "additionalProperty": additionalProperties,
+                    "url": currentUrl,
+                    "offers": {
+                        "@type": "Offer",
+                        "price": rug.price,
+                        "priceCurrency": "USD",
+                        "availability": availabilitySchema,
+                        "url": currentUrl
+                    }
+                };
+
+                // Remove old schema if navigating client-side (future proofing)
+                let oldSchema = document.getElementById("product-schema");
+                if (oldSchema) oldSchema.remove();
+
+                const script = document.createElement('script');
+                script.id = "product-schema";
+                script.type = 'application/ld+json';
+                script.text = JSON.stringify(productSchema, null, 2);
+                document.head.appendChild(script);
+
             });
         }
     }
