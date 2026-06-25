@@ -2209,6 +2209,8 @@ body.modal-open {
     font-size: 1.4rem;
     margin-bottom: 0.25rem;
     color: var(--color-text);
+    line-height: 1.3;
+    min-height: 5.5rem; /* Reserve space for up to 3 lines */
 }
 
 .rug-card-origin {
@@ -2216,17 +2218,21 @@ body.modal-open {
     color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    display: block;
+    min-height: 2.2rem;
 }
 
 .rug-card-specs {
     margin-bottom: 1.5rem;
-    flex-grow: 1;
+    /* flex-grow removed so footer spacer pushes from here */
 }
 
 .rug-card-spec-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
+    display: grid;
+    grid-template-columns: 85px 1fr;
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding: 0.6rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     font-size: 0.9rem;
 }
