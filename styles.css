@@ -41,7 +41,7 @@ html {
 }
 
 body {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .container {
@@ -2203,6 +2203,13 @@ body.modal-open {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
+    
+    .filter-sidebar {
+        position: relative;
+        top: 0;
+        max-height: none;
+        overflow-y: visible;
+    }
 }
 
 .filter-sidebar {
@@ -2211,6 +2218,20 @@ body.modal-open {
     padding: 2rem;
     position: sticky;
     top: 100px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+/* Custom scrollbar for sidebar */
+.filter-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+.filter-sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+.filter-sidebar::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
 }
 
 .filter-header {
