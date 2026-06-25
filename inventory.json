@@ -1,6 +1,7 @@
 [
   {
-    "id": "NOR-1001",
+    "id": 1,
+    "inventory_id": "NOR-1001",
     "slug": "noor-esfahan-classic",
     "name": "Noor Esfahan Classic",
     "style": "Traditional",
@@ -13,26 +14,44 @@
     "availability": "In Stock",
     "collection": "Beacon Hill Collection",
     "featured": true,
+    "is_placeholder": true,
+    "tags": [
+      "Esfahan rug",
+      "Persian rug Boston",
+      "8x10 oriental rug",
+      "silk Persian rug"
+    ],
     "specifications": {
       "knotDensity": "320 KPSI",
       "pileHeight": "1/4 inch",
       "dyes": "100% Organic Vegetable Dyes",
       "foundation": "Cotton & Silk",
-      "dimensions": { "widthFeet": 8, "lengthFeet": 10 }
+      "dimensions": {
+        "widthFeet": 8,
+        "lengthFeet": 10
+      }
     },
     "images": [
-      "images/classic_rug.png",
-      "images/showroom.png"
+      {
+        "file": "images/classic_rug.png",
+        "alt": "Noor Esfahan Classic - Image 1",
+        "order": 1
+      },
+      {
+        "file": "images/showroom.png",
+        "alt": "Noor Esfahan Classic - Image 2",
+        "order": 2
+      }
     ],
     "seo": {
       "title": "Noor Esfahan Classic Rug | Persian Rugs Boston",
-      "description": "Exquisite 8x10 Esfahan Classic Persian rug hand-knotted in Ghazni wool and pure silk. Available at Noor Oriental Rugs in Cambridge, MA.",
-      "keywords": ["Esfahan rug", "Persian rug Boston", "8x10 oriental rug", "silk Persian rug"]
+      "description": "Exquisite 8x10 Esfahan Classic Persian rug hand-knotted in Ghazni wool and pure silk. Available at Noor Oriental Rugs in Cambridge, MA."
     },
     "description": "The Noor Esfahan Classic embodies the pinnacle of traditional Persian weaving artistry. Woven in Esfahan with handspun Ghazni wool and pure silk accents, it features an intricate central medallion surrounded by lush, scrolling floral palmettes against a vibrant ruby red field and a deep navy border. Ideal for historic townhouses, formal dining rooms, and executive libraries."
   },
   {
-    "id": "NOR-1002",
+    "id": 2,
+    "inventory_id": "NOR-1002",
     "slug": "kashan-royal-medallion",
     "name": "Kashan Royal Medallion",
     "style": "Traditional",
@@ -45,25 +64,39 @@
     "availability": "In Stock",
     "collection": "Beacon Hill Collection",
     "featured": true,
+    "is_placeholder": true,
+    "tags": [
+      "Kashan rug",
+      "9x12 Persian rug",
+      "Kurk wool rug",
+      "antique rug Boston"
+    ],
     "specifications": {
       "knotDensity": "280 KPSI",
       "pileHeight": "3/8 inch",
       "dyes": "Traditional Vegetable Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 9, "lengthFeet": 12 }
+      "dimensions": {
+        "widthFeet": 9,
+        "lengthFeet": 12
+      }
     },
     "images": [
-      "images/classic_rug.png"
+      {
+        "file": "images/classic_rug.png",
+        "alt": "Kashan Royal Medallion - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Kashan Royal Medallion 9x12 Rug | Noor Oriental Rugs",
-      "description": "Magnificent 9x12 Kashan Royal Medallion semi-antique Persian rug made from fine Kurk wool. Certified appraisal included.",
-      "keywords": ["Kashan rug", "9x12 Persian rug", "Kurk wool rug", "antique rug Boston"]
+      "description": "Magnificent 9x12 Kashan Royal Medallion semi-antique Persian rug made from fine Kurk wool. Certified appraisal included."
     },
     "description": "A breathtaking representation of classical Kashan craftsmanship, featuring a perfectly proportioned ogival medallion on a rich crimson ground. The intricate spandrels and multiple framing guard borders reveal decades of master weaving experience. Hand-washed and preserved to museum-quality standards."
   },
   {
-    "id": "NOR-1003",
+    "id": 3,
+    "inventory_id": "NOR-1003",
     "slug": "tabriz-mahi-garden",
     "name": "Tabriz Mahi Garden",
     "style": "Traditional",
@@ -76,25 +109,39 @@
     "availability": "In Stock",
     "collection": "Beacon Hill Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "Tabriz rug",
+      "Mahi pattern",
+      "10x14 Persian rug",
+      "large oriental rug"
+    ],
     "specifications": {
       "knotDensity": "350 KPSI",
       "pileHeight": "1/4 inch",
       "dyes": "Natural Organic Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 10, "lengthFeet": 14 }
+      "dimensions": {
+        "widthFeet": 10,
+        "lengthFeet": 14
+      }
     },
     "images": [
-      "images/classic_rug.png"
+      {
+        "file": "images/classic_rug.png",
+        "alt": "Tabriz Mahi Garden - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Tabriz Mahi Garden 10x14 Rug | Fine Persian Rugs Boston",
-      "description": "Luxurious 10x14 Tabriz Mahi Persian rug with silk highlights. High knot density masterpiece available in Greater Boston.",
-      "keywords": ["Tabriz rug", "Mahi pattern", "10x14 Persian rug", "large oriental rug"]
+      "description": "Luxurious 10x14 Tabriz Mahi Persian rug with silk highlights. High knot density masterpiece available in Greater Boston."
     },
     "description": "Known for its legendary 'Mahi' (fish) design, this fine Tabriz rug offers an incredibly dense, mesmerizing all-over pattern that appears to shimmer under interior lighting due to generous silk outlining. A prestigious foundation piece for expansive living spaces and grand drawing rooms."
   },
   {
-    "id": "NOR-1004",
+    "id": 4,
+    "inventory_id": "NOR-1004",
     "slug": "nain-habibian-reserve",
     "name": "Nain Habibian Reserve",
     "style": "Traditional",
@@ -107,25 +154,39 @@
     "availability": "In Stock",
     "collection": "Beacon Hill Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "Nain rug",
+      "6x9 Persian rug",
+      "blue ivory rug",
+      "luxury rug Boston"
+    ],
     "specifications": {
       "knotDensity": "400 KPSI",
       "pileHeight": "1/4 inch",
       "dyes": "Vegetable Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 6, "lengthFeet": 9 }
+      "dimensions": {
+        "widthFeet": 6,
+        "lengthFeet": 9
+      }
     },
     "images": [
-      "images/classic_rug.png"
+      {
+        "file": "images/classic_rug.png",
+        "alt": "Nain Habibian Reserve - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Nain Habibian Reserve 6x9 Rug | Noor Oriental Rugs",
-      "description": "Exquisite 6x9 Nain Habibian style Persian rug with crisp blue and ivory tones, hand-knotted at 400 KPSI.",
-      "keywords": ["Nain rug", "6x9 Persian rug", "blue ivory rug", "luxury rug Boston"]
+      "description": "Exquisite 6x9 Nain Habibian style Persian rug with crisp blue and ivory tones, hand-knotted at 400 KPSI."
     },
     "description": "Characterized by its quintessential crisp ivory background and deep navy blue arabesques, this Nain piece utilizes ultra-fine Kurk wool with white silk outlining around every major floral leaf. A brilliant, light-enhancing centerpiece for elegant sitting rooms."
   },
   {
-    "id": "NOR-1005",
+    "id": 5,
+    "inventory_id": "NOR-1005",
     "slug": "heriz-serapi-grandeur",
     "name": "Heriz Serapi Grandeur",
     "style": "Traditional",
@@ -138,25 +199,39 @@
     "availability": "In Stock",
     "collection": "Beacon Hill Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "Heriz rug",
+      "Serapi rug",
+      "geometric Persian rug",
+      "antique Heriz Boston"
+    ],
     "specifications": {
       "knotDensity": "180 KPSI",
       "pileHeight": "3/8 inch",
       "dyes": "Natural Madder & Indigo",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 8, "lengthFeet": 11 }
+      "dimensions": {
+        "widthFeet": 8,
+        "lengthFeet": 11
+      }
     },
     "images": [
-      "images/classic_rug.png"
+      {
+        "file": "images/classic_rug.png",
+        "alt": "Heriz Serapi Grandeur - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Heriz Serapi Grandeur 8x11 Rug | Noor Oriental Rugs",
-      "description": "Authentic Heriz Serapi 8x11 semi-antique Persian rug with powerful geometric medallion and natural madder dyes.",
-      "keywords": ["Heriz rug", "Serapi rug", "geometric Persian rug", "antique Heriz Boston"]
+      "description": "Authentic Heriz Serapi 8x11 semi-antique Persian rug with powerful geometric medallion and natural madder dyes."
     },
     "description": "An exceptional geometric Serapi-design Heriz boasting bold, architectural lines and striking natural madder red and indigo blue tones. Extremely durable highland wool makes this a perfect heirloom piece for high-traffic entryways and active family libraries."
   },
   {
-    "id": "NOR-2001",
+    "id": 6,
+    "inventory_id": "NOR-2001",
     "slug": "seaport-abstract-slate",
     "name": "Seaport Abstract Slate",
     "style": "Contemporary",
@@ -169,26 +244,44 @@
     "availability": "In Stock",
     "collection": "Seaport Collection",
     "featured": true,
+    "is_placeholder": true,
+    "tags": [
+      "modern rug Boston",
+      "abstract rug",
+      "Tibetan wool rug",
+      "contemporary carpet"
+    ],
     "specifications": {
       "knotDensity": "150 KPSI (High-Low Pile)",
       "pileHeight": "1/2 inch",
       "dyes": "Swiss Eco-Friendly Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 8, "lengthFeet": 10 }
+      "dimensions": {
+        "widthFeet": 8,
+        "lengthFeet": 10
+      }
     },
     "images": [
-      "images/modern_rug.png",
-      "images/showroom.png"
+      {
+        "file": "images/modern_rug.png",
+        "alt": "Seaport Abstract Slate - Image 1",
+        "order": 1
+      },
+      {
+        "file": "images/showroom.png",
+        "alt": "Seaport Abstract Slate - Image 2",
+        "order": 2
+      }
     ],
     "seo": {
       "title": "Seaport Abstract Slate Rug | Modern Rugs Boston",
-      "description": "Modern 8x10 abstract luxury rug hand-knotted in Nepal with Tibetan wool and bamboo silk. Perfect for modern lofts.",
-      "keywords": ["modern rug Boston", "abstract rug", "Tibetan wool rug", "contemporary carpet"]
+      "description": "Modern 8x10 abstract luxury rug hand-knotted in Nepal with Tibetan wool and bamboo silk. Perfect for modern lofts."
     },
     "description": "The Seaport Abstract Slate reflects the dynamic atmosphere of Boston's waterfront design district. Featuring a captivating high-low pile texture carved from fine Tibetan wool and shimmering bamboo silk, its painterly blend of cool slate, charcoal, and ivory tones elevates open-concept lofts and contemporary architecture."
   },
   {
-    "id": "NOR-2002",
+    "id": 7,
+    "inventory_id": "NOR-2002",
     "slug": "luna-monochrome-minimalist",
     "name": "Luna Monochrome Minimalist",
     "style": "Contemporary",
@@ -201,25 +294,39 @@
     "availability": "In Stock",
     "collection": "Seaport Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "minimalist rug",
+      "9x12 modern rug",
+      "monochrome carpet",
+      "Boston modern rugs"
+    ],
     "specifications": {
       "knotDensity": "140 KPSI",
       "pileHeight": "3/8 inch",
       "dyes": "Metal-Free Eco Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 9, "lengthFeet": 12 }
+      "dimensions": {
+        "widthFeet": 9,
+        "lengthFeet": 12
+      }
     },
     "images": [
-      "images/modern_rug.png"
+      {
+        "file": "images/modern_rug.png",
+        "alt": "Luna Monochrome Minimalist - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Luna Monochrome Minimalist 9x12 Rug | Noor Oriental Rugs",
-      "description": "Sleek 9x12 minimalist contemporary rug featuring a subtle monochrome gradient. Custom woven for luxury modern homes.",
-      "keywords": ["minimalist rug", "9x12 modern rug", "monochrome carpet", "Boston modern rugs"]
+      "description": "Sleek 9x12 minimalist contemporary rug featuring a subtle monochrome gradient. Custom woven for luxury modern homes."
     },
     "description": "A study in refined minimalism, the Luna Monochrome offers a seamless, sophisticated gradient transition from soft pearl mist to deep charcoal. The incredibly soft handspun wool provides superior comfort while maintaining an ultra-clean, tailored visual profile."
   },
   {
-    "id": "NOR-2003",
+    "id": 8,
+    "inventory_id": "NOR-2003",
     "slug": "strata-linear-gold",
     "name": "Strata Linear Gold",
     "style": "Contemporary",
@@ -232,25 +339,39 @@
     "availability": "In Stock",
     "collection": "Seaport Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "gold modern rug",
+      "10x14 contemporary rug",
+      "mulberry silk rug",
+      "luxury rug Boston"
+    ],
     "specifications": {
       "knotDensity": "160 KPSI",
       "pileHeight": "1/2 inch",
       "dyes": "Eco-Friendly Organic Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 10, "lengthFeet": 14 }
+      "dimensions": {
+        "widthFeet": 10,
+        "lengthFeet": 14
+      }
     },
     "images": [
-      "images/modern_rug.png"
+      {
+        "file": "images/modern_rug.png",
+        "alt": "Strata Linear Gold - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Strata Linear Gold 10x14 Modern Rug | Noor Oriental Rugs",
-      "description": "Striking 10x14 contemporary rug with veins of pure gold mulberry silk running through an ivory wool foundation.",
-      "keywords": ["gold modern rug", "10x14 contemporary rug", "mulberry silk rug", "luxury rug Boston"]
+      "description": "Striking 10x14 contemporary rug with veins of pure gold mulberry silk running through an ivory wool foundation."
     },
     "description": "Inspired by organic geological striations, the Strata Linear Gold weaves bold, luminous veins of pure mulberry silk through a plush, matte ivory wool landscape. This interplay of light reflection creates an engaging, ever-changing aesthetic across the room."
   },
   {
-    "id": "NOR-2004",
+    "id": 9,
+    "inventory_id": "NOR-2004",
     "slug": "eclipse-circular-taupe",
     "name": "Eclipse Circular Taupe",
     "style": "Contemporary",
@@ -263,25 +384,39 @@
     "availability": "In Stock",
     "collection": "Seaport Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "round rug",
+      "8x8 modern rug",
+      "circular abstract rug",
+      "Boston contemporary rugs"
+    ],
     "specifications": {
       "knotDensity": "150 KPSI",
       "pileHeight": "3/8 inch",
       "dyes": "Sustainable Eco Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 8, "lengthFeet": 8 }
+      "dimensions": {
+        "widthFeet": 8,
+        "lengthFeet": 8
+      }
     },
     "images": [
-      "images/modern_rug.png"
+      {
+        "file": "images/modern_rug.png",
+        "alt": "Eclipse Circular Taupe - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Eclipse Circular Taupe 8x8 Round Rug | Noor Oriental Rugs",
-      "description": "Spectacular 8x8 round modern rug with abstract celestial motifs. Beautiful taupe and cream palette.",
-      "keywords": ["round rug", "8x8 modern rug", "circular abstract rug", "Boston contemporary rugs"]
+      "description": "Spectacular 8x8 round modern rug with abstract celestial motifs. Beautiful taupe and cream palette."
     },
     "description": "An exceptional circular format designed to break up linear room geometry. The Eclipse features a gorgeous, fluid interplay of taupe, sand, and cream hues, making it the ultimate anchor piece for grand entry foyers or beneath round architectural dining tables."
   },
   {
-    "id": "NOR-2005",
+    "id": 10,
+    "inventory_id": "NOR-2005",
     "slug": "zen-transitional-sky",
     "name": "Zen Transitional Sky",
     "style": "Transitional",
@@ -294,25 +429,39 @@
     "availability": "In Stock",
     "collection": "Seaport Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "transitional rug",
+      "8x10 rug",
+      "blue grey rug",
+      "contemporary oriental rug"
+    ],
     "specifications": {
       "knotDensity": "160 KPSI",
       "pileHeight": "3/8 inch",
       "dyes": "Eco-Friendly Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 8, "lengthFeet": 10 }
+      "dimensions": {
+        "widthFeet": 8,
+        "lengthFeet": 10
+      }
     },
     "images": [
-      "images/modern_rug.png"
+      {
+        "file": "images/modern_rug.png",
+        "alt": "Zen Transitional Sky - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Zen Transitional Sky 8x10 Rug | Noor Oriental Rugs",
-      "description": "Exquisite 8x10 transitional rug bridging traditional erased motifs with modern sky blue and soft grey colorways.",
-      "keywords": ["transitional rug", "8x10 rug", "blue grey rug", "contemporary oriental rug"]
+      "description": "Exquisite 8x10 transitional rug bridging traditional erased motifs with modern sky blue and soft grey colorways."
     },
     "description": "Flawlessly bridging the gap between classical heritage and modern aesthetics, the Zen Transitional Sky deconstructs traditional Persian floral patterns into an ethereal, erased visual display. Rendered in soothing sky blue, dove grey, and crisp white."
   },
   {
-    "id": "NOR-3001",
+    "id": 11,
+    "inventory_id": "NOR-3001",
     "slug": "back-bay-vintage-oushak",
     "name": "Back Bay Vintage Oushak",
     "style": "Vintage",
@@ -325,26 +474,44 @@
     "availability": "In Stock",
     "collection": "Back Bay Collection",
     "featured": true,
+    "is_placeholder": true,
+    "tags": [
+      "vintage Oushak rug",
+      "antique rugs Boston",
+      "9x12 vintage rug",
+      "distressed rug"
+    ],
     "specifications": {
       "knotDensity": "120 KPSI",
       "pileHeight": "1/4 inch (Sheared)",
       "dyes": "Muted Natural Vegetable Dyes",
       "foundation": "Wool & Cotton",
-      "dimensions": { "widthFeet": 9, "lengthFeet": 12 }
+      "dimensions": {
+        "widthFeet": 9,
+        "lengthFeet": 12
+      }
     },
     "images": [
-      "images/vintage_rug.png",
-      "images/showroom.png"
+      {
+        "file": "images/vintage_rug.png",
+        "alt": "Back Bay Vintage Oushak - Image 1",
+        "order": 1
+      },
+      {
+        "file": "images/showroom.png",
+        "alt": "Back Bay Vintage Oushak - Image 2",
+        "order": 2
+      }
     ],
     "seo": {
       "title": "Back Bay Vintage Oushak Rug | Antique Rugs Boston",
-      "description": "Stunning 9x12 vintage Oushak rug with a relaxed, muted palette of sage and blush. Authentically restored at Noor Oriental Rugs.",
-      "keywords": ["vintage Oushak rug", "antique rugs Boston", "9x12 vintage rug", "distressed rug"]
+      "description": "Stunning 9x12 vintage Oushak rug with a relaxed, muted palette of sage and blush. Authentically restored at Noor Oriental Rugs."
     },
     "description": "The Back Bay Vintage Oushak captures the relaxed, sophisticated elegance of Boston's storied brownstones. Hand-knotted in Turkey over seven decades ago, it has been gently organic hand-washed, sheared, and sun-faded to achieve a remarkable, muted palette of soft sage, muted terracotta, and blush. Exceptional texture and timeless character."
   },
   {
-    "id": "NOR-3002",
+    "id": 12,
+    "inventory_id": "NOR-3002",
     "slug": "sultanabad-majestique",
     "name": "Sultanabad Majestique",
     "style": "Vintage",
@@ -357,25 +524,39 @@
     "availability": "In Stock",
     "collection": "Back Bay Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "Sultanabad rug",
+      "10x14 antique rug",
+      "Persian rug Boston",
+      "vintage oriental carpet"
+    ],
     "specifications": {
       "knotDensity": "140 KPSI",
       "pileHeight": "3/8 inch",
       "dyes": "Authentic Plant Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 10, "lengthFeet": 14 }
+      "dimensions": {
+        "widthFeet": 10,
+        "lengthFeet": 14
+      }
     },
     "images": [
-      "images/vintage_rug.png"
+      {
+        "file": "images/vintage_rug.png",
+        "alt": "Sultanabad Majestique - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Sultanabad Majestique 10x14 Vintage Rug | Noor Oriental Rugs",
-      "description": "Majestic 10x14 Sultanabad semi-antique Persian rug with magnificent oversized palmettes and genuine antique patina.",
-      "keywords": ["Sultanabad rug", "10x14 antique rug", "Persian rug Boston", "vintage oriental carpet"]
+      "description": "Majestic 10x14 Sultanabad semi-antique Persian rug with magnificent oversized palmettes and genuine antique patina."
     },
     "description": "An exquisite Sultanabad presentation celebrated for its highly desirable, oversized floral palmettes and wide, sweeping borders. The antique patina softens the majestic terracotta and soft denim-blue palette into a profoundly inviting foundation for high-end living spaces."
   },
   {
-    "id": "NOR-3003",
+    "id": 13,
+    "inventory_id": "NOR-3003",
     "slug": "kerman-lavar-botanica",
     "name": "Kerman Lavar Botanica",
     "style": "Vintage",
@@ -388,25 +569,39 @@
     "availability": "In Stock",
     "collection": "Back Bay Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "Lavar Kerman rug",
+      "antique Persian rug",
+      "8x11 vintage rug",
+      "floral oriental rug"
+    ],
     "specifications": {
       "knotDensity": "300 KPSI",
       "pileHeight": "1/4 inch",
       "dyes": "Cochineal & Madder Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 8, "lengthFeet": 11 }
+      "dimensions": {
+        "widthFeet": 8,
+        "lengthFeet": 11
+      }
     },
     "images": [
-      "images/vintage_rug.png"
+      {
+        "file": "images/vintage_rug.png",
+        "alt": "Kerman Lavar Botanica - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Kerman Lavar Botanica 8x11 Antique Rug | Noor Oriental Rugs",
-      "description": "Priceless 8x11 Kerman Lavar antique Persian rug featuring intricate botanical sprays and legendary cochineal rose hues.",
-      "keywords": ["Lavar Kerman rug", "antique Persian rug", "8x11 vintage rug", "floral oriental rug"]
+      "description": "Priceless 8x11 Kerman Lavar antique Persian rug featuring intricate botanical sprays and legendary cochineal rose hues."
     },
     "description": "Representing the legendary weaving workshops of Lavar Kerman, this magnificent antique piece offers a dense tapestry of lifelike botanical sprays, cypress trees, and Millefleurs patterns. It possesses the iconic cochineal rose and deep royal blue tones prized by elite collectors."
   },
   {
-    "id": "NOR-3004",
+    "id": 14,
+    "inventory_id": "NOR-3004",
     "slug": "tabriz-hadji-jalili-revival",
     "name": "Tabriz Hadji Jalili Revival",
     "style": "Vintage",
@@ -419,25 +614,39 @@
     "availability": "In Stock",
     "collection": "Back Bay Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "Hadji Jalili Tabriz",
+      "9x12 vintage rug",
+      "Persian rug Boston",
+      "neutral oriental rug"
+    ],
     "specifications": {
       "knotDensity": "280 KPSI",
       "pileHeight": "1/4 inch",
       "dyes": "Vegetable & Mineral Dyes",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 9, "lengthFeet": 12 }
+      "dimensions": {
+        "widthFeet": 9,
+        "lengthFeet": 12
+      }
     },
     "images": [
-      "images/vintage_rug.png"
+      {
+        "file": "images/vintage_rug.png",
+        "alt": "Tabriz Hadji Jalili Revival - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Tabriz Hadji Jalili Revival 9x12 Rug | Noor Oriental Rugs",
-      "description": "Elegant 9x12 Tabriz rug in the classic Hadji Jalili court style, featuring soft caramel, ivory, and rust tones.",
-      "keywords": ["Hadji Jalili Tabriz", "9x12 vintage rug", "Persian rug Boston", "neutral oriental rug"]
+      "description": "Elegant 9x12 Tabriz rug in the classic Hadji Jalili court style, featuring soft caramel, ivory, and rust tones."
     },
     "description": "Inspired by the famed 19th-century master weaver Hadji Jalili, this beautiful semi-antique Tabriz eschews bold reds in favor of an exceptionally elegant, understated palette of soft caramel, antique ivory, terracotta, and warm olive. Perfect for sophisticated, neutral-toned interior design projects."
   },
   {
-    "id": "NOR-3005",
+    "id": 15,
+    "inventory_id": "NOR-3005",
     "slug": "heriz-tribal-runner",
     "name": "Heriz Tribal Runner",
     "style": "Vintage",
@@ -450,20 +659,33 @@
     "availability": "In Stock",
     "collection": "Back Bay Collection",
     "featured": false,
+    "is_placeholder": true,
+    "tags": [
+      "Persian runner rug",
+      "3x12 rug",
+      "Heriz runner",
+      "hallway rug Boston"
+    ],
     "specifications": {
       "knotDensity": "150 KPSI",
       "pileHeight": "3/8 inch",
       "dyes": "Traditional Madder & Indigo",
       "foundation": "Cotton",
-      "dimensions": { "widthFeet": 3, "lengthFeet": 12 }
+      "dimensions": {
+        "widthFeet": 3,
+        "lengthFeet": 12
+      }
     },
     "images": [
-      "images/vintage_rug.png"
+      {
+        "file": "images/vintage_rug.png",
+        "alt": "Heriz Tribal Runner - Image 1",
+        "order": 1
+      }
     ],
     "seo": {
       "title": "Heriz Tribal Runner 3x12 | Vintage Hallway Rugs Boston",
-      "description": "Incredibly durable 3x12 Heriz tribal runner rug with rich geometric motifs. Excellent condition, perfect for grand hallways.",
-      "keywords": ["Persian runner rug", "3x12 rug", "Heriz runner", "hallway rug Boston"]
+      "description": "Incredibly durable 3x12 Heriz tribal runner rug with rich geometric motifs. Excellent condition, perfect for grand hallways."
     },
     "description": "A magnificent, heavy-duty hallway runner woven in the rugged Heriz region. Featuring a repeating chain of vibrant geometric medallions against a deep indigo and brick-red background, this piece is custom-tailored to bring color, warmth, and indestructible charm to long corridors and gallery entryways."
   }
