@@ -314,7 +314,8 @@ document.addEventListener('DOMContentLoaded', () => {
             style: new Set(),
             size: new Set(),
             material: new Set(),
-            price: null
+            price: null,
+            collection: null
         };
 
         const filterStyleContainer = document.getElementById('filter-style');
@@ -360,6 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (activeFilters.size.size > 0) params.set('size', Array.from(activeFilters.size).join(','));
                 if (activeFilters.material.size > 0) params.set('material', Array.from(activeFilters.material).join(','));
                 if (activeFilters.price) params.set('price', activeFilters.price);
+                if (activeFilters.collection) params.set('collection', activeFilters.collection);
                 
                 const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
                 window.history.pushState({ filters: true }, '', newUrl);
@@ -372,6 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeFilters.size.clear();
                 activeFilters.material.clear();
                 activeFilters.price = null;
+                activeFilters.collection = null;
                 
                 const styleParam = params.get('style');
                 if (styleParam) styleParam.split(',').forEach(s => activeFilters.style.add(s));
@@ -384,11 +387,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const priceParam = params.get('price');
                 if (priceParam) activeFilters.price = priceParam;
+
+                const collectionParam = params.get('collection');
+                if (collectionParam) activeFilters.collection = collectionParam;
                 
                 // Sync UI checkboxes and radios
                 document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => {
                     const type = cb.getAttribute('data-filter-type');
-                    cb.checked = activeFilters[type].has(cb.value);
+                    if (type && activeFilters[type]) {
+                        cb.checked = activeFilters[type].has(cb.value);
+                    }
                 });
                 
                 document.querySelectorAll('.filter-options input[type="radio"]').forEach(radio => {
@@ -401,13 +409,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 checkboxes.forEach(cb => {
                     cb.addEventListener('change', (e) => {
                         const type = e.target.getAttribute('data-filter-type');
-                        if (e.target.checked) {
-                            activeFilters[type].add(e.target.value);
-                        } else {
-                            activeFilters[type].delete(e.target.value);
+                        if (type && activeFilters[type]) {
+                            if (e.target.checked) {
+                                activeFilters[type].add(e.target.value);
+                            } else {
+                                activeFilters[type].delete(e.target.value);
+                            }
+                            updateURL();
+                            renderGrid();
                         }
-                        updateURL();
-                        renderGrid();
                     });
                 });
 
@@ -428,6 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         activeFilters.size.clear();
                         activeFilters.material.clear();
                         activeFilters.price = null;
+                        activeFilters.collection = null;
                         
                         document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => cb.checked = false);
                         document.querySelectorAll('.filter-options input[type="radio"]').forEach(radio => radio.checked = false);
@@ -449,6 +460,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Render Grid Logic
             const renderGrid = () => {
                 let filteredRugs = allRugs;
+
+                // Apply Collection (Deep Link)
+                if (activeFilters.collection) {
+                    filteredRugs = filteredRugs.filter(rug => rug.collection && rug.collection.toLowerCase().includes(activeFilters.collection.toLowerCase()));
+                }
 
                 // Apply Styles
                 if (activeFilters.style.size > 0) {
