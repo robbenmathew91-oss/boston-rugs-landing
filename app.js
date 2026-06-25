@@ -402,6 +402,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const defaultDesc = (rug.description || 'Browse our handmade Persian and Oriental rugs.').substring(0, 155) + '...';
                 metaDesc.content = rug.seo && rug.seo.description ? rug.seo.description : defaultDesc;
 
+                // --- Update Visible Breadcrumbs ---
+                const breadcrumbContainer = document.getElementById('rug-breadcrumb-container');
+                if (breadcrumbContainer) {
+                    breadcrumbContainer.innerHTML = `
+                        <a href="index.html" style="color: var(--color-text-muted); text-decoration: none;">Home</a>
+                        <span style="margin: 0 0.5rem;">/</span>
+                        <a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: none;">Rugs for Sale</a>
+                        <span style="margin: 0 0.5rem;">/</span>
+                        <span style="color: var(--color-text);">${rug.name}</span>
+                    `;
+                }
+
                 // --- Content Generation ---
                 const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
                 const imgAlt = rug.images && rug.images.length > 0 && rug.images[0].alt ? rug.images[0].alt : rug.name;
@@ -561,6 +573,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 script.type = 'application/ld+json';
                 script.text = JSON.stringify(productSchema, null, 2);
                 document.head.appendChild(script);
+
+                // --- BreadcrumbList Schema ---
+                const breadcrumbSchema = {
+                    "@context": "https://schema.org",
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Home",
+                            "item": window.location.origin + "/"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Rugs for Sale",
+                            "item": window.location.origin + "/rugs-for-sale.html"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "name": rug.name,
+                            "item": currentUrl
+                        }
+                    ]
+                };
+
+                let oldBreadcrumbSchema = document.getElementById("breadcrumb-schema");
+                if (oldBreadcrumbSchema) oldBreadcrumbSchema.remove();
+                const breadcrumbScript = document.createElement('script');
+                breadcrumbScript.id = "breadcrumb-schema";
+                breadcrumbScript.type = 'application/ld+json';
+                breadcrumbScript.text = JSON.stringify(breadcrumbSchema, null, 2);
+                document.head.appendChild(breadcrumbScript);
+
+                // --- ImageObject Schema ---
+                if (rug.images && rug.images.length > 0) {
+                    const imageSchemas = rug.images.map(img => ({
+                        "@context": "https://schema.org/",
+                        "@type": "ImageObject",
+                        "contentUrl": window.location.origin + "/" + img.file,
+                        "url": window.location.origin + "/" + img.file,
+                        "description": img.alt || rug.name,
+                        "representativeOfPage": img.order === 1
+                    }));
+
+                    let oldImageSchema = document.getElementById("image-schema");
+                    if (oldImageSchema) oldImageSchema.remove();
+                    const imageScript = document.createElement('script');
+                    imageScript.id = "image-schema";
+                    imageScript.type = 'application/ld+json';
+                    imageScript.text = JSON.stringify(imageSchemas, null, 2);
+                    document.head.appendChild(imageScript);
+                }
 
             });
         }
