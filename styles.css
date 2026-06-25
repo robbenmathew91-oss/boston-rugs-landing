@@ -295,6 +295,52 @@ h1, h2, h3, h4 {
     color: var(--color-primary);
 }
 
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    background: rgba(11, 11, 11, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 2px solid var(--color-primary);
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: var(--transition-quick);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 0.8rem 1.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: var(--transition-quick);
+    font-family: var(--font-body);
+}
+
+.dropdown-item:hover {
+    color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.03);
+}
+
 .btn.nav-cta {
     padding: 0.65rem 1.15rem; /* Slightly more compact CTA button */
     font-size: 0.75rem;
@@ -345,8 +391,29 @@ h1, h2, h3, h4 {
     }
     
     .nav.open {
-        height: 380px; /* Increased from 330px to accommodate all 6 nav links without clipping */
+        height: 520px; /* Increased to accommodate dropdown */
         border-bottom: 1px solid var(--color-border);
+        overflow-y: auto;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: transparent;
+        border: none;
+        border-left: 2px solid rgba(255,255,255,0.1);
+        box-shadow: none;
+        min-width: auto;
+        padding: 0.5rem 0 0 0;
+        margin: 1rem 0 0 1rem;
+        display: block;
+    }
+    
+    .dropdown-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
     }
     
     .nav-list {
