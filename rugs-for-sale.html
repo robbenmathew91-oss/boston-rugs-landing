@@ -25,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=1.0.9">
+    <link rel="stylesheet" href="styles.css?v=1.0.10">
 </head>
 <body>
 
@@ -85,34 +85,76 @@
                     <button id="clear-filters-btn" class="btn-clear-filters">Clear All</button>
                 </div>
                 
+                                
                 <div class="filter-group">
-                    <h3 class="filter-title">Style</h3>
+                    <h3 class="filter-title">
+                        <button class="filter-title-btn" aria-expanded="true" aria-controls="filter-collection">
+                            <span>Collection</span>
+                            <i class="fa-solid fa-chevron-down filter-icon"></i>
+                        </button>
+                    </h3>
+                    <div id="filter-collection" class="filter-options">
+                        <!-- JS injects checkboxes -->
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <h3 class="filter-title">
+                        <button class="filter-title-btn" aria-expanded="true" aria-controls="filter-style">
+                            <span>Style</span>
+                            <i class="fa-solid fa-chevron-down filter-icon"></i>
+                        </button>
+                    </h3>
                     <div id="filter-style" class="filter-options">
+
                         <!-- JS injects checkboxes -->
+                    
                     </div>
                 </div>
                 
-                <div class="filter-group">
-                    <h3 class="filter-title">Size</h3>
+                                <div class="filter-group">
+                    <h3 class="filter-title">
+                        <button class="filter-title-btn" aria-expanded="true" aria-controls="filter-size">
+                            <span>Size</span>
+                            <i class="fa-solid fa-chevron-down filter-icon"></i>
+                        </button>
+                    </h3>
                     <div id="filter-size" class="filter-options">
+
                         <!-- JS injects checkboxes -->
+                    
                     </div>
                 </div>
                 
-                <div class="filter-group">
-                    <h3 class="filter-title">Material</h3>
+                                <div class="filter-group">
+                    <h3 class="filter-title">
+                        <button class="filter-title-btn" aria-expanded="true" aria-controls="filter-material">
+                            <span>Material</span>
+                            <i class="fa-solid fa-chevron-down filter-icon"></i>
+                        </button>
+                    </h3>
                     <div id="filter-material" class="filter-options">
+
                         <!-- JS injects checkboxes -->
+                    
                     </div>
                 </div>
                 
-                <div class="filter-group">
-                    <h3 class="filter-title">Price</h3>
+                                <div class="filter-group">
+                    <h3 class="filter-title">
+                        <button class="filter-title-btn" aria-expanded="true" aria-controls="filter-price">
+                            <span>Price</span>
+                            <i class="fa-solid fa-chevron-down filter-icon"></i>
+                        </button>
+                    </h3>
                     <div id="filter-price" class="filter-options">
-                        <label class="filter-label"><input type="radio" name="price" value="under-1k"> <span>Under $1,000</span></label>
-                        <label class="filter-label"><input type="radio" name="price" value="1k-2.5k"> <span>$1,000 &ndash; $2,500</span></label>
-                        <label class="filter-label"><input type="radio" name="price" value="2.5k-5k"> <span>$2,500 &ndash; $5,000</span></label>
-                        <label class="filter-label"><input type="radio" name="price" value="above-5k"> <span>Above $5,000</span></label>
+                        <div class="price-slider-container">
+                            <div class="price-display" id="price-display">$0 &mdash; $10,000+</div>
+                            <div class="range-slider">
+                                <div class="range-track" id="price-range-track"></div>
+                                <input type="range" id="price-min" min="0" max="10000" step="100" value="0">
+                                <input type="range" id="price-max" min="0" max="10000" step="100" value="10000">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -185,6 +227,6 @@
         </div>
     </footer>
 
-    <script src="app.js?v=2"></script>
+    <script src="app.js?v=3"></script>
 </body>
 </html>

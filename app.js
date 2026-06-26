@@ -311,11 +311,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const inventoryManager = new InventoryManager();
         let allRugs = [];
         let activeFilters = {
+            collection: new Set(),
             style: new Set(),
             size: new Set(),
             material: new Set(),
-            price: null,
-            collection: null
+            price: null
         };
 
         const filterStyleContainer = document.getElementById('filter-style');
@@ -328,11 +328,13 @@ document.addEventListener('DOMContentLoaded', () => {
             allRugs = rugs;
             
             // 1. Extract dynamic filter options
+            const collections = new Set();
             const styles = new Set();
             const sizes = new Set();
             const materials = new Set();
             
             rugs.forEach(rug => {
+                if (rug.collection) collections.add(rug.collection);
                 if (rug.style) styles.add(rug.style);
                 if (rug.size) sizes.add(rug.size);
                 if (rug.material) materials.add(rug.material);
@@ -349,6 +351,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             };
 
+            const filterCollectionContainer = document.getElementById('filter-collection');
+            renderCheckboxes(filterCollectionContainer, collections, 'collection');
             renderCheckboxes(filterStyleContainer, styles, 'style');
             renderCheckboxes(filterSizeContainer, sizes, 'size');
             renderCheckboxes(filterMaterialContainer, materials, 'material');
@@ -360,8 +364,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (activeFilters.style.size > 0) params.set('style', Array.from(activeFilters.style).join(','));
                 if (activeFilters.size.size > 0) params.set('size', Array.from(activeFilters.size).join(','));
                 if (activeFilters.material.size > 0) params.set('material', Array.from(activeFilters.material).join(','));
-                if (activeFilters.price) params.set('price', activeFilters.price);
-                if (activeFilters.collection) params.set('collection', activeFilters.collection);
+                if (activeFilters.price && (activeFilters.price.min > 0 || activeFilters.price.max < 10000)) {
+                    params.set('price', `${activeFilters.price.min}-${activeFilters.price.max}`);
+                }
+                if (activeFilters.collection.size > 0) params.set('collection', Array.from(activeFilters.collection).join(','));
                 
                 const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
                 window.history.pushState({ filters: true }, '', newUrl);
@@ -374,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeFilters.size.clear();
                 activeFilters.material.clear();
                 activeFilters.price = null;
-                activeFilters.collection = null;
+                activeFilters.collection.clear();
                 
                 const styleParam = params.get('style');
                 if (styleParam) styleParam.split(',').forEach(s => activeFilters.style.add(s));
@@ -386,10 +392,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (materialParam) materialParam.split(',').forEach(m => activeFilters.material.add(m));
                 
                 const priceParam = params.get('price');
-                if (priceParam) activeFilters.price = priceParam;
+                if (priceParam) {
+                    const parts = priceParam.split('-');
+                    if (parts.length === 2) {
+                        activeFilters.price = { min: parseInt(parts[0]), max: parseInt(parts[1]) };
+                    }
+                }
 
                 const collectionParam = params.get('collection');
-                if (collectionParam) activeFilters.collection = collectionParam;
+                if (collectionParam) collectionParam.split(',').forEach(c => activeFilters.collection.add(c));
                 
                 // Sync UI checkboxes and radios
                 document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => {
@@ -399,9 +410,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 
-                document.querySelectorAll('.filter-options input[type="radio"]').forEach(radio => {
-                    radio.checked = activeFilters.price === radio.value;
-                });
+                const priceMin = document.getElementById('price-min');
+                const priceMax = document.getElementById('price-max');
+                if (priceMin && priceMax) {
+                    if (activeFilters.price) {
+                        priceMin.value = activeFilters.price.min;
+                        priceMax.value = activeFilters.price.max;
+                    } else {
+                        priceMin.value = 0;
+                        priceMax.value = 10000;
+                    }
+                    if (typeof updatePriceUI === 'function') updatePriceUI();
+                }
             };
 
             const attachFilterEvents = () => {
@@ -421,16 +441,61 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 });
 
-                const radioButtons = document.querySelectorAll('.filter-options input[type="radio"]');
-                radioButtons.forEach(radio => {
-                    radio.addEventListener('change', (e) => {
-                        if (e.target.checked) {
-                            activeFilters.price = e.target.value;
-                            updateURL();
-                            renderGrid();
-                        }
-                    });
-                });
+                // Price Slider Logic
+                const priceMin = document.getElementById('price-min');
+                const priceMax = document.getElementById('price-max');
+                const priceDisplay = document.getElementById('price-display');
+                const priceTrack = document.getElementById('price-range-track');
+
+                window.updatePriceUI = () => {
+                    if (!priceMin || !priceMax) return;
+                    let minVal = parseInt(priceMin.value);
+                    let maxVal = parseInt(priceMax.value);
+
+                    if (minVal > maxVal) {
+                        let tmp = minVal;
+                        minVal = maxVal;
+                        maxVal = tmp;
+                    }
+
+                    if (priceDisplay) {
+                        priceDisplay.innerHTML = `$${minVal.toLocaleString()} &mdash; $${maxVal >= 10000 ? '10,000+' : maxVal.toLocaleString()}`;
+                    }
+
+                    if (priceTrack) {
+                        const minPercent = (minVal / 10000) * 100;
+                        const maxPercent = (maxVal / 10000) * 100;
+                        priceTrack.style.left = `${minPercent}%`;
+                        priceTrack.style.right = `${100 - maxPercent}%`;
+                    }
+                };
+
+                const handlePriceChange = () => {
+                    let minVal = parseInt(priceMin.value);
+                    let maxVal = parseInt(priceMax.value);
+                    
+                    if (minVal > maxVal) {
+                        let tmp = minVal;
+                        minVal = maxVal;
+                        maxVal = tmp;
+                        priceMin.value = minVal;
+                        priceMax.value = maxVal;
+                    }
+
+                    activeFilters.price = { min: minVal, max: maxVal };
+                    updateURL();
+                    renderGrid();
+                };
+
+                if (priceMin && priceMax) {
+                    priceMin.addEventListener('input', window.updatePriceUI);
+                    priceMax.addEventListener('input', window.updatePriceUI);
+                    
+                    priceMin.addEventListener('change', handlePriceChange);
+                    priceMax.addEventListener('change', handlePriceChange);
+                    
+                    window.updatePriceUI();
+                }
 
                 if (clearFiltersBtn) {
                     clearFiltersBtn.addEventListener('click', () => {
@@ -438,10 +503,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         activeFilters.size.clear();
                         activeFilters.material.clear();
                         activeFilters.price = null;
-                        activeFilters.collection = null;
+                        activeFilters.collection.clear();
                         
                         document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => cb.checked = false);
-                        document.querySelectorAll('.filter-options input[type="radio"]').forEach(radio => radio.checked = false);
+                        const priceMin = document.getElementById('price-min');
+                        const priceMax = document.getElementById('price-max');
+                        if (priceMin && priceMax) {
+                            priceMin.value = 0;
+                            priceMax.value = 10000;
+                            if (typeof window.updatePriceUI === 'function') window.updatePriceUI();
+                        }
                         
                         updateURL();
                         renderGrid();
@@ -461,9 +532,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const renderGrid = () => {
                 let filteredRugs = allRugs;
 
-                // Apply Collection (Deep Link)
-                if (activeFilters.collection) {
-                    filteredRugs = filteredRugs.filter(rug => rug.collection && rug.collection.toLowerCase().includes(activeFilters.collection.toLowerCase()));
+                // Apply Collection
+                if (activeFilters.collection.size > 0) {
+                    filteredRugs = filteredRugs.filter(rug => activeFilters.collection.has(rug.collection));
                 }
 
                 // Apply Styles
@@ -485,10 +556,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (activeFilters.price) {
                     filteredRugs = filteredRugs.filter(rug => {
                         const price = rug.price;
-                        if (activeFilters.price === 'under-1k') return price < 1000;
-                        if (activeFilters.price === '1k-2.5k') return price >= 1000 && price <= 2500;
-                        if (activeFilters.price === '2.5k-5k') return price > 2500 && price <= 5000;
-                        if (activeFilters.price === 'above-5k') return price > 5000;
+                        const min = activeFilters.price.min;
+                        const max = activeFilters.price.max;
+                        
+                        if (price < min) return false;
+                        if (max < 10000 && price > max) return false;
                         return true;
                     });
                 }
@@ -541,6 +613,36 @@ document.addEventListener('DOMContentLoaded', () => {
                     inventoryGridContainer.appendChild(card);
                 });
             };
+
+
+            // 5. Collapsible Filter Sections
+            const filterTitleBtns = document.querySelectorAll('.filter-title-btn');
+            const isMobile = window.innerWidth <= 768;
+            
+            filterTitleBtns.forEach(btn => {
+                const controlsId = btn.getAttribute('aria-controls');
+                const content = document.getElementById(controlsId);
+                if (!content) return;
+                
+                if (isMobile) {
+                    btn.setAttribute('aria-expanded', 'false');
+                    content.classList.add('collapsed');
+                } else {
+                    btn.setAttribute('aria-expanded', 'true');
+                    content.classList.remove('collapsed');
+                }
+
+                btn.addEventListener('click', () => {
+                    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                    if (isExpanded) {
+                        btn.setAttribute('aria-expanded', 'false');
+                        content.classList.add('collapsed');
+                    } else {
+                        btn.setAttribute('aria-expanded', 'true');
+                        content.classList.remove('collapsed');
+                    }
+                });
+            });
 
             // Initial Render
             loadFiltersFromURL();
