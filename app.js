@@ -704,10 +704,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     const formatPrice = `$${rug.price.toLocaleString()}`;
                     
                     card.innerHTML = `
-                        <img src="${imgSrc}" alt="${rug.name}" class="rug-card-image" loading="lazy">
+                        <div class="rug-card-img-wrapper">
+                            <img src="${imgSrc}" alt="${rug.name}" class="rug-card-image" loading="lazy">
+                        </div>
                         <div class="rug-card-content">
                             <div class="rug-card-header">
-                                <h2 class="rug-card-title">${rug.name}</h2>
+                                <h2 class="rug-card-title"><a href="rug-detail.html?slug=${rug.slug}" class="stretched-link">${rug.name}</a></h2>
                                 <span class="rug-card-origin">${rug.origin}</span>
                             </div>
                             <div class="rug-card-specs">
