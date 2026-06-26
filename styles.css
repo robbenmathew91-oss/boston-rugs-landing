@@ -1186,9 +1186,15 @@ h1, h2, h3, h4 {
 
 .footer-content {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 4rem;
-    margin-bottom: 4rem;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 992px) {
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -1230,12 +1236,20 @@ h1, h2, h3, h4 {
     padding-left: 4px;
 }
 
-.footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
-    padding-top: 2rem;
-    color: rgba(255, 255, 255, 0.2);
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+.footer-bottom-bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem 0;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.footer-bottom-bar a {
+    transition: color 0.2s ease;
+}
+
+.footer-bottom-bar a:hover {
+    color: var(--color-primary);
 }
 
 /* Animations */
