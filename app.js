@@ -343,7 +343,33 @@ document.addEventListener('DOMContentLoaded', () => {
             // 2. Render Checkboxes
             const renderCheckboxes = (container, items, filterType) => {
                 if (!container) return;
-                Array.from(items).sort().forEach(item => {
+                
+                let sortedItems = Array.from(items);
+                if (filterType === 'size') {
+                    const sizeOrder = [
+                        'Runner',
+                        "3' x 5'",
+                        "4' x 6'",
+                        "5' x 8'",
+                        "6' x 9'",
+                        "8' x 10'",
+                        "9' x 12'",
+                        "10' x 14'",
+                        "Oversized"
+                    ];
+                    sortedItems.sort((a, b) => {
+                        let idxA = sizeOrder.indexOf(a);
+                        let idxB = sizeOrder.indexOf(b);
+                        if (idxA === -1) idxA = 999;
+                        if (idxB === -1) idxB = 999;
+                        if (idxA === idxB) return a.localeCompare(b);
+                        return idxA - idxB;
+                    });
+                } else {
+                    sortedItems.sort();
+                }
+                
+                sortedItems.forEach(item => {
                     const label = document.createElement('label');
                     label.className = 'filter-label';
                     label.innerHTML = `<input type="checkbox" value="${item}" data-filter-type="${filterType}"> <span>${item}</span>`;

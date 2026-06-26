@@ -2354,7 +2354,7 @@ body.modal-open {
 }
 
 .filter-group {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .filter-group:last-child {
@@ -2388,12 +2388,13 @@ body.modal-open {
 
 .filter-label {
     display: flex;
-    align-items: center;
-    gap: 0.8rem;
+    align-items: flex-start;
+    gap: 1rem;
     font-size: 0.95rem;
     color: var(--color-text-muted);
     cursor: pointer;
     transition: var(--transition-quick);
+    line-height: 1.4;
 }
 
 .filter-label:hover {
@@ -2406,6 +2407,8 @@ body.modal-open {
     width: 16px;
     height: 16px;
     cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .inventory-results-header {
