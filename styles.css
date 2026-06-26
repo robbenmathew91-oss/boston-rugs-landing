@@ -1282,7 +1282,7 @@ h1, h2, h3, h4 {
 
 .reveal.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
 }
 
 /* ==========================================================================
