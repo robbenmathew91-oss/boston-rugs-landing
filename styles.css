@@ -3257,10 +3257,12 @@ body.lightbox-open {
 
 .left-card .premium-card {
     margin-right: -10%; /* Overlap */
+    padding-right: 8rem;
 }
 
 .right-card .premium-card {
     margin-left: -10%; /* Overlap */
+    padding-left: 8rem;
 }
 
 /* Wide card for the anchor event */
@@ -3376,7 +3378,7 @@ body.lightbox-open {
     .premium-card, .premium-card-wide {
         width: 100%;
         margin: 0 !important;
-        padding: 2.5rem;
+        padding: 2.5rem !important;
         z-index: 2;
     }
     .premium-image-wrapper, .premium-image-wrapper-full {
