@@ -2856,3 +2856,104 @@ body.lightbox-open {
     inset: 0;
     z-index: 1;
 }
+
+/* Community Timeline */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 4rem auto 0;
+    padding-left: 2rem;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background: var(--color-border);
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+}
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+.timeline-marker {
+    position: absolute;
+    left: -2.35rem;
+    top: 0.5rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-bg);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 0 4px var(--color-bg);
+}
+.timeline-date {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+.timeline-content {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 2rem;
+}
+.timeline-content h3 {
+    margin-bottom: 1rem;
+    font-family: var(--font-heading);
+    color: var(--color-text);
+}
+.timeline-content p {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+.timeline-gallery {
+    display: grid;
+    gap: 1rem;
+}
+.timeline-gallery.grid-2 {
+    grid-template-columns: 1fr 1fr;
+}
+.timeline-gallery.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+.timeline-gallery.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+.timeline-photo {
+    aspect-ratio: 4/3;
+    background: var(--color-bg);
+    border: 1px dashed var(--color-border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+    .timeline-gallery.grid-3,
+    .timeline-gallery.grid-4 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 480px) {
+    .timeline-gallery.grid-2,
+    .timeline-gallery.grid-3,
+    .timeline-gallery.grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.placeholder-img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
