@@ -1046,3 +1046,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
+// FAQ Accordion
+document.addEventListener('DOMContentLoaded', () => {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Close all others
+            faqQuestions.forEach(otherBtn => {
+                if (otherBtn !== btn) {
+                    otherBtn.classList.remove('active');
+                }
+            });
+            // Toggle current
+            btn.classList.toggle('active');
+        });
+    });
+});
