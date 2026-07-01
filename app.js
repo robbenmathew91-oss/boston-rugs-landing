@@ -1063,3 +1063,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Auto-select Request Type from URL Parameters
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const interestParam = urlParams.get('interest');
+    
+    if (interestParam) {
+        const interestSelect = document.getElementById('interest');
+        if (interestSelect) {
+            // Check if the option exists
+            const optionExists = Array.from(interestSelect.options).some(opt => opt.value === interestParam);
+            if (optionExists) {
+                interestSelect.value = interestParam;
+            }
+        }
+    }
+});
