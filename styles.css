@@ -210,6 +210,21 @@ h1, h2, h3, h4 {
 .text-center { text-align: center; }
 .max-w-600 { max-width: 600px; margin-left: auto; margin-right: auto; }
 
+/* Layout Utilities */
+.section {
+    padding: 6rem 0;
+}
+
+@media (max-width: 991px) {
+    .section {
+        padding: 4rem 0;
+    }
+}
+
+.section-dark {
+    background-color: var(--color-card-bg);
+}
+
 .section-tag {
     display: block;
     color: var(--color-primary);
