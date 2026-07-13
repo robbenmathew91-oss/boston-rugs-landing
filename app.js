@@ -929,6 +929,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 }
 
+                // Format description text helper supporting section headings
+                const renderDescription = (text) => {
+                    if (!text) return '';
+                    return text.split('\n\n').map(paragraph => {
+                        if (paragraph.startsWith('### ')) {
+                            const heading = paragraph.replace('### ', '');
+                            return `<h3 style="font-family: var(--font-heading); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--color-text); font-weight: 600; border-left: 2px solid var(--color-primary); padding-left: 0.75rem; letter-spacing: 0.02em;">${heading}</h3>`;
+                        }
+                        return `<p class="rug-detail-desc" style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; color: var(--color-text-muted);">${paragraph}</p>`;
+                    }).join('');
+                };
+
                 // Dynamic Specification Listing (camelCase keys translated to Title Case)
                 let specsHTML = '';
                 if (rug.specifications) {
@@ -1027,13 +1039,44 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         
                         <!-- Semantic H2 Headings -->
-                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 1rem; color: var(--color-text);">Description</h2>
-                        <p class="rug-detail-desc">${rug.description || 'A beautiful piece curated by Noor Oriental Rugs.'}</p>
+                        <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Description</h2>
+                        <div class="rug-detail-description-content" style="margin-bottom: 3.5rem;">
+                            ${renderDescription(rug.description)}
+                        </div>
                         
                         ${specsHTML ? `
-                            <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--color-text);">Specifications</h2>
-                            <div class="rug-detail-specs-grid">${specsHTML}</div>
+                            <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Specifications</h2>
+                            <div class="rug-detail-specs-grid" style="margin-top: 1.5rem;">${specsHTML}</div>
                         ` : ''}
+
+                        <!-- Trust & Confidence Section -->
+                        <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Why Buy This Rug</h2>
+                        <div class="rug-trust-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; background: rgba(212, 175, 55, 0.02); border: 1px solid var(--color-border); padding: 1.75rem; border-radius: 4px; margin-bottom: 3.5rem;">
+                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
+                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
+                                <span style="font-weight: 500;">Hand Knotted Artisan Craftsmanship</span>
+                            </div>
+                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
+                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
+                                <span style="font-weight: 500;">100% Wool Construction (Warp & Weft)</span>
+                            </div>
+                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
+                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
+                                <span style="font-weight: 500;">Professionally Washed (Organic Shampoo)</span>
+                            </div>
+                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
+                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
+                                <span style="font-weight: 500;">Professionally Restored & Preserved</span>
+                            </div>
+                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
+                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
+                                <span style="font-weight: 500;">One of a Kind Authentic Piece</span>
+                            </div>
+                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
+                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
+                                <span style="font-weight: 500;">Ready for Immediate Purchase</span>
+                            </div>
+                        </div>
 
                         <!-- Action CTAs -->
                         <div class="rug-detail-ctas" style="display: flex; gap: 1rem; margin-top: 2rem; margin-bottom: 3rem; flex-wrap: wrap;">

@@ -2552,36 +2552,46 @@ body.modal-open {
 
 .rug-detail-specs-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-}
-
-@media (max-width: 600px) {
-    .rug-detail-specs-grid {
-        grid-template-columns: 1fr;
-    }
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 3.5rem;
+    align-items: stretch;
 }
 
 .rug-detail-spec-box {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--color-border);
-    padding: 1rem;
+    padding: 1.25rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80px;
+    height: 100%;
+    transition: var(--transition-quick);
+}
+
+.rug-detail-spec-box:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(212, 175, 55, 0.3);
 }
 
 .rug-detail-spec-label {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     color: var(--color-text-muted);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.35rem;
+    font-weight: 500;
 }
 
 .rug-detail-spec-value {
     display: block;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--color-text);
+    font-weight: 500;
+    line-height: 1.4;
 }
 
 .error-container {
