@@ -968,6 +968,69 @@ document.addEventListener('DOMContentLoaded', () => {
                 const availabilityBadge = rug.availability === 'Only One Available'
                     ? `<span class="availability-badge-alert"><i class="fa-solid fa-circle-check"></i> Only One Available</span>`
                     : '';
+
+                // Dynamic Related Rugs generation
+                // Find up to 3 related rugs (excluding the current one) that match style or collection
+                const relatedList = (rugs || []).filter(r => r.slug !== rug.slug && (r.style === rug.style || r.collection === rug.collection)).slice(0, 3);
+                
+                // Fallback to any 3 rugs if none match style/collection
+                const displayRelated = relatedList.length > 0 ? relatedList : (rugs || []).filter(r => r.slug !== rug.slug).slice(0, 3);
+
+                let relatedHTML = '';
+                if (displayRelated.length > 0) {
+                    relatedHTML += `<h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.5rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Related Rugs</h2>`;
+                    relatedHTML += `<div class="related-rugs-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">`;
+                    displayRelated.forEach(item => {
+                        const itemImg = item.images && item.images.length > 0 ? item.images[0].file : 'images/showroom.png';
+                        const itemAlt = item.images && item.images.length > 0 ? item.images[0].alt : item.name;
+                        relatedHTML += `
+                            <a href="rug-detail.html?slug=${item.slug}" style="text-decoration: none; color: inherit; display: block;" class="related-rug-card-link">
+                                <div class="related-rug-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; transition: var(--transition-quick); height: 100%; display: flex; flex-direction: column;">
+                                    <div style="aspect-ratio: 4/3; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center;">
+                                        <img src="${itemImg}" alt="${itemAlt}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" class="related-card-img" loading="lazy">
+                                    </div>
+                                    <div style="padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                                        <div>
+                                            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-text); margin: 0 0 0.25rem 0; font-weight: 600;">${item.name}</h3>
+                                            <span style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 0.75rem;">Size: ${item.size} &nbsp;&bull;&nbsp; Origin: ${item.origin.split(',')[0]}</span>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 0.75rem; margin-top: auto;">
+                                            <span style="color: var(--color-primary); font-weight: 600; font-size: 1.1rem;">$${item.price.toLocaleString()}</span>
+                                            <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); font-weight: 500;">View Details <i class="fa-solid fa-arrow-right" style="font-size: 0.75em; margin-left: 2px;"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                    });
+                    relatedHTML += `</div>`;
+                }
+
+                // Social Proof & Trust Badges Section
+                const trustBadgesHTML = `
+                    <div class="rug-trust-badges-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 3.5rem; margin-top: 3.5rem; margin-bottom: 3.5rem;">
+                        <div style="text-align: center; padding: 1rem;">
+                            <div style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-magnifying-glass-fine"></i></div>
+                            <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">Individually Inspected</h4>
+                            <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">Certified authentic and examined for weave integrity by our resident rug experts.</p>
+                        </div>
+                        <div style="text-align: center; padding: 1rem;">
+                            <div style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-soap"></i></div>
+                            <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">Washed & Restored</h4>
+                            <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">Professionally organic hand-washed and restored before being placed in inventory.</p>
+                        </div>
+                        <div style="text-align: center; padding: 1rem;">
+                            <div style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-gem"></i></div>
+                            <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">One of a Kind</h4>
+                            <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">Each piece features its own distinct historical pattern and weaving legacy.</p>
+                        </div>
+                        <div style="text-align: center; padding: 1rem;">
+                            <div style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-comments"></i></div>
+                            <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">Expert Consultation</h4>
+                            <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">Our specialists are available for digital tours, room consultations, and viewings.</p>
+                        </div>
+                    </div>
+                `;
                 
                 detailContainer.className = 'rug-detail-layout';
                 detailContainer.innerHTML = `
@@ -1079,22 +1142,45 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
 
                         <!-- Action CTAs -->
-                        <div class="rug-detail-ctas" style="display: flex; gap: 1rem; margin-top: 2rem; margin-bottom: 3rem; flex-wrap: wrap;">
-                            <a href="index.html?interest=contact-team&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="white-space: normal; text-align: center; padding: 0.9rem 1.5rem;"><i class="fa-solid fa-circle-info"></i> Request More Information</a>
-                            <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="white-space: normal; text-align: center; padding: 0.9rem 1.5rem;"><i class="fa-solid fa-calendar-days"></i> Schedule an In-Store Viewing</a>
+                        <div class="rug-detail-ctas" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; margin-bottom: 3.5rem;">
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <a href="index.html?interest=contact-team&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="flex: 1; min-width: 200px; text-align: center; padding: 1rem 1.5rem; font-size: 1rem;"><i class="fa-solid fa-circle-info"></i> Request More Information</a>
+                                <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="flex: 1; min-width: 200px; text-align: center; padding: 1rem 1.5rem; font-size: 1rem;"><i class="fa-solid fa-calendar-days"></i> Schedule an In-Store Viewing</a>
+                            </div>
+                            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 0.5rem; border-top: 1px solid var(--color-border); padding-top: 1rem;">
+                                <a href="tel:+16178686667" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-phone" style="color: var(--color-primary);"></i> Call Store: (617) 868-6667</a>
+                                <a href="index.html?interest=video-tour&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-video" style="color: var(--color-primary);"></i> Request a Video Tour</a>
+                            </div>
                         </div>
 
-                        <!-- Internal Contextual Links -->
-                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 3rem; margin-bottom: 1rem; color: var(--color-text);">Related Rugs & Services</h2>
-                        <ul style="list-style: none; padding: 0; line-height: 1.8; margin-bottom: 2rem;">
-                            <li><i class="fa-solid fa-arrow-right" style="color: var(--color-primary); font-size: 0.8rem; margin-right: 0.5rem;"></i> <a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: underline;">Browse More Rugs for Sale</a></li>
-                            <li><i class="fa-solid fa-arrow-right" style="color: var(--color-primary); font-size: 0.8rem; margin-right: 0.5rem;"></i> <a href="rug-cleaning.html" style="color: var(--color-text-muted); text-decoration: underline;">Professional Rug Cleaning</a></li>
-                            <li><i class="fa-solid fa-arrow-right" style="color: var(--color-primary); font-size: 0.8rem; margin-right: 0.5rem;"></i> <a href="rug-restoration.html" style="color: var(--color-text-muted); text-decoration: underline;">Rug Restoration Services</a></li>
-                            <li><i class="fa-solid fa-arrow-right" style="color: var(--color-primary); font-size: 0.8rem; margin-right: 0.5rem;"></i> <a href="restoration-gallery.html" style="color: var(--color-text-muted); text-decoration: underline;">Restoration Before & After Gallery</a></li>
-                        </ul>
+                        <!-- Related Rugs Section (Visual Cards Grid) -->
+                        ${relatedHTML}
 
-                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--color-text);">Visit Our Showroom</h2>
-                        <p style="color: var(--color-text-muted); margin-bottom: 1rem;">Interested in this piece? <a href="index.html?interest=evaluation&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">Ask About This Rug</a> or <a href="index.html?interest=trial&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">schedule a 3-day in-home trial</a> in the Boston area.</p>
+                        <!-- Redesigned 'Visit Our Showroom' Section -->
+                        <div class="showroom-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-left: 3px solid var(--color-primary); padding: 1.75rem; border-radius: 4px; margin-top: 3.5rem; margin-bottom: 3.5rem;">
+                            <div style="display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap;">
+                                <div style="color: var(--color-primary); font-size: 1.75rem; margin-top: 0.25rem;"><i class="fa-solid fa-store"></i></div>
+                                <div style="flex: 1; min-width: 250px;">
+                                    <h3 style="font-family: var(--font-heading); font-size: 1.35rem; color: var(--color-text); margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">Experience This Rug In Person</h3>
+                                    <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">We invite you to view this exquisite Chanakaleh rug at our historic showroom in Cambridge, MA (just outside Boston). Feel the wool texture, inspect the knot density, and see the organic colors in true light. We also offer a complimentary 3-day in-home trial.</p>
+                                    <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-size: 0.9rem;"><i class="fa-solid fa-calendar-check"></i> Schedule a Visit</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Core Services & Appraisal Links -->
+                        <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 4px; margin-bottom: 3.5rem;">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-text); margin-top: 0; margin-bottom: 1rem;">Additional Services & Consultations</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                                <a href="rug-cleaning.html" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Professional Rug Cleaning</a>
+                                <a href="rug-restoration.html" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Expert Rug Restoration</a>
+                                <a href="rug-appraisals.html" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Certified Rug Appraisal</a>
+                                <a href="index.html?interest=consultation#contact" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Schedule a Rug Consultation</a>
+                            </div>
+                        </div>
+
+                        <!-- Social Proof & Trust Badges -->
+                        ${trustBadgesHTML}
                     </div>
                 `;
 

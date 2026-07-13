@@ -3762,3 +3762,29 @@ body.lightbox-open {
         background: rgba(0, 0, 0, 0.8);
     }
 }
+
+/* Premium Related Rugs Cards Hover Styling */
+.related-rug-card-link {
+    display: block;
+    outline: none;
+}
+
+.related-rug-card-link:hover .related-rug-card {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.08);
+    background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.related-rug-card-link:hover .related-card-img {
+    transform: scale(1.06);
+}
+
+.cta-sub-link {
+    transition: var(--transition-quick);
+}
+
+.cta-sub-link:hover {
+    color: var(--color-primary) !important;
+    text-decoration: underline !important;
+}
+
