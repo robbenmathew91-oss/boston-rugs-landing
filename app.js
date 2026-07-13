@@ -981,8 +981,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         <!-- Action CTAs -->
                         <div class="rug-detail-ctas" style="display: flex; gap: 1rem; margin-top: 2rem; margin-bottom: 3rem; flex-wrap: wrap;">
-                            <a href="index.html?interest=contact-team&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="flex: 1; min-width: 200px; text-align: center;"><i class="fa-solid fa-circle-info"></i> Request More Information</a>
-                            <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="flex: 1; min-width: 200px; text-align: center;"><i class="fa-solid fa-calendar-days"></i> Schedule an In-Store Viewing</a>
+                            <a href="index.html?interest=contact-team&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="white-space: normal; text-align: center; padding: 0.9rem 1.5rem;"><i class="fa-solid fa-circle-info"></i> Request More Information</a>
+                            <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="white-space: normal; text-align: center; padding: 0.9rem 1.5rem;"><i class="fa-solid fa-calendar-days"></i> Schedule an In-Store Viewing</a>
                         </div>
 
                         <!-- Internal Contextual Links -->
