@@ -872,29 +872,61 @@ document.addEventListener('DOMContentLoaded', () => {
                     breadcrumbContainer.innerHTML = `
                         <a href="index.html" style="color: var(--color-text-muted); text-decoration: none;">Home</a>
                         <span style="margin: 0 0.5rem;">/</span>
-                        <a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: none;">Rugs for Sale</a>
+<a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: none;">Rugs for Sale</a>
                         <span style="margin: 0 0.5rem;">/</span>
                         <span style="color: var(--color-text);">${rug.name}</span>
                     `;
                 }
 
                 // --- Content Generation ---
-                const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
-                const imgAlt = rug.images && rug.images.length > 0 && rug.images[0].alt ? rug.images[0].alt : rug.name;
+
+                // Separate customer gallery images from documentation images
+                // Documentation images: inventory tags, labels, paperwork — not for the main gallery
+                const DOC_KEYWORDS = ['inventory_tag', 'authenticity_label', 'tag', 'label', 'document'];
+                const isDocImage = (file) => DOC_KEYWORDS.some(k => file.toLowerCase().includes(k));
+
+                const allImages    = rug.images || [];
+                const mainImages   = allImages.filter((img, idx) => idx === 0 || !isDocImage(img.file));
+                const docImages    = allImages.filter(img => isDocImage(img.file));
+
+                // Use first main image as hero
+                const imgSrc = mainImages.length > 0 ? mainImages[0].file : 'images/showroom.png';
+                const imgAlt = mainImages.length > 0 && mainImages[0].alt ? mainImages[0].alt : rug.name;
                 const formatPrice = `$${rug.price.toLocaleString()}`;
 
-                // Generate Thumbnails if multiple images exist
+                // Build customer gallery thumbnails (only non-doc images)
+                // We still track original indices so the lightbox stays in sync with allImages
                 let thumbnailsHTML = '';
-                if (rug.images && rug.images.length > 1) {
+                if (mainImages.length > 1) {
                     thumbnailsHTML += `<div class="rug-detail-thumbnails">`;
-                    rug.images.forEach((img, idx) => {
+                    mainImages.forEach((img) => {
+                        const origIdx = allImages.indexOf(img);
                         thumbnailsHTML += `
-                            <button class="rug-thumb-btn ${idx === 0 ? 'active' : ''}" data-index="${idx}" aria-label="View rug image ${idx + 1}">
+                            <button class="rug-thumb-btn ${origIdx === 0 ? 'active' : ''}" data-index="${origIdx}" aria-label="View image: ${img.alt || img.file}">
                                 <img src="${img.file}" alt="${img.alt}" loading="lazy">
                             </button>
                         `;
                     });
                     thumbnailsHTML += `</div>`;
+                }
+
+                // Build "Additional Documentation" section for inventory/authenticity images
+                let documentationHTML = '';
+                if (docImages.length > 0) {
+                    const docThumbsHTML = docImages.map(img => {
+                        const origIdx = allImages.indexOf(img);
+                        return `
+                            <button class="rug-thumb-btn" data-index="${origIdx}" aria-label="View documentation: ${img.alt || img.file}">
+                                <img src="${img.file}" alt="${img.alt}" loading="lazy">
+                            </button>
+                        `;
+                    }).join('');
+                    documentationHTML = `
+                        <div class="rug-detail-documentation">
+                            <span class="rug-detail-documentation-label"><i class="fa-solid fa-file-certificate" style="margin-right:0.4em;"></i>Additional Documentation</span>
+                            <div class="rug-detail-thumbnails">${docThumbsHTML}</div>
+                        </div>
+                    `;
                 }
 
                 // Dynamic Specification Listing (camelCase keys translated to Title Case)
@@ -928,10 +960,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailContainer.className = 'rug-detail-layout';
                 detailContainer.innerHTML = `
                     <div class="rug-detail-image-column">
-                        <div class="rug-detail-image-wrapper" id="main-zoom-wrapper" style="cursor: zoom-in; overflow: hidden; position: sticky; top: 100px;">
-                            <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0" style="transition: transform 0.3s ease; transform-origin: center center;">
+                        <div class="rug-detail-image-wrapper" id="main-zoom-wrapper">
+                            <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0">
                         </div>
                         ${thumbnailsHTML}
+                        ${documentationHTML}
                     </div>
                     <div class="rug-detail-info">
                         <!-- H1: Main Title -->

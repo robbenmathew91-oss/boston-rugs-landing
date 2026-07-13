@@ -2478,18 +2478,40 @@ body.modal-open {
     }
 }
 
-.rug-detail-image-wrapper {
+/* Image column: flex column so thumbnails sit below the main image */
+.rug-detail-image-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Sticky container — wraps both image + thumbnails so they scroll together */
     position: sticky;
     top: 100px;
+    align-self: start;
+}
+
+.rug-detail-image-wrapper {
     background: var(--color-card-bg);
     border: 1px solid var(--color-border);
     padding: 1rem;
+    /* NO overflow:hidden — that was clipping the thumbnails */
+    overflow: visible;
+    cursor: zoom-in;
+    /* Cap height so thumbnails always fit below in the sticky column */
+    max-height: calc(100vh - 340px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .rug-detail-main-img {
     width: 100%;
+    /* Fill the capped wrapper without cropping */
+    max-height: calc(100vh - 360px);
     height: auto;
     display: block;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    transform-origin: center center;
 }
 
 .rug-detail-info {
@@ -3487,27 +3509,51 @@ body.lightbox-open {
 }
 
 /* --- Dynamic Rug Detail Multi-Image Gallery, Zoom & Lightbox Styles --- */
+
+/* Thumbnail strip: horizontal scrollable row below the hero image */
 .rug-detail-thumbnails {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0.75rem;
-    margin-top: 1rem;
-    position: relative;
-    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 4px; /* room for scrollbar on Windows */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    /* Hide scrollbar but keep scrollability */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) transparent;
+}
+
+.rug-detail-thumbnails::-webkit-scrollbar {
+    height: 3px;
+}
+.rug-detail-thumbnails::-webkit-scrollbar-track {
+    background: transparent;
+}
+.rug-detail-thumbnails::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 2px;
+    opacity: 0.5;
 }
 
 .rug-thumb-btn {
+    flex: 0 0 80px;       /* fixed width, no shrink/grow */
+    width: 80px;
+    height: 80px;
     background: var(--color-card-bg);
-    border: 1px solid var(--color-border);
-    padding: 0.25rem;
+    border: 2px solid transparent;
+    padding: 0;
     cursor: pointer;
-    transition: var(--transition-quick);
-    aspect-ratio: 1;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 2px;
+    border-radius: 3px;
+    scroll-snap-align: start;
+    outline: none;
+    position: relative;
 }
 
 .rug-thumb-btn img {
@@ -3515,17 +3561,69 @@ body.lightbox-open {
     height: 100%;
     object-fit: cover;
     display: block;
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
+    opacity: 0.55;
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
+/* Active state: gold border + full opacity */
 .rug-thumb-btn.active {
     border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
 }
 
-.rug-thumb-btn.active img,
-.rug-thumb-btn:hover img {
+.rug-thumb-btn.active img {
     opacity: 1;
+}
+
+/* Hover: slightly brighten and scale up the thumbnail image */
+.rug-thumb-btn:hover img {
+    opacity: 0.9;
+    transform: scale(1.06);
+}
+
+.rug-thumb-btn:hover {
+    border-color: rgba(212, 175, 55, 0.5);
+}
+
+/* Documentation section below gallery */
+.rug-detail-documentation {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.rug-detail-documentation-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.75rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+}
+
+.rug-detail-documentation .rug-detail-thumbnails {
+    /* Reuse thumbnail strip styles for doc images */
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+/* Responsive: on narrow screens shrink thumbnails slightly */
+@media (max-width: 600px) {
+    .rug-thumb-btn {
+        flex: 0 0 66px;
+        width: 66px;
+        height: 66px;
+    }
+}
+
+@media (max-width: 992px) {
+    /* On tablet/mobile, the image column is no longer sticky (full-width stacked) */
+    .rug-detail-image-column {
+        position: static;
+    }
 }
 
 /* Availability Badge Alert style */
