@@ -980,41 +980,89 @@ document.addEventListener('DOMContentLoaded', () => {
                     `
                     : '';
 
-                // Dynamic Related Rugs generation
-                // Find up to 3 related rugs (excluding the current one) that match style or collection
-                const relatedList = (rugs || []).filter(r => r.slug !== rug.slug && (r.style === rug.style || r.collection === rug.collection)).slice(0, 3);
-                
-                // Fallback to any 3 rugs if none match style/collection
-                const displayRelated = relatedList.length > 0 ? relatedList : (rugs || []).filter(r => r.slug !== rug.slug).slice(0, 3);
+                // Dynamic Related Rugs generation (Scoring similarity engine)
+                const getSimilarityScore = (r1, r2) => {
+                    let score = 0;
+                    if (r1.origin === r2.origin) score += 5;
+                    if (r1.style === r2.style) score += 3;
+                    if (r1.collection === r2.collection) score += 2;
+                    if (r1.material === r2.material) score += 1;
+                    
+                    const priceDiff = Math.abs(r1.price - r2.price) / r1.price;
+                    if (priceDiff <= 0.3) score += 2;
+                    if (r1.size === r2.size) score += 2;
+                    return score;
+                };
+
+                const displayRelated = (rugs || [])
+                    .filter(r => r.slug !== rug.slug)
+                    .map(r => ({ rug: r, score: getSimilarityScore(rug, r) }))
+                    .sort((a, b) => b.score - a.score)
+                    .map(x => x.rug)
+                    .slice(0, 3);
 
                 let relatedHTML = '';
                 if (displayRelated.length > 0) {
-                    relatedHTML += `<h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.5rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Related Rugs</h2>`;
-                    relatedHTML += `<div class="related-rugs-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">`;
+                    relatedHTML += `
+                        <div style="margin-top: 3.5rem; margin-bottom: 3.5rem; border-top: 1px solid var(--color-border); padding-top: 3.5rem;">
+                            <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-bottom: 0.5rem; color: var(--color-text);">Similar Handmade Masterpieces</h2>
+                            <p style="font-size: 0.95rem; color: var(--color-text-muted); margin: 0 0 2rem 0; font-family: var(--font-body); line-height: 1.6;">Our specialists selected these rugs based on similar craftsmanship, weaving traditions, design language, and overall character.</p>
+                            <div class="related-rugs-grid">
+                    `;
                     displayRelated.forEach(item => {
                         const itemImg = item.images && item.images.length > 0 ? item.images[0].file : 'images/showroom.png';
                         const itemAlt = item.images && item.images.length > 0 ? item.images[0].alt : item.name;
+                        
+                        // Determine recommendation label dynamically
+                        let label = 'Handpicked';
+                        if (item.origin === rug.origin) {
+                            label = `${item.origin} Tradition`;
+                        } else if (item.style === rug.style) {
+                            label = `Similar ${item.style}`;
+                        } else if (item.collection === rug.collection) {
+                            label = "Collector's Choice";
+                        }
+                        
                         relatedHTML += `
                             <a href="rug-detail.html?slug=${item.slug}" style="text-decoration: none; color: inherit; display: block;" class="related-rug-card-link">
-                                <div class="related-rug-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; transition: var(--transition-quick); height: 100%; display: flex; flex-direction: column;">
-                                    <div style="aspect-ratio: 4/3; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center;">
+                                <div class="related-rug-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; transition: var(--transition-quick); height: 100%; display: flex; flex-direction: column; position: relative;">
+                                    <div style="aspect-ratio: 4/3; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; position: relative;">
                                         <img src="${itemImg}" alt="${itemAlt}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" class="related-card-img" loading="lazy">
                                     </div>
-                                    <div style="padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 1.25rem;">
                                         <div>
-                                            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-text); margin: 0 0 0.25rem 0; font-weight: 600;">${item.name}</h3>
-                                            <span style="font-size: 0.8rem; color: var(--color-text-muted); display: block; margin-bottom: 0.75rem;">Size: ${item.size} &nbsp;&bull;&nbsp; Origin: ${item.origin.split(',')[0]}</span>
+                                            <!-- Dynamic Recommendation Label -->
+                                            <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-primary); font-weight: 600; display: block; margin-bottom: 0.5rem;">${label}</span>
+                                            
+                                            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-text); margin: 0 0 0.5rem 0; font-weight: 600; line-height: 1.3;">${item.name}</h3>
+                                            
+                                            <!-- Specifications list in column -->
+                                            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.85rem; color: var(--color-text-muted);">
+                                                <span><strong>Origin:</strong> ${item.origin}</span>
+                                                <span><strong>Type:</strong> ${item.style} Rug</span>
+                                                <span><strong>Size:</strong> ${item.size}</span>
+                                            </div>
                                         </div>
-                                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 0.75rem; margin-top: auto;">
-                                            <span style="color: var(--color-primary); font-weight: 600; font-size: 1.1rem;">$${item.price.toLocaleString()}</span>
-                                            <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); font-weight: 500;">View Details <i class="fa-solid fa-arrow-right" style="font-size: 0.75em; margin-left: 2px;"></i></span>
+                                        
+                                        <div style="border-top: 1px solid var(--color-border); padding-top: 1rem; margin-top: auto; display: flex; flex-direction: column; gap: 0.75rem;">
+                                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                <span style="color: var(--color-primary); font-weight: 600; font-size: 1.2rem;">$${item.price.toLocaleString()}</span>
+                                                <!-- One-of-a-Kind badge -->
+                                                <span style="font-size: 0.7rem; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.2); padding: 0.2rem 0.5rem; border-radius: 3px; color: var(--color-primary); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fa-solid fa-gem" style="font-size: 0.85em;"></i> Unique</span>
+                                            </div>
+                                            
+                                            <!-- View Details button -->
+                                            <span class="btn btn-outline" style="padding: 0.65rem 1rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.4rem; justify-content: center; width: 100%; font-weight: 500; border-color: rgba(212, 175, 55, 0.3);">View Details <i class="fa-solid fa-arrow-right" style="font-size: 0.8em; margin-left: 2px;"></i></span>
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         `;
                     });
-                    relatedHTML += `</div>`;
+                    relatedHTML += `
+                            </div>
+                        </div>
+                    `;
                 }
 
                 // Social Proof & Trust Badges Section

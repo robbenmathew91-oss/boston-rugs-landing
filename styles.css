@@ -3880,5 +3880,25 @@ body.lightbox-open {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
+/* Premium Related Rugs Grid Responsive Layout */
+.related-rugs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+}
+
+@media (max-width: 991px) {
+    .related-rugs-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .related-rugs-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 
