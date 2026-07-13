@@ -1113,8 +1113,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailContainer.className = 'rug-detail-layout';
                 detailContainer.innerHTML = `
                     <div class="rug-detail-image-column">
-                        <div class="rug-detail-image-wrapper" id="main-zoom-wrapper">
-                            <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0">
+                        <div class="rug-detail-image-wrapper" id="main-zoom-wrapper" style="position: relative; background: #000; overflow: hidden; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+                            <!-- Elegant loading spinner behind the image -->
+                            <div class="gallery-spinner" style="position: absolute; color: var(--color-primary); font-size: 1.5rem; z-index: 1;"><i class="fa-solid fa-spinner fa-spin"></i></div>
+                            
+                            <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0" style="position: relative; z-index: 2; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; opacity: 1; transition: opacity 0.25s ease-in-out, transform 0.3s ease-out;">
+                            
+                            <!-- Elegant Image Counter overlay -->
+                            <div id="gallery-counter" style="position: absolute; bottom: 1rem; right: 1rem; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); color: #fff; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 3; transition: opacity 0.25s ease;">
+                                Image 1 of ${mainImages.length}
+                            </div>
                         </div>
                         ${thumbnailsHTML}
                         ${documentationHTML}
@@ -1278,16 +1286,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 const mainWrapper = document.getElementById('main-zoom-wrapper');
                 const thumbBtns = document.querySelectorAll('.rug-thumb-btn');
 
+                const updateGalleryCounter = (index) => {
+                    const counterEl = document.getElementById('gallery-counter');
+                    if (counterEl) {
+                        const img = rug.images[index];
+                        const mainIdx = mainImages.indexOf(img);
+                        if (mainIdx !== -1) {
+                            counterEl.textContent = `Image ${mainIdx + 1} of ${mainImages.length}`;
+                        } else {
+                            const docIdx = docImages.indexOf(img);
+                            if (docIdx !== -1) {
+                                counterEl.textContent = `Doc ${docIdx + 1} of ${docImages.length}`;
+                            }
+                        }
+                    }
+                };
+
                 if (thumbBtns.length > 0 && mainImg) {
                     thumbBtns.forEach(btn => {
                         btn.addEventListener('click', () => {
+                            if (btn.classList.contains('active')) return;
+                            
                             thumbBtns.forEach(b => b.classList.remove('active'));
                             btn.classList.add('active');
                             const idx = parseInt(btn.getAttribute('data-index'));
                             if (rug.images && rug.images[idx]) {
-                                mainImg.src = rug.images[idx].file;
-                                mainImg.alt = rug.images[idx].alt;
-                                mainImg.setAttribute('data-index', idx);
+                                // Smooth opacity cross-fade
+                                mainImg.style.opacity = '0';
+                                setTimeout(() => {
+                                    mainImg.src = rug.images[idx].file;
+                                    mainImg.alt = rug.images[idx].alt;
+                                    mainImg.setAttribute('data-index', idx);
+                                    updateGalleryCounter(idx);
+                                    mainImg.onload = () => {
+                                        mainImg.style.opacity = '1';
+                                    };
+                                }, 150);
                             }
                         });
                     });
@@ -1360,8 +1394,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const updateLightboxImage = () => {
                     if (rug.images && rug.images[currentGalleryIndex]) {
-                        lightboxImg.src = rug.images[currentGalleryIndex].file;
-                        lightboxImg.alt = rug.images[currentGalleryIndex].alt;
+                        lightboxImg.style.opacity = '0';
+                        setTimeout(() => {
+                            lightboxImg.src = rug.images[currentGalleryIndex].file;
+                            lightboxImg.alt = rug.images[currentGalleryIndex].alt;
+                            lightboxImg.onload = () => {
+                                lightboxImg.style.opacity = '1';
+                            };
+                        }, 150);
                     }
                 };
 
@@ -1369,9 +1409,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (rug.images) {
                         currentGalleryIndex = (currentGalleryIndex + 1) % rug.images.length;
                         updateLightboxImage();
-                        // Sync thumbnail selection active state
                         const nextThumb = document.querySelector(`.rug-thumb-btn[data-index="${currentGalleryIndex}"]`);
-                        if (nextThumb) nextThumb.click();
+                        if (nextThumb) {
+                            // Clear all actives, set active
+                            thumbBtns.forEach(b => b.classList.remove('active'));
+                            nextThumb.classList.add('active');
+                            mainImg.src = rug.images[currentGalleryIndex].file;
+                            mainImg.alt = rug.images[currentGalleryIndex].alt;
+                            mainImg.setAttribute('data-index', currentGalleryIndex);
+                            updateGalleryCounter(currentGalleryIndex);
+                        }
                     }
                 };
 
@@ -1380,7 +1427,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentGalleryIndex = (currentGalleryIndex - 1 + rug.images.length) % rug.images.length;
                         updateLightboxImage();
                         const prevThumb = document.querySelector(`.rug-thumb-btn[data-index="${currentGalleryIndex}"]`);
-                        if (prevThumb) prevThumb.click();
+                        if (prevThumb) {
+                            thumbBtns.forEach(b => b.classList.remove('active'));
+                            prevThumb.classList.add('active');
+                            mainImg.src = rug.images[currentGalleryIndex].file;
+                            mainImg.alt = rug.images[currentGalleryIndex].alt;
+                            mainImg.setAttribute('data-index', currentGalleryIndex);
+                            updateGalleryCounter(currentGalleryIndex);
+                        }
                     }
                 };
 
@@ -1400,6 +1454,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         closeLightbox();
                     }
                 });
+
+                // Mobile Swipe Support
+                let touchstartX = 0;
+                let touchendX = 0;
+                
+                lightbox.addEventListener('touchstart', e => {
+                    touchstartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+                
+                lightbox.addEventListener('touchend', e => {
+                    touchendX = e.changedTouches[0].screenX;
+                    const threshold = 50;
+                    if (touchendX < touchstartX - threshold) {
+                        showNextImage();
+                    }
+                    if (touchendX > touchstartX + threshold) {
+                        showPrevImage();
+                    }
+                }, { passive: true });
 
                 // Keypress navigation for Accessibility
                 document.addEventListener('keydown', (e) => {
