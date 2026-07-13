@@ -1122,7 +1122,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (e.key === 'ArrowRight') showNextImage();
                     if (e.key === 'ArrowLeft') showPrevImage();
                 });
-                `;
 
                 // --- Schema Markup (JSON-LD) ---
                 let availabilitySchema = "https://schema.org/InStock";
