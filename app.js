@@ -1008,26 +1008,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Social Proof & Trust Badges Section
                 const trustBadgesHTML = `
-                    <div class="rug-trust-badges-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 3.5rem; margin-top: 3.5rem; margin-bottom: 3.5rem;">
-                        <div style="text-align: center; padding: 1rem;">
-                            <div style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-magnifying-glass-fine"></i></div>
-                            <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">Individually Inspected</h4>
-                            <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">Certified authentic and examined for weave integrity by our resident rug experts.</p>
-                        </div>
-                        <div style="text-align: center; padding: 1rem;">
-                            <div style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-soap"></i></div>
-                            <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">Washed & Restored</h4>
-                            <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">Professionally organic hand-washed and restored before being placed in inventory.</p>
-                        </div>
-                        <div style="text-align: center; padding: 1rem;">
-                            <div style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-gem"></i></div>
-                            <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">One of a Kind</h4>
-                            <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">Each piece features its own distinct historical pattern and weaving legacy.</p>
-                        </div>
-                        <div style="text-align: center; padding: 1rem;">
-                            <div style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-comments"></i></div>
-                            <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--color-text); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.05em;">Expert Consultation</h4>
-                            <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">Our specialists are available for digital tours, room consultations, and viewings.</p>
+                    <div style="border-top: 1px solid var(--color-border); padding-top: 3.5rem; margin-top: 3.5rem; margin-bottom: 3.5rem;">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-bottom: 1.5rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Purchase With Confidence</h2>
+                        <div class="rug-trust-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
+                            <div class="rug-trust-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+                                <div style="color: var(--color-primary); font-size: 1.75rem;"><i class="fa-solid fa-magnifying-glass"></i></div>
+                                <div>
+                                    <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-text); margin: 0 0 0.5rem 0; font-weight: 600;">Individually Inspected</h3>
+                                    <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; margin: 0;">Every rug is carefully examined by our specialists for authenticity, craftsmanship, and overall condition before being added to our collection.</p>
+                                </div>
+                            </div>
+                            <div class="rug-trust-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+                                <div style="color: var(--color-primary); font-size: 1.75rem;"><i class="fa-solid fa-soap"></i></div>
+                                <div>
+                                    <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-text); margin: 0 0 0.5rem 0; font-weight: 600;">Professionally Washed & Restored</h3>
+                                    <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; margin: 0;">This rug has been professionally hand washed using traditional methods and restored only where necessary to preserve its beauty and structural integrity.</p>
+                                </div>
+                            </div>
+                            <div class="rug-trust-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+                                <div style="color: var(--color-primary); font-size: 1.75rem;"><i class="fa-solid fa-gem"></i></div>
+                                <div>
+                                    <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-text); margin: 0 0 0.5rem 0; font-weight: 600;">One of a Kind</h3>
+                                    <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; margin: 0;">Every handmade rug is unique. Once sold, this exact piece cannot be replaced.</p>
+                                </div>
+                            </div>
+                            <div class="rug-trust-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: 4px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+                                <div style="color: var(--color-primary); font-size: 1.75rem;"><i class="fa-solid fa-comments"></i></div>
+                                <div>
+                                    <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-text); margin: 0 0 0.5rem 0; font-weight: 600;">Expert Consultation</h3>
+                                    <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6; margin: 0;">Our specialists are available to answer questions, provide additional photographs, discuss room placement, and schedule private showroom visits.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `;

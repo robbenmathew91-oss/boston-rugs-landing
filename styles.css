@@ -3788,3 +3788,15 @@ body.lightbox-open {
     text-decoration: underline !important;
 }
 
+/* Premium Trust Cards Hover Styling */
+.rug-trust-card {
+    transition: var(--transition-quick);
+}
+
+.rug-trust-card:hover {
+    border-color: var(--color-primary) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.04);
+}
+
+
