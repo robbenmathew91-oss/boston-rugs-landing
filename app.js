@@ -1053,6 +1053,62 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 `;
+
+                // Dynamic FAQ Accordion generation
+                const conditionLabel = rug.condition ? (rug.condition.includes('/') ? rug.condition.split('/')[0].trim() : rug.condition) : 'Excellent';
+                const faqHTML = `
+                    <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Frequently Asked Questions</h2>
+                    <div class="rug-faq-accordion">
+                        <details class="rug-faq-item">
+                            <summary class="rug-faq-summary">Is this rug handmade?</summary>
+                            <div class="rug-faq-content">
+                                Yes. Every rug in our collection is hand-knotted by skilled weavers using traditional techniques. This ${rug.name} features an authentic, meticulous hand-knotted weave, representing months of dedicated artisan craftsmanship.
+                            </div>
+                        </details>
+                        <details class="rug-faq-item">
+                            <summary class="rug-faq-summary">Is this rug one of a kind?</summary>
+                            <div class="rug-faq-content">
+                                Yes, this rug is a one-of-a-kind collector's piece. Because each design is woven by hand from memory and local tradition rather than machine-printed templates, no two patterns are ever identical. Once sold, this exact piece cannot be replaced.
+                            </div>
+                        </details>
+                        <details class="rug-faq-item">
+                            <summary class="rug-faq-summary">What materials are used?</summary>
+                            <div class="rug-faq-content">
+                                This rug is constructed with a warp and weft foundation made of ${rug.material}. The natural wool fibers provide excellent durability, stain resistance, and a rich patina that characteristically soft-tones with age.
+                            </div>
+                        </details>
+                        <details class="rug-faq-item">
+                            <summary class="rug-faq-summary">Has this rug been professionally washed or restored?</summary>
+                            <div class="rug-faq-content">
+                                Yes. To preserve its heritage values and structural integrity, this rug has been professionally hand-washed using organic green shampoo and restored where necessary (reinforced side bindings and fringe securing). It is currently in ${conditionLabel.toLowerCase()} condition and ready for immediate placement.
+                            </div>
+                        </details>
+                        <details class="rug-faq-item">
+                            <summary class="rug-faq-summary">Can I view this rug in person?</summary>
+                            <div class="rug-faq-content">
+                                Yes, you can view the ${rug.name} at our physical showroom in Cambridge, MA (serving the greater Boston area). We invite you to inspect the weave and organic colors under natural light, or schedule a complimentary 3-day in-home trial.
+                            </div>
+                        </details>
+                        <details class="rug-faq-item">
+                            <summary class="rug-faq-summary">Do you provide additional photographs or videos?</summary>
+                            <div class="rug-faq-content">
+                                Absolutely. If you need close-up photographs of specific pattern segments, side edges, backing knots, or a custom video tour showing the rug's true light profile, please contact our support team or request a video tour.
+                            </div>
+                        </details>
+                        <details class="rug-faq-item">
+                            <summary class="rug-faq-summary">How should I care for this rug?</summary>
+                            <div class="rug-faq-content">
+                                We recommend vacuuming regularly without a beater bar and blotting liquid spills immediately with a dry cloth and cold water. Professional hand-washing is advised every 3 to 5 years depending on the room's foot traffic.
+                            </div>
+                        </details>
+                        <details class="rug-faq-item">
+                            <summary class="rug-faq-summary">Can Noor Oriental Rugs help with future cleaning or restoration?</summary>
+                            <div class="rug-faq-content">
+                                Yes. We provide full-service professional organic cleaning, repair, fringe restoration, and appraisal services. We are committed to preserving the value and beauty of your handmade rugs for decades.
+                            </div>
+                        </details>
+                    </div>
+                `;
                 
                 detailContainer.className = 'rug-detail-layout';
                 detailContainer.innerHTML = `
@@ -1183,6 +1239,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
 
+                        <!-- Dynamic FAQ Section -->
+                        ${faqHTML}
+
                         <!-- Related Rugs Section (Visual Cards Grid) -->
                         ${relatedHTML}
 
@@ -1251,6 +1310,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         mainImg.style.transformOrigin = 'center center';
                     });
                 }
+
+                // Accordion FAQ behavior: only one open at a time
+                const faqs = document.querySelectorAll('.rug-faq-item');
+                faqs.forEach(faq => {
+                    faq.addEventListener('toggle', () => {
+                        if (faq.open) {
+                            faqs.forEach(other => {
+                                if (other !== faq) other.open = false;
+                            });
+                        }
+                    });
+                });
 
                 // Lightbox Modal Setup
                 let lightbox = document.getElementById('dynamic-rug-lightbox');
