@@ -511,18 +511,18 @@
         "order": 2
       },
       {
+        "file": "images/chanakaleh_folded_corner.jpg",
+        "alt": "Chanakaleh Turkish Rug - Folded Corner Showing Pile Depth and Geometric Medallion Detail",
+        "order": 3
+      },
+      {
         "file": "images/chanakaleh_detail.jpg",
         "alt": "Chanakaleh Rug - Close-up of Center Geometric Medallion and Hand-Knotted Weft",
-        "order": 3
+        "order": 4
       },
       {
         "file": "images/chanakaleh_weave_detail.jpg",
         "alt": "Chanakaleh Rug - Close-up of Weave Pattern Showing Hand-Knotted Wool Fibers",
-        "order": 4
-      },
-      {
-        "file": "images/chanakaleh_folded_corner.jpg",
-        "alt": "Chanakaleh Turkish Rug - Folded Corner Showing Pile Depth and Geometric Medallion Detail",
         "order": 5
       },
       {
@@ -531,13 +531,13 @@
         "order": 6
       },
       {
-        "file": "images/chanakaleh_pile.jpg",
-        "alt": "Handmade Wool Rug - Pile Thickness and Side Edge Knot Construction Profile",
+        "file": "images/chanakaleh_back_structure.jpg",
+        "alt": "Chanakaleh Rug - Detailed Construction View of Hand-Knotted Back and Knot Density",
         "order": 7
       },
       {
-        "file": "images/chanakaleh_back_structure.jpg",
-        "alt": "Chanakaleh Rug - Detailed Construction View of Hand-Knotted Back and Knot Density",
+        "file": "images/chanakaleh_pile.jpg",
+        "alt": "Handmade Wool Rug - Pile Thickness and Side Edge Knot Construction Profile",
         "order": 8
       },
       {

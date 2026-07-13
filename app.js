@@ -923,7 +923,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }).join('');
                     documentationHTML = `
                         <div class="rug-detail-documentation">
-                            <span class="rug-detail-documentation-label"><i class="fa-solid fa-file-certificate" style="margin-right:0.4em;"></i>Additional Documentation</span>
+                            <span class="rug-detail-documentation-label"><i class="fa-solid fa-file-invoice" style="margin-right:0.4em;"></i>Inventory Documentation</span>
                             <div class="rug-detail-thumbnails">${docThumbsHTML}</div>
                         </div>
                     `;
@@ -954,7 +954,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Generate Availability and "Only One Available" Badge
                 const availabilityBadge = rug.availability === 'Only One Available'
-                    ? `<span class="availability-badge-alert"><i class="fa-solid fa-triangle-exclamation"></i> Only One Available</span>`
+                    ? `<span class="availability-badge-alert"><i class="fa-solid fa-circle-check"></i> Only One Available</span>`
                     : '';
                 
                 detailContainer.className = 'rug-detail-layout';
@@ -969,11 +969,42 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="rug-detail-info">
                         <!-- H1: Main Title -->
                         <h1 class="rug-detail-title">${rug.name}</h1>
-                        <span class="rug-detail-origin">${rug.origin}</span>
                         
-                        <div class="rug-detail-price-row" style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1rem; flex-wrap: wrap;">
-                            <div class="rug-detail-price" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">${formatPrice}</div>
+                        <div class="rug-detail-price-row" style="display: flex; align-items: center; gap: 1.5rem; margin-top: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; flex-wrap: wrap;">
+                            <div class="rug-detail-price" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0; font-size: 2.25rem; font-weight: 500; color: var(--color-text);">${formatPrice}</div>
                             ${availabilityBadge}
+                        </div>
+
+                        <!-- Compact 'Rug at a Glance' Section -->
+                        <div class="rug-glance-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-location-dot"></i></div>
+                                <div>
+                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Origin</span>
+                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.origin}</span>
+                                </div>
+                            </div>
+                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-layer-group"></i></div>
+                                <div>
+                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Material</span>
+                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.material}</span>
+                                </div>
+                            </div>
+                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-knot"></i></div>
+                                <div>
+                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Weave</span>
+                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">Hand Knotted</span>
+                                </div>
+                            </div>
+                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-sparkles"></i></div>
+                                <div>
+                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Condition</span>
+                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.condition.includes('/') ? rug.condition.split('/')[0].trim() : rug.condition}</span>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="rug-detail-specs-grid">
@@ -990,16 +1021,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span class="rug-detail-spec-value">${rug.style}</span>
                             </div>
                             <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Material</span>
-                                <span class="rug-detail-spec-value">${rug.material}</span>
-                            </div>
-                            <div class="rug-detail-spec-box">
                                 <span class="rug-detail-spec-label">Age</span>
                                 <span class="rug-detail-spec-value">${rug.age}</span>
-                            </div>
-                            <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Condition</span>
-                                <span class="rug-detail-spec-value">${rug.condition}</span>
                             </div>
                         </div>
                         
