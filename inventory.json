@@ -516,14 +516,24 @@
         "order": 3
       },
       {
+        "file": "images/chanakaleh_folded_corner.jpg",
+        "alt": "Chanakaleh Turkish Rug - Folded Corner Showing Pile Depth and Geometric Medallion Detail",
+        "order": 4
+      },
+      {
         "file": "images/chanakaleh_fringe.jpg",
         "alt": "Turkish Wool Rug - Detailed Fringe Reconstruction and Flat Border Finish",
-        "order": 4
+        "order": 5
       },
       {
         "file": "images/chanakaleh_pile.jpg",
         "alt": "Handmade Wool Rug - Pile Thickness and Side Edge Knot Construction Profile",
-        "order": 5
+        "order": 6
+      },
+      {
+        "file": "images/chanakaleh_authenticity_label.jpg",
+        "alt": "Genuine Hand Woven Oriental Rug Certification Label - Turkish Origin Verified",
+        "order": 7
       }
     ],
     "seo": {
