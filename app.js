@@ -869,12 +869,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 // --- Update Visible Breadcrumbs ---
                 const breadcrumbContainer = document.getElementById('rug-breadcrumb-container');
                 if (breadcrumbContainer) {
+                    const originLabel = rug.origin === 'Turkey' ? 'Turkish' : (rug.origin === 'Persia' ? 'Persian' : rug.origin);
+                    const intermediate = `${originLabel} Rugs`;
                     breadcrumbContainer.innerHTML = `
-                        <a href="index.html" style="color: var(--color-text-muted); text-decoration: none;">Home</a>
-                        <span style="margin: 0 0.5rem;">/</span>
-<a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: none;">Rugs for Sale</a>
-                        <span style="margin: 0 0.5rem;">/</span>
-                        <span style="color: var(--color-text);">${rug.name}</span>
+                        <a href="index.html" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link">Home</a>
+                        <span style="margin: 0 0.4rem; color: var(--color-text-muted);">›</span>
+                        <a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link">Rugs for Sale</a>
+                        <span style="margin: 0 0.4rem; color: var(--color-text-muted);">›</span>
+                        <a href="rugs-for-sale.html?origin=${encodeURIComponent(rug.origin)}" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link">${intermediate}</a>
+                        <span style="margin: 0 0.4rem; color: var(--color-text-muted);">›</span>
+                        <span style="color: var(--color-text); font-weight: 500;">${rug.name}</span>
                     `;
                 }
 
@@ -966,7 +970,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Generate Availability and "Only One Available" Badge
                 const availabilityBadge = rug.availability === 'Only One Available'
-                    ? `<span class="availability-badge-alert"><i class="fa-solid fa-circle-check"></i> Only One Available</span>`
+                    ? `
+                        <div style="display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.25rem;">
+                            <span class="availability-badge-alert" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.08); color: var(--color-primary); border: 1px solid rgba(212, 175, 55, 0.2); padding: 0.35rem 0.75rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; width: fit-content; margin-bottom: 2px;">
+                                <i class="fa-solid fa-gem" style="font-size: 0.9em;"></i> One-of-a-Kind Handmade Rug
+                            </span>
+                            <span style="font-size: 0.8rem; color: var(--color-text-muted); font-weight: 400; display: block;">Once sold, this exact piece cannot be replaced.</span>
+                        </div>
+                    `
                     : '';
 
                 // Dynamic Related Rugs generation
@@ -1061,54 +1072,42 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${availabilityBadge}
                         </div>
 
-                        <!-- Compact 'Rug at a Glance' Section -->
+                        <!-- Compact 'Rug at a Glance' Section (5 key facts: Origin, Size, Material, Age, Condition) -->
                         <div class="rug-glance-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
-                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
                                 <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-location-dot"></i></div>
                                 <div>
                                     <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Origin</span>
                                     <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.origin}</span>
                                 </div>
                             </div>
-                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
+                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-maximize"></i></div>
+                                <div>
+                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Size</span>
+                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.size}</span>
+                                </div>
+                            </div>
+                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
                                 <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-layer-group"></i></div>
                                 <div>
                                     <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Material</span>
                                     <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.material}</span>
                                 </div>
                             </div>
-                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem;">
-                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-knot"></i></div>
+                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
+                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-clock"></i></div>
                                 <div>
-                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Weave</span>
-                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">Hand Knotted</span>
+                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Age</span>
+                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.age}</span>
                                 </div>
                             </div>
-                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
                                 <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-sparkles"></i></div>
                                 <div>
                                     <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Condition</span>
                                     <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.condition.includes('/') ? rug.condition.split('/')[0].trim() : rug.condition}</span>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <div class="rug-detail-specs-grid">
-                            <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Availability</span>
-                                <span class="rug-detail-spec-value" style="color: var(--color-primary);">${rug.availability}</span>
-                            </div>
-                            <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Size</span>
-                                <span class="rug-detail-spec-value">${rug.size}</span>
-                            </div>
-                            <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Style</span>
-                                <span class="rug-detail-spec-value">${rug.style}</span>
-                            </div>
-                            <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Age</span>
-                                <span class="rug-detail-spec-value">${rug.age}</span>
                             </div>
                         </div>
 
