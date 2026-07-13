@@ -882,56 +882,66 @@ document.addEventListener('DOMContentLoaded', () => {
                 const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
                 const imgAlt = rug.images && rug.images.length > 0 && rug.images[0].alt ? rug.images[0].alt : rug.name;
                 const formatPrice = `$${rug.price.toLocaleString()}`;
-                
+
+                // Generate Thumbnails if multiple images exist
+                let thumbnailsHTML = '';
+                if (rug.images && rug.images.length > 1) {
+                    thumbnailsHTML += `<div class="rug-detail-thumbnails">`;
+                    rug.images.forEach((img, idx) => {
+                        thumbnailsHTML += `
+                            <button class="rug-thumb-btn ${idx === 0 ? 'active' : ''}" data-index="${idx}" aria-label="View rug image ${idx + 1}">
+                                <img src="${img.file}" alt="${img.alt}" loading="lazy">
+                            </button>
+                        `;
+                    });
+                    thumbnailsHTML += `</div>`;
+                }
+
+                // Dynamic Specification Listing (camelCase keys translated to Title Case)
                 let specsHTML = '';
                 if (rug.specifications) {
-                    if (rug.specifications.knotDensity) {
-                        specsHTML += `
-                            <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Knot Density</span>
-                                <span class="rug-detail-spec-value">${rug.specifications.knotDensity}</span>
-                            </div>
-                        `;
-                    }
-                    if (rug.specifications.pileHeight) {
-                        specsHTML += `
-                            <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Pile Height</span>
-                                <span class="rug-detail-spec-value">${rug.specifications.pileHeight}</span>
-                            </div>
-                        `;
-                    }
-                    if (rug.specifications.dyes) {
-                        specsHTML += `
-                            <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Dyes</span>
-                                <span class="rug-detail-spec-value">${rug.specifications.dyes}</span>
-                            </div>
-                        `;
-                    }
-                    if (rug.specifications.foundation) {
-                        specsHTML += `
-                            <div class="rug-detail-spec-box">
-                                <span class="rug-detail-spec-label">Foundation</span>
-                                <span class="rug-detail-spec-value">${rug.specifications.foundation}</span>
-                            </div>
-                        `;
-                    }
+                    const formatLabel = (key) => {
+                        const result = key.replace(/([A-Z])/g, " $1");
+                        return result.charAt(0).toUpperCase() + result.slice(1);
+                    };
+                    
+                    Object.entries(rug.specifications).forEach(([key, value]) => {
+                        if (key === 'dimensions') return;
+                        if (value !== undefined && value !== null && value !== '') {
+                            let displayVal = value;
+                            if (typeof value === 'boolean') displayVal = value ? 'Yes' : 'No';
+                            specsHTML += `
+                                <div class="rug-detail-spec-box">
+                                    <span class="rug-detail-spec-label">${formatLabel(key)}</span>
+                                    <span class="rug-detail-spec-value">${displayVal}</span>
+                                </div>
+                            `;
+                        }
+                    });
                 }
+
+                // Generate Availability and "Only One Available" Badge
+                const availabilityBadge = rug.availability === 'Only One Available'
+                    ? `<span class="availability-badge-alert"><i class="fa-solid fa-triangle-exclamation"></i> Only One Available</span>`
+                    : '';
                 
                 detailContainer.className = 'rug-detail-layout';
                 detailContainer.innerHTML = `
                     <div class="rug-detail-image-column">
-                        <div class="rug-detail-image-wrapper">
-                            <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img">
+                        <div class="rug-detail-image-wrapper" id="main-zoom-wrapper" style="cursor: zoom-in; overflow: hidden; position: sticky; top: 100px;">
+                            <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0" style="transition: transform 0.3s ease; transform-origin: center center;">
                         </div>
+                        ${thumbnailsHTML}
                     </div>
                     <div class="rug-detail-info">
                         <!-- H1: Main Title -->
                         <h1 class="rug-detail-title">${rug.name}</h1>
                         <span class="rug-detail-origin">${rug.origin}</span>
                         
-                        <div class="rug-detail-price">${formatPrice}</div>
+                        <div class="rug-detail-price-row" style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1rem; flex-wrap: wrap;">
+                            <div class="rug-detail-price" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">${formatPrice}</div>
+                            ${availabilityBadge}
+                        </div>
                         
                         <div class="rug-detail-specs-grid">
                             <div class="rug-detail-spec-box">
@@ -969,6 +979,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="rug-detail-specs-grid">${specsHTML}</div>
                         ` : ''}
 
+                        <!-- Action CTAs -->
+                        <div class="rug-detail-ctas" style="display: flex; gap: 1rem; margin-top: 2rem; margin-bottom: 3rem; flex-wrap: wrap;">
+                            <a href="index.html?interest=contact-team&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="flex: 1; min-width: 200px; text-align: center;"><i class="fa-solid fa-circle-info"></i> Request More Information</a>
+                            <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="flex: 1; min-width: 200px; text-align: center;"><i class="fa-solid fa-calendar-days"></i> Schedule an In-Store Viewing</a>
+                        </div>
+
                         <!-- Internal Contextual Links -->
                         <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 3rem; margin-bottom: 1rem; color: var(--color-text);">Related Rugs & Services</h2>
                         <ul style="list-style: none; padding: 0; line-height: 1.8; margin-bottom: 2rem;">
@@ -979,8 +995,133 @@ document.addEventListener('DOMContentLoaded', () => {
                         </ul>
 
                         <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--color-text);">Visit Our Showroom</h2>
-                        <p style="color: var(--color-text-muted); margin-bottom: 1rem;">Interested in this piece? <a href="index.html?interest=evaluation&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">Contact us for a free evaluation</a> or <a href="index.html?interest=trial&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">schedule an in-home trial</a> in the Boston area.</p>
+                        <p style="color: var(--color-text-muted); margin-bottom: 1rem;">Interested in this piece? <a href="index.html?interest=evaluation&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">Ask About This Rug</a> or <a href="index.html?interest=trial&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">schedule a 3-day in-home trial</a> in the Boston area.</p>
                     </div>
+                `;
+
+                // --- Bind Interactive Gallery & Lightbox Event Listeners ---
+                const mainImg = document.getElementById('main-rug-img');
+                const mainWrapper = document.getElementById('main-zoom-wrapper');
+                const thumbBtns = document.querySelectorAll('.rug-thumb-btn');
+
+                if (thumbBtns.length > 0 && mainImg) {
+                    thumbBtns.forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            thumbBtns.forEach(b => b.classList.remove('active'));
+                            btn.classList.add('active');
+                            const idx = parseInt(btn.getAttribute('data-index'));
+                            if (rug.images && rug.images[idx]) {
+                                mainImg.src = rug.images[idx].file;
+                                mainImg.alt = rug.images[idx].alt;
+                                mainImg.setAttribute('data-index', idx);
+                            }
+                        });
+                    });
+                }
+
+                // Interactive Zoom Effect on Hover
+                if (mainWrapper && mainImg) {
+                    mainWrapper.addEventListener('mousemove', (e) => {
+                        const rect = mainWrapper.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const xPercent = (x / rect.width) * 100;
+                        const yPercent = (y / rect.height) * 100;
+                        mainImg.style.transform = 'scale(1.5)';
+                        mainImg.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+                    });
+
+                    mainWrapper.addEventListener('mouseleave', () => {
+                        mainImg.style.transform = 'scale(1)';
+                        mainImg.style.transformOrigin = 'center center';
+                    });
+                }
+
+                // Lightbox Modal Setup
+                let lightbox = document.getElementById('dynamic-rug-lightbox');
+                if (!lightbox) {
+                    lightbox = document.createElement('div');
+                    lightbox.id = 'dynamic-rug-lightbox';
+                    lightbox.className = 'rug-lightbox';
+                    lightbox.innerHTML = `
+                        <button class="rug-lightbox-close" aria-label="Close lightbox">&times;</button>
+                        <button class="rug-lightbox-btn rug-lightbox-prev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+                        <div class="rug-lightbox-content">
+                            <img id="lightbox-main-img" class="rug-lightbox-img" src="" alt="">
+                        </div>
+                        <button class="rug-lightbox-btn rug-lightbox-next" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+                    `;
+                    document.body.appendChild(lightbox);
+                }
+
+                const lightboxImg = document.getElementById('lightbox-main-img');
+                const closeBtn = lightbox.querySelector('.rug-lightbox-close');
+                const prevBtn = lightbox.querySelector('.rug-lightbox-prev');
+                const nextBtn = lightbox.querySelector('.rug-lightbox-next');
+                let currentGalleryIndex = 0;
+
+                const openLightbox = (index) => {
+                    currentGalleryIndex = index;
+                    updateLightboxImage();
+                    lightbox.classList.add('active');
+                    document.body.classList.add('lightbox-open');
+                };
+
+                const closeLightbox = () => {
+                    lightbox.classList.remove('active');
+                    document.body.classList.remove('lightbox-open');
+                };
+
+                const updateLightboxImage = () => {
+                    if (rug.images && rug.images[currentGalleryIndex]) {
+                        lightboxImg.src = rug.images[currentGalleryIndex].file;
+                        lightboxImg.alt = rug.images[currentGalleryIndex].alt;
+                    }
+                };
+
+                const showNextImage = () => {
+                    if (rug.images) {
+                        currentGalleryIndex = (currentGalleryIndex + 1) % rug.images.length;
+                        updateLightboxImage();
+                        // Sync thumbnail selection active state
+                        const nextThumb = document.querySelector(`.rug-thumb-btn[data-index="${currentGalleryIndex}"]`);
+                        if (nextThumb) nextThumb.click();
+                    }
+                };
+
+                const showPrevImage = () => {
+                    if (rug.images) {
+                        currentGalleryIndex = (currentGalleryIndex - 1 + rug.images.length) % rug.images.length;
+                        updateLightboxImage();
+                        const prevThumb = document.querySelector(`.rug-thumb-btn[data-index="${currentGalleryIndex}"]`);
+                        if (prevThumb) prevThumb.click();
+                    }
+                };
+
+                if (mainImg) {
+                    mainImg.addEventListener('click', () => {
+                        const idx = parseInt(mainImg.getAttribute('data-index') || '0');
+                        openLightbox(idx);
+                    });
+                }
+
+                closeBtn.addEventListener('click', closeLightbox);
+                nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNextImage(); });
+                prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
+                
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox || e.target.classList.contains('rug-lightbox-content')) {
+                        closeLightbox();
+                    }
+                });
+
+                // Keypress navigation for Accessibility
+                document.addEventListener('keydown', (e) => {
+                    if (!lightbox.classList.contains('active')) return;
+                    if (e.key === 'Escape') closeLightbox();
+                    if (e.key === 'ArrowRight') showNextImage();
+                    if (e.key === 'ArrowLeft') showPrevImage();
+                });
                 `;
 
                 // --- Schema Markup (JSON-LD) ---

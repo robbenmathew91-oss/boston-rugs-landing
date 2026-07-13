@@ -3485,3 +3485,172 @@ body.lightbox-open {
     max-height: 500px;
     padding-bottom: 1.5rem;
 }
+
+/* --- Dynamic Rug Detail Multi-Image Gallery, Zoom & Lightbox Styles --- */
+.rug-detail-thumbnails {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+.rug-thumb-btn {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    padding: 0.25rem;
+    cursor: pointer;
+    transition: var(--transition-quick);
+    aspect-ratio: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+}
+
+.rug-thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.rug-thumb-btn.active {
+    border-color: var(--color-primary);
+}
+
+.rug-thumb-btn.active img,
+.rug-thumb-btn:hover img {
+    opacity: 1;
+}
+
+/* Availability Badge Alert style */
+.availability-badge-alert {
+    background-color: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: fit-content;
+}
+
+/* Lightbox Modal setup */
+.rug-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(11, 11, 11, 0.95);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.rug-lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.rug-lightbox-content {
+    position: relative;
+    max-width: 80%;
+    max-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rug-lightbox-img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+    background: #000;
+}
+
+.rug-lightbox-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.rug-lightbox-close:hover {
+    color: var(--color-primary);
+}
+
+.rug-lightbox-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--color-border);
+    color: white;
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10005;
+    transition: var(--transition-quick);
+}
+
+.rug-lightbox-btn:hover {
+    background: var(--color-primary);
+    color: #0b0b0b;
+    border-color: var(--color-primary);
+}
+
+.rug-lightbox-prev {
+    left: -75px;
+}
+
+.rug-lightbox-next {
+    right: -75px;
+}
+
+@media (max-width: 991px) {
+    .rug-lightbox-content {
+        max-width: 90%;
+    }
+    
+    .rug-lightbox-prev {
+        left: 15px;
+    }
+    
+    .rug-lightbox-next {
+        right: 15px;
+    }
+    
+    .rug-lightbox-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+        background: rgba(0, 0, 0, 0.8);
+    }
+}
