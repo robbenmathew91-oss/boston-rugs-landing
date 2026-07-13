@@ -3871,5 +3871,14 @@ body.lightbox-open {
     padding-top: 1rem;
 }
 
+/* Luxury Purchase Experience Card Hover */
+.luxury-purchase-card {
+    transition: var(--transition-quick);
+}
+.luxury-purchase-card:hover {
+    border-color: rgba(212, 175, 55, 0.25) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
 
 

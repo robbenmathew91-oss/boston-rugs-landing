@@ -1206,44 +1206,49 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="rug-detail-specs-grid" style="margin-top: 1.5rem;">${specsHTML}</div>
                         ` : ''}
 
-                        <!-- Trust & Confidence Section -->
-                        <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Why Buy This Rug</h2>
-                        <div class="rug-trust-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; background: rgba(212, 175, 55, 0.02); border: 1px solid var(--color-border); padding: 1.75rem; border-radius: 4px; margin-bottom: 3.5rem;">
-                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
-                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
-                                <span style="font-weight: 500;">Hand Knotted Artisan Craftsmanship</span>
+                        <!-- Luxury Purchase Experience Panel -->
+                        <div class="luxury-purchase-card" style="border: 1px solid var(--color-border); padding: 2.25rem; border-radius: 4px; background: rgba(255, 255, 255, 0.01); margin-top: 3.5rem; margin-bottom: 3.5rem; display: flex; flex-direction: column; gap: 1.75rem;">
+                            <div>
+                                <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-text); margin: 0 0 0.5rem 0; font-weight: 600; text-transform: none; letter-spacing: 0;">Acquire This Rug</h2>
+                                <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin: 0;">Our specialists are available to answer questions, provide additional photographs, arrange private showroom visits, or schedule a personalized video consultation.</p>
                             </div>
-                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
-                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
-                                <span style="font-weight: 500;">100% Wool Construction (Warp & Weft)</span>
-                            </div>
-                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
-                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
-                                <span style="font-weight: 500;">Professionally Washed (Organic Shampoo)</span>
-                            </div>
-                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
-                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
-                                <span style="font-weight: 500;">Professionally Restored & Preserved</span>
-                            </div>
-                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
-                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
-                                <span style="font-weight: 500;">One of a Kind Authentic Piece</span>
-                            </div>
-                            <div class="rug-trust-item" style="display: flex; align-items: center; gap: 0.75rem; color: var(--color-text-muted); font-size: 0.95rem;">
-                                <i class="fa-solid fa-circle-check" style="color: var(--color-primary); font-size: 1.1rem; flex-shrink: 0;"></i>
-                                <span style="font-weight: 500;">Ready for Immediate Purchase</span>
-                            </div>
-                        </div>
 
-                        <!-- Action CTAs -->
-                        <div class="rug-detail-ctas" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; margin-bottom: 3.5rem;">
-                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                                <a href="index.html?interest=contact-team&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="flex: 1; min-width: 200px; text-align: center; padding: 1rem 1.5rem; font-size: 1rem;"><i class="fa-solid fa-circle-info"></i> Request More Information</a>
-                                <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="flex: 1; min-width: 200px; text-align: center; padding: 1rem 1.5rem; font-size: 1rem;"><i class="fa-solid fa-calendar-days"></i> Schedule an In-Store Viewing</a>
+                            <!-- Scarcity / Availability Indicator -->
+                            <div style="font-size: 0.85rem; color: var(--color-primary); font-weight: 500; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.03); padding-bottom: 0.75rem;">
+                                <i class="fa-solid fa-gem" style="font-size: 0.85em;"></i>
+                                <span>Only One Authentic Piece Exists &nbsp;&bull;&nbsp; Once Sold, This Rug Will Not Return</span>
                             </div>
-                            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 0.5rem; border-top: 1px solid var(--color-border); padding-top: 1rem;">
-                                <a href="tel:+16178686667" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-phone" style="color: var(--color-primary);"></i> Call Store: (617) 868-6667</a>
-                                <a href="index.html?interest=video-tour&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-video" style="color: var(--color-primary);"></i> Request a Video Tour</a>
+
+                            <!-- Primary CTA Button (Visually Dominant) -->
+                            <div>
+                                <a href="index.html?interest=contact-team&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="display: block; width: 100%; text-align: center; padding: 1.15rem; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.05em; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15); transition: var(--transition-quick);"><i class="fa-solid fa-circle-info" style="margin-right: 0.5rem;"></i> Request More Information</a>
+                            </div>
+
+                            <!-- Secondary CTA Actions (Grid / Stack) -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 1rem;">
+                                <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="text-align: center; padding: 0.85rem 1rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><i class="fa-solid fa-calendar-days"></i> Schedule Showroom Viewing</a>
+                                <a href="index.html?interest=video-tour&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="text-align: center; padding: 0.85rem 1rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><i class="fa-solid fa-video"></i> Video Consultation</a>
+                                <a href="tel:+16178686667" class="btn btn-outline" style="text-align: center; padding: 0.85rem 1rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><i class="fa-solid fa-phone"></i> Call Specialists</a>
+                            </div>
+
+                            <!-- Trust Signals (Visually Understated) -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 1rem; font-size: 0.85rem; color: var(--color-text-muted);">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
+                                    <span>One-of-a-Kind Handmade Rug</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
+                                    <span>Professionally Inspected</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
+                                    <span>Ready for Immediate Acquisition</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
+                                    <span>Additional Photos Upon Request</span>
+                                </div>
                             </div>
                         </div>
 
