@@ -1100,13 +1100,33 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span class="rug-detail-spec-value">${rug.age}</span>
                             </div>
                         </div>
-                        
+
                         <!-- Semantic H2 Headings -->
                         <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Description</h2>
                         <div class="rug-detail-description-content" style="margin-bottom: 3.5rem;">
                             ${renderDescription(rug.description)}
                         </div>
-                        
+
+                        <!-- Storytelling Section -->
+                        ${rug.story ? `
+                            <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">The Story Behind This Rug</h2>
+                            <div class="rug-story-container" style="background: rgba(255, 255, 255, 0.01); border: 1px solid var(--color-border); padding: 2rem; border-radius: 4px; margin-bottom: 3.5rem;">
+                                <!-- Elegant pull quote -->
+                                <div class="rug-story-quote" style="font-family: var(--font-heading); font-size: 1.25rem; font-style: italic; color: var(--color-primary); line-height: 1.6; text-align: center; margin-bottom: 2rem; position: relative; padding: 0 1.5rem;">
+                                    <span style="font-size: 3rem; opacity: 0.2; position: absolute; left: 0; top: -1rem; font-family: Georgia, serif;">&ldquo;</span>
+                                    A one-of-a-kind Anatolian masterpiece, hand-knotted with pure wool and preserved with three centuries of heritage expertise.
+                                    <span style="font-size: 3rem; opacity: 0.2; position: absolute; right: 0; bottom: -2rem; font-family: Georgia, serif;">&rdquo;</span>
+                                </div>
+                                <div class="rug-story-content" style="font-size: 1.05rem; line-height: 1.8; color: var(--color-text-muted);">
+                                    ${renderDescription(rug.story)}
+                                </div>
+                                <!-- Decorative traditional rug divider -->
+                                <div class="rug-story-divider" style="text-align: center; margin-top: 2rem; color: var(--color-primary); opacity: 0.5; font-size: 1.2rem; letter-spacing: 0.3em;">
+                                    &#10070; &nbsp; &#10070; &nbsp; &#10070;
+                                </div>
+                            </div>
+                        ` : ''}
+
                         ${specsHTML ? `
                             <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Specifications</h2>
                             <div class="rug-detail-specs-grid" style="margin-top: 1.5rem;">${specsHTML}</div>
