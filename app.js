@@ -429,7 +429,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const collectionParam = params.get('collection');
-                if (collectionParam) collectionParam.split(',').forEach(c => activeFilters.collection.add(c));
+                if (collectionParam) {
+                    collectionParam.split(',').forEach(c => {
+                        let val = c.trim();
+                        // Normalize short URL collection names to match dynamic dataset checkbox values
+                        if (val === 'Beacon Hill') val = 'Beacon Hill Collection';
+                        else if (val === 'Seaport') val = 'Seaport Collection';
+                        else if (val === 'Back Bay') val = 'Back Bay Collection';
+                        activeFilters.collection.add(val);
+                    });
+                }
                 
                 // Sync UI checkboxes and radios
                 document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(cb => {
@@ -802,8 +811,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 // --- SEO: Update Dynamic Metadata ---
-                // Title Tag
-                document.title = rug.seo && rug.seo.title ? rug.seo.title : `${rug.name} | Noor Oriental Rugs`;
+                const finalTitle = rug.seo && rug.seo.title ? rug.seo.title : `${rug.name} | Noor Oriental Rugs`;
+                document.title = finalTitle;
                 
                 // Meta Description
                 let metaDesc = document.querySelector('meta[name="description"]');
@@ -813,7 +822,49 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.head.appendChild(metaDesc);
                 }
                 const defaultDesc = (rug.description || 'Browse our handmade Persian and Oriental rugs.').substring(0, 155) + '...';
-                metaDesc.content = rug.seo && rug.seo.description ? rug.seo.description : defaultDesc;
+                const finalDesc = rug.seo && rug.seo.description ? rug.seo.description : defaultDesc;
+                metaDesc.content = finalDesc;
+
+                // Dynamic Canonical Tag
+                let canonical = document.querySelector('link[rel="canonical"]');
+                const detailUrl = window.location.href;
+                if (canonical) {
+                    canonical.href = detailUrl;
+                }
+
+                // Dynamic Open Graph & Twitter Tags for Premium Sharing Previews
+                const updateMetaProperty = (property, content) => {
+                    let meta = document.querySelector(`meta[property="${property}"]`);
+                    if (!meta) {
+                        meta = document.createElement('meta');
+                        meta.setAttribute('property', property);
+                        document.head.appendChild(meta);
+                    }
+                    meta.content = content;
+                };
+
+                const updateMetaName = (name, content) => {
+                    let meta = document.querySelector(`meta[name="${name}"]`);
+                    if (!meta) {
+                        meta = document.createElement('meta');
+                        meta.setAttribute('name', name);
+                        document.head.appendChild(meta);
+                    }
+                    meta.content = content;
+                };
+
+                const mainImageAbsolute = window.location.origin + '/' + (rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png');
+
+                updateMetaProperty('og:title', finalTitle);
+                updateMetaProperty('og:description', finalDesc);
+                updateMetaProperty('og:image', mainImageAbsolute);
+                updateMetaProperty('og:url', detailUrl);
+                updateMetaProperty('og:type', 'product');
+
+                updateMetaName('twitter:title', finalTitle);
+                updateMetaName('twitter:description', finalDesc);
+                updateMetaName('twitter:image', mainImageAbsolute);
+                updateMetaName('twitter:card', 'summary_large_image');
 
                 // --- Update Visible Breadcrumbs ---
                 const breadcrumbContainer = document.getElementById('rug-breadcrumb-container');
@@ -928,7 +979,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </ul>
 
                         <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--color-text);">Visit Our Showroom</h2>
-                        <p style="color: var(--color-text-muted); margin-bottom: 1rem;">Interested in this piece? <a href="index.html#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">Contact us for a free evaluation</a> or to schedule an in-home trial in the Boston area.</p>
+                        <p style="color: var(--color-text-muted); margin-bottom: 1rem;">Interested in this piece? <a href="index.html?interest=evaluation&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">Contact us for a free evaluation</a> or <a href="index.html?interest=trial&rug=${encodeURIComponent(rug.name)}#contact" style="color: var(--color-primary); text-decoration: underline; font-weight: 500;">schedule an in-home trial</a> in the Boston area.</p>
                     </div>
                 `;
 
@@ -1064,10 +1115,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Auto-select Request Type from URL Parameters
+// Auto-select Request Type and pre-fill form from URL Parameters
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const interestParam = urlParams.get('interest');
+    const rugParam = urlParams.get('rug');
     
     if (interestParam) {
         const interestSelect = document.getElementById('interest');
@@ -1076,6 +1128,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const optionExists = Array.from(interestSelect.options).some(opt => opt.value === interestParam);
             if (optionExists) {
                 interestSelect.value = interestParam;
+            }
+        }
+    }
+    
+    if (rugParam) {
+        const messageTextArea = document.getElementById('message');
+        if (messageTextArea) {
+            const decodedRug = decodeURIComponent(rugParam);
+            if (interestParam === 'trial') {
+                messageTextArea.value = `I am interested in arranging a 3-Day In-Home Trial for the rug: "${decodedRug}". Please contact me to coordinate.`;
+            } else if (interestParam === 'evaluation') {
+                messageTextArea.value = `I would like to request a free evaluation for the rug: "${decodedRug}". Please provide details on next steps.`;
+            } else {
+                messageTextArea.value = `Inquiry regarding rug: "${decodedRug}".`;
             }
         }
     }
