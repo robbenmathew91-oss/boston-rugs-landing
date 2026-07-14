@@ -1118,41 +1118,49 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 }
 
-                // Format description text helper supporting section headings — premium editorial style
+                // Format description text — premium editorial style
+                // Data format: blocks separated by \n\n. Each block may be:
+                //   a) "### Heading\nParagraph text"  — heading + body on adjacent lines
+                //   b) "Plain paragraph text"          — standalone body paragraph
                 const renderDescription = (text) => {
                     if (!text) return '';
-                    // Split into blocks separated by double newlines
-                    const blocks = text.split('\n\n');
-                    let html = '';
-                    let inSection = false;
 
-                    blocks.forEach((block, idx) => {
-                        if (block.startsWith('### ')) {
-                            // Close previous section if open
-                            if (inSection) html += `</div>`;
-                            const headingText = block.replace('### ', '').trim();
-                            // Open new editorial section with heading
-                            html += `
-                                <div class="rug-editorial-section">
-                                    <h3 class="rug-editorial-heading">
-                                        <span class="rug-editorial-heading-accent"></span>
-                                        ${headingText}
-                                    </h3>
-                            `;
-                            inSection = true;
+                    const applyEmphasis = (str) => str
+                        .replace(/\b(hand-knotted|handmade|hand knotted|hand-woven|handwoven)\b/gi,    '<em class="rug-editorial-em">$1</em>')
+                        .replace(/\b(natural wool|100% natural wool|pure wool|natural lanolin)\b/gi,    '<em class="rug-editorial-em">$1</em>')
+                        .replace(/\b(professionally (hand-washed|restored|cleaned)|organic (green )?shampoo)\b/gi, '<em class="rug-editorial-em">$1</em>')
+                        .replace(/\b(one-of-a-kind|unique collector'?s? piece|heritage|cultural heritage|collector'?s? piece)\b/gi, '<em class="rug-editorial-em">$1</em>');
+
+                    let html = '';
+
+                    // Split on double newlines to get top-level sections
+                    const blocks = text.split('\n\n');
+
+                    blocks.forEach(block => {
+                        const trimmed = block.trim();
+                        if (!trimmed) return;
+
+                        if (trimmed.startsWith('### ')) {
+                            // Split on single newline: first line = heading, rest = body
+                            const lines = trimmed.split('\n');
+                            const headingText = lines[0].replace(/^###\s*/, '').trim();
+                            const bodyLines   = lines.slice(1).map(l => l.trim()).filter(Boolean);
+
+                            html += `<div class="rug-editorial-section">`;
+                            html += `<h3 class="rug-editorial-heading"><span class="rug-editorial-heading-accent"></span>${headingText}</h3>`;
+
+                            bodyLines.forEach(line => {
+                                html += `<p class="rug-editorial-body">${applyEmphasis(line)}</p>`;
+                            });
+
+                            html += `</div>`;
+
                         } else {
-                            // Body paragraph — apply subtle keyword emphasis
-                            const emphasizedBlock = block
-                                .replace(/\b(hand-knotted|handmade|hand knotted|hand-woven|handwoven)\b/gi, '<em class="rug-editorial-em">$1</em>')
-                                .replace(/\b(natural wool|100% natural wool|pure wool|natural lanolin)\b/gi, '<em class="rug-editorial-em">$1</em>')
-                                .replace(/\b(professionally (hand-washed|restored|cleaned)|organic (green )?shampoo)\b/gi, '<em class="rug-editorial-em">$1</em>')
-                                .replace(/\b(one-of-a-kind|unique collector'?s? piece|heritage|cultural heritage|collector'?s? piece)\b/gi, '<em class="rug-editorial-em">$1</em>');
-                            html += `<p class="rug-editorial-body">${emphasizedBlock}</p>`;
+                            // Plain paragraph (no section wrapper — orphan text before first heading)
+                            html += `<p class="rug-editorial-body">${applyEmphasis(trimmed)}</p>`;
                         }
                     });
 
-                    // Close last open section
-                    if (inSection) html += `</div>`;
                     return html;
                 };
 
