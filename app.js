@@ -1157,155 +1157,174 @@ document.addEventListener('DOMContentLoaded', () => {
                         </details>
                     </div>
                 `;
-                
-                detailContainer.className = 'rug-detail-layout';
+
+                detailContainer.className = '';
                 detailContainer.innerHTML = `
-                    <div class="rug-detail-image-column">
-                        <div class="rug-detail-image-wrapper" id="main-zoom-wrapper" style="position: relative; background: #000; overflow: hidden; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
-                            <!-- Elegant loading spinner behind the image -->
-                            <div class="gallery-spinner" style="position: absolute; color: var(--color-primary); font-size: 1.5rem; z-index: 1;"><i class="fa-solid fa-spinner fa-spin"></i></div>
-                            
-                            <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0" style="position: relative; z-index: 2; width: 100%; height: 100%; object-fit: contain; cursor: zoom-in; opacity: 1; transition: opacity 0.25s ease-in-out, transform 0.3s ease-out;">
-                            
-                            <!-- Elegant Image Counter overlay -->
-                            <div id="gallery-counter" style="position: absolute; bottom: 1rem; right: 1rem; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); color: #fff; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 3; transition: opacity 0.25s ease;">
-                                Image 1 of ${mainImages.length}
+                    <div class="rug-detail-layout">
+                        <div class="rug-detail-image-column">
+                            <div class="rug-detail-image-wrapper" id="main-zoom-wrapper" style="position: relative; background: var(--color-card-bg); overflow: hidden; display: flex; align-items: center; justify-content: center; width: fit-content; max-width: 100%; margin: 0 auto;">
+                                <!-- Elegant loading spinner behind the image -->
+                                <div class="gallery-spinner" style="position: absolute; color: var(--color-primary); font-size: 1.5rem; z-index: 1;"><i class="fa-solid fa-spinner fa-spin"></i></div>
+                                
+                                <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0" style="position: relative; z-index: 2; cursor: zoom-in; opacity: 1;">
+                                
+                                <!-- Elegant Image Counter overlay -->
+                                <div id="gallery-counter" style="position: absolute; bottom: 1rem; right: 1rem; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); color: #fff; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 3; transition: opacity 0.25s ease;">
+                                    Image 1 of ${mainImages.length}
+                                </div>
                             </div>
+                            ${thumbnailsHTML}
+                            ${documentationHTML}
                         </div>
-                        ${thumbnailsHTML}
-                        ${documentationHTML}
+                        <div class="rug-detail-info">
+                            <!-- H1: Main Title -->
+                            <h1 class="rug-detail-title">${rug.name}</h1>
+                            
+                            <div class="rug-detail-price-row" style="display: flex; align-items: center; gap: 1.5rem; margin-top: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; flex-wrap: wrap;">
+                                <div class="rug-detail-price" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0; font-size: 2.25rem; font-weight: 500; color: var(--color-text);">${formatPrice}</div>
+                                ${availabilityBadge}
+                            </div>
+     
+                            <!-- Compact 'Rug at a Glance' Section (5 key facts: Origin, Size, Material, Age, Condition) -->
+                            <div class="rug-glance-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 0.75rem; margin-bottom: 2.5rem; width: 100%;">
+                                <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
+                                    <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div>
+                                        <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Origin</span>
+                                        <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.origin}</span>
+                                    </div>
+                                </div>
+                                <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
+                                    <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-maximize"></i></div>
+                                    <div>
+                                        <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Size</span>
+                                        <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.size}</span>
+                                    </div>
+                                </div>
+                                <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
+                                    <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-layer-group"></i></div>
+                                    <div>
+                                        <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Material</span>
+                                        <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.material}</span>
+                                    </div>
+                                </div>
+                                <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
+                                    <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-clock"></i></div>
+                                    <div>
+                                        <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Age</span>
+                                        <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.age}</span>
+                                    </div>
+                                </div>
+                                <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
+                                    <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-sparkles"></i></div>
+                                    <div>
+                                        <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Condition</span>
+                                        <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.condition.includes('/') ? rug.condition.split('/')[0].trim() : rug.condition}</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- Semantic H2 Headings -->
+                            <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Description</h2>
+                            <div class="rug-detail-description-content" style="margin-bottom: 3.5rem;">
+                                ${renderDescription(rug.description)}
+                            </div>
+    
+                            <!-- Storytelling Section -->
+                            ${rug.story ? `
+                                <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">The Story Behind This Rug</h2>
+                                <div class="rug-story-container" style="background: rgba(255, 255, 255, 0.01); border: 1px solid var(--color-border); padding: 2rem; border-radius: 4px; margin-bottom: 3.5rem;">
+                                    <!-- Elegant pull quote -->
+                                    <div class="rug-story-quote" style="font-family: var(--font-heading); font-size: 1.25rem; font-style: italic; color: var(--color-primary); line-height: 1.6; text-align: center; margin-bottom: 2rem; position: relative; padding: 0 1.5rem;">
+                                        <span style="font-size: 3rem; opacity: 0.2; position: absolute; left: 0; top: -1rem; font-family: Georgia, serif;">&ldquo;</span>
+                                        A one-of-a-kind Anatolian masterpiece, hand-knotted with pure wool and preserved with three centuries of heritage expertise.
+                                        <span style="font-size: 3rem; opacity: 0.2; position: absolute; right: 0; bottom: -2rem; font-family: Georgia, serif;">&rdquo;</span>
+                                    </div>
+                                    <div class="rug-story-content" style="font-size: 1.05rem; line-height: 1.8; color: var(--color-text-muted);">
+                                        ${renderDescription(rug.story)}
+                                    </div>
+                                    <!-- Decorative traditional rug divider -->
+                                    <div class="rug-story-divider" style="text-align: center; margin-top: 2rem; color: var(--color-primary); opacity: 0.5; font-size: 1.2rem; letter-spacing: 0.3em;">
+                                        &#10070; &nbsp; &#10070; &nbsp; &#10070;
+                                    </div>
+                                </div>
+                            ` : ''}
+    
+                            ${specsHTML ? `
+                                <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Specifications</h2>
+                                <div class="rug-detail-specs-grid" style="margin-top: 1.5rem;">${specsHTML}</div>
+                            ` : ''}
+    
+                            <!-- Luxury Purchase Experience Panel -->
+                            <div class="luxury-purchase-card" style="border: 1px solid var(--color-border); padding: 2.25rem; border-radius: 4px; background: rgba(255, 255, 255, 0.01); margin-top: 3.5rem; margin-bottom: 3.5rem; display: flex; flex-direction: column; gap: 1.75rem;">
+                                <div>
+                                    <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-text); margin: 0 0 0.5rem 0; font-weight: 600; text-transform: none; letter-spacing: 0;">Acquire This Rug</h2>
+                                    <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin: 0;">Our specialists are available to answer questions, provide additional photographs, arrange private showroom visits, or schedule a personalized video consultation.</p>
+                                </div>
+    
+                                <!-- Scarcity / Availability Indicator -->
+                                <div style="font-size: 0.85rem; color: var(--color-primary); font-weight: 500; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.03); padding-bottom: 0.75rem;">
+                                    <i class="fa-solid fa-gem" style="font-size: 0.85em;"></i>
+                                    <span>Only One Authentic Piece Exists &nbsp;&bull;&nbsp; Once Sold, This Rug Will Not Return</span>
+                                </div>
+    
+                                <!-- Primary CTA Button (Visually Dominant) -->
+                                <div>
+                                    <a href="index.html?interest=contact-team&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="display: block; width: 100%; text-align: center; padding: 1.15rem; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.05em; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15); transition: var(--transition-quick);"><i class="fa-solid fa-circle-info" style="margin-right: 0.5rem;"></i> Request More Information</a>
+                                </div>
+    
+                                <!-- Secondary CTA Actions (Grid / Stack) -->
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 1rem;">
+                                    <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="text-align: center; padding: 0.85rem 1rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><i class="fa-solid fa-calendar-days"></i> Schedule Showroom Viewing</a>
+                                    <a href="index.html?interest=video-tour&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="text-align: center; padding: 0.85rem 1rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><i class="fa-solid fa-video"></i> Video Consultation</a>
+                                    <a href="tel:+16178686667" class="btn btn-outline" style="text-align: center; padding: 0.85rem 1rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><i class="fa-solid fa-phone"></i> Call Specialists</a>
+                                </div>
+    
+                                <!-- Trust Signals (Visually Understated) -->
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 1rem; font-size: 0.85rem; color: var(--color-text-muted);">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
+                                        <span>One-of-a-Kind Handmade Rug</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
+                                        <span>Professionally Inspected</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
+                                        <span>Ready for Immediate Acquisition</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
+                                        <span>Additional Photos Upon Request</span>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- Core Services & Appraisal Links -->
+                            <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 4px; margin-bottom: 3.5rem;">
+                                <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-text); margin-top: 0; margin-bottom: 1rem;">Additional Services & Consultations</h3>
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                                    <a href="rug-cleaning.html" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Professional Rug Cleaning</a>
+                                    <a href="rug-restoration.html" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Expert Rug Restoration</a>
+                                    <a href="rug-appraisals.html" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Certified Rug Appraisal</a>
+                                    <a href="index.html?interest=consultation#contact" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Schedule a Rug Consultation</a>
+                                </div>
+                            </div>
+    
+                            <!-- Social Proof & Trust Badges -->
+                            ${trustBadgesHTML}
+                        </div>
                     </div>
-                    <div class="rug-detail-info">
-                        <!-- H1: Main Title -->
-                        <h1 class="rug-detail-title">${rug.name}</h1>
-                        
-                        <div class="rug-detail-price-row" style="display: flex; align-items: center; gap: 1.5rem; margin-top: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--color-border); padding-bottom: 1.5rem; flex-wrap: wrap;">
-                            <div class="rug-detail-price" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0; font-size: 2.25rem; font-weight: 500; color: var(--color-text);">${formatPrice}</div>
-                            ${availabilityBadge}
-                        </div>
-
-                        <!-- Compact 'Rug at a Glance' Section (5 key facts: Origin, Size, Material, Age, Condition) -->
-                        <div class="rug-glance-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
-                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
-                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-location-dot"></i></div>
-                                <div>
-                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Origin</span>
-                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.origin}</span>
-                                </div>
-                            </div>
-                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
-                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-maximize"></i></div>
-                                <div>
-                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Size</span>
-                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.size}</span>
-                                </div>
-                            </div>
-                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
-                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-layer-group"></i></div>
-                                <div>
-                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Material</span>
-                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.material}</span>
-                                </div>
-                            </div>
-                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
-                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-clock"></i></div>
-                                <div>
-                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Age</span>
-                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.age}</span>
-                                </div>
-                            </div>
-                            <div class="rug-glance-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); padding: 1rem; border-radius: 4px; display: flex; align-items: center; gap: 0.75rem; height: 100%;">
-                                <div style="color: var(--color-primary); font-size: 1.25rem;"><i class="fa-solid fa-sparkles"></i></div>
-                                <div>
-                                    <span style="display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Condition</span>
-                                    <span style="font-size: 0.9rem; color: var(--color-text); font-weight: 500; display: block; margin-top: 2px;">${rug.condition.includes('/') ? rug.condition.split('/')[0].trim() : rug.condition}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Semantic H2 Headings -->
-                        <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Description</h2>
-                        <div class="rug-detail-description-content" style="margin-bottom: 3.5rem;">
-                            ${renderDescription(rug.description)}
-                        </div>
-
-                        <!-- Storytelling Section -->
-                        ${rug.story ? `
-                            <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">The Story Behind This Rug</h2>
-                            <div class="rug-story-container" style="background: rgba(255, 255, 255, 0.01); border: 1px solid var(--color-border); padding: 2rem; border-radius: 4px; margin-bottom: 3.5rem;">
-                                <!-- Elegant pull quote -->
-                                <div class="rug-story-quote" style="font-family: var(--font-heading); font-size: 1.25rem; font-style: italic; color: var(--color-primary); line-height: 1.6; text-align: center; margin-bottom: 2rem; position: relative; padding: 0 1.5rem;">
-                                    <span style="font-size: 3rem; opacity: 0.2; position: absolute; left: 0; top: -1rem; font-family: Georgia, serif;">&ldquo;</span>
-                                    A one-of-a-kind Anatolian masterpiece, hand-knotted with pure wool and preserved with three centuries of heritage expertise.
-                                    <span style="font-size: 3rem; opacity: 0.2; position: absolute; right: 0; bottom: -2rem; font-family: Georgia, serif;">&rdquo;</span>
-                                </div>
-                                <div class="rug-story-content" style="font-size: 1.05rem; line-height: 1.8; color: var(--color-text-muted);">
-                                    ${renderDescription(rug.story)}
-                                </div>
-                                <!-- Decorative traditional rug divider -->
-                                <div class="rug-story-divider" style="text-align: center; margin-top: 2rem; color: var(--color-primary); opacity: 0.5; font-size: 1.2rem; letter-spacing: 0.3em;">
-                                    &#10070; &nbsp; &#10070; &nbsp; &#10070;
-                                </div>
-                            </div>
-                        ` : ''}
-
-                        ${specsHTML ? `
-                            <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Specifications</h2>
-                            <div class="rug-detail-specs-grid" style="margin-top: 1.5rem;">${specsHTML}</div>
-                        ` : ''}
-
-                        <!-- Luxury Purchase Experience Panel -->
-                        <div class="luxury-purchase-card" style="border: 1px solid var(--color-border); padding: 2.25rem; border-radius: 4px; background: rgba(255, 255, 255, 0.01); margin-top: 3.5rem; margin-bottom: 3.5rem; display: flex; flex-direction: column; gap: 1.75rem;">
-                            <div>
-                                <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-text); margin: 0 0 0.5rem 0; font-weight: 600; text-transform: none; letter-spacing: 0;">Acquire This Rug</h2>
-                                <p style="font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.6; margin: 0;">Our specialists are available to answer questions, provide additional photographs, arrange private showroom visits, or schedule a personalized video consultation.</p>
-                            </div>
-
-                            <!-- Scarcity / Availability Indicator -->
-                            <div style="font-size: 0.85rem; color: var(--color-primary); font-weight: 500; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.03); padding-bottom: 0.75rem;">
-                                <i class="fa-solid fa-gem" style="font-size: 0.85em;"></i>
-                                <span>Only One Authentic Piece Exists &nbsp;&bull;&nbsp; Once Sold, This Rug Will Not Return</span>
-                            </div>
-
-                            <!-- Primary CTA Button (Visually Dominant) -->
-                            <div>
-                                <a href="index.html?interest=contact-team&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-primary" style="display: block; width: 100%; text-align: center; padding: 1.15rem; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.05em; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15); transition: var(--transition-quick);"><i class="fa-solid fa-circle-info" style="margin-right: 0.5rem;"></i> Request More Information</a>
-                            </div>
-
-                            <!-- Secondary CTA Actions (Grid / Stack) -->
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 1rem;">
-                                <a href="index.html?interest=showroom&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="text-align: center; padding: 0.85rem 1rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><i class="fa-solid fa-calendar-days"></i> Schedule Showroom Viewing</a>
-                                <a href="index.html?interest=video-tour&rug=${encodeURIComponent(rug.name)}#contact" class="btn btn-outline" style="text-align: center; padding: 0.85rem 1rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><i class="fa-solid fa-video"></i> Video Consultation</a>
-                                <a href="tel:+16178686667" class="btn btn-outline" style="text-align: center; padding: 0.85rem 1rem; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"><i class="fa-solid fa-phone"></i> Call Specialists</a>
-                            </div>
-
-                            <!-- Trust Signals (Visually Understated) -->
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; border-top: 1px solid rgba(255, 255, 255, 0.03); padding-top: 1rem; font-size: 0.85rem; color: var(--color-text-muted);">
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
-                                    <span>One-of-a-Kind Handmade Rug</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
-                                    <span>Professionally Inspected</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
-                                    <span>Ready for Immediate Acquisition</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fa-solid fa-check" style="color: var(--color-primary); font-size: 0.9em;"></i>
-                                    <span>Additional Photos Upon Request</span>
-                                </div>
-                            </div>
-                        </div>
-
+                    
+                    <!-- Bottom full-width sections outside the 2-column grid -->
+                    <div class="rug-detail-bottom-sections" style="width: 100%; margin-top: 3.5rem;">
                         <!-- Dynamic FAQ Section -->
                         ${faqHTML}
-
+    
                         <!-- Related Rugs Section (Visual Cards Grid) -->
                         ${relatedHTML}
-
+    
                         <!-- Redesigned 'Visit Our Showroom' Section -->
                         <div class="showroom-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-left: 3px solid var(--color-primary); padding: 1.75rem; border-radius: 4px; margin-top: 3.5rem; margin-bottom: 3.5rem;">
                             <div style="display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap;">
@@ -1317,20 +1336,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Core Services & Appraisal Links -->
-                        <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 4px; margin-bottom: 3.5rem;">
-                            <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-text); margin-top: 0; margin-bottom: 1rem;">Additional Services & Consultations</h3>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                                <a href="rug-cleaning.html" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Professional Rug Cleaning</a>
-                                <a href="rug-restoration.html" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Expert Rug Restoration</a>
-                                <a href="rug-appraisals.html" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Certified Rug Appraisal</a>
-                                <a href="index.html?interest=consultation#contact" style="color: var(--color-text-muted); text-decoration: none; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;" class="cta-sub-link"><i class="fa-solid fa-circle-arrow-right" style="color: var(--color-primary);"></i> Schedule a Rug Consultation</a>
-                            </div>
-                        </div>
-
-                        <!-- Social Proof & Trust Badges -->
-                        ${trustBadgesHTML}
                     </div>
                 `;
 

@@ -2466,9 +2466,10 @@ body.modal-open {
 /* --- Dynamic Rug Detail Page --- */
 .rug-detail-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 3rem;
     align-items: start;
+    max-width: 100%;
 }
 
 @media (max-width: 992px) {
@@ -2487,35 +2488,36 @@ body.modal-open {
     position: sticky;
     top: 100px;
     align-self: start;
+    min-width: 0;
 }
 
 .rug-detail-image-wrapper {
     background: var(--color-card-bg);
     border: 1px solid var(--color-border);
-    padding: 1rem;
-    /* NO overflow:hidden — that was clipping the thumbnails */
-    overflow: visible;
+    padding: 0.5rem;
+    overflow: hidden;
     cursor: zoom-in;
-    /* Cap height so thumbnails always fit below in the sticky column */
-    max-height: calc(100vh - 340px);
+    max-height: calc(100vh - 280px);
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .rug-detail-main-img {
-    width: 100%;
-    /* Fill the capped wrapper without cropping */
-    max-height: calc(100vh - 360px);
+    max-width: 100%;
+    max-height: calc(100vh - 300px);
     height: auto;
+    width: auto;
     display: block;
     object-fit: contain;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.25s ease-in-out;
     transform-origin: center center;
 }
 
 .rug-detail-info {
     color: var(--color-text-muted);
+    min-width: 0;
 }
 
 .rug-detail-title {
@@ -2524,6 +2526,9 @@ body.modal-open {
     color: var(--color-text);
     margin-bottom: 0.5rem;
     line-height: 1.1;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .rug-detail-origin {
