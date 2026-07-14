@@ -3908,123 +3908,140 @@ body.lightbox-open {
 
 /* ==========================================================================
    RUG DETAIL — PREMIUM EDITORIAL DESCRIPTION TYPOGRAPHY
-   Scoped to .rug-editorial-* — no global impact
+   Scoped to .rug-editorial-* — zero global impact on any other section
    ========================================================================== */
 
-/* Top-level article wrapper for the Description block */
+/* ── Outer article wrapper ─────────────────────────────────────────────── */
 .rug-editorial-article {
-    margin-bottom: 4rem;
+    margin-bottom: 4.5rem;
 }
 
-/* The "Description" h2 title — understated elegance, no heavy border */
+/* ── "DESCRIPTION" label — small-caps, very understated ───────────────── */
 .rug-editorial-article-title {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
     font-weight: 500;
-    color: var(--color-text);
-    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-size: 0.8rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--color-border);
-    color: var(--color-text-muted);
+    opacity: 0.7;
 }
 
-/* Each ### section becomes a self-contained editorial block */
+/* ── Each ### heading block with its following paragraphs ─────────────── */
 .rug-editorial-section {
-    margin-bottom: 2.75rem;
-    padding-top: 0.25rem;
+    margin-bottom: 3.5rem;     /* spacious breathing room between sections */
+    padding-top: 0;
 }
 
-.rug-editorial-section:first-child {
-    margin-top: 0;
+.rug-editorial-section:last-child {
+    margin-bottom: 0;
 }
 
-/* Section heading: serif, generous spacing, gold accent bar on left */
+/* ── Section heading — elegant serif, clearly separated from body ─────── */
 .rug-editorial-heading {
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
     font-weight: 600;
-    color: var(--color-text);
-    line-height: 1.3;
-    letter-spacing: 0.02em;
-    margin-bottom: 1.1rem;
+    color: var(--color-text);         /* full luminance — anchors each section */
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    margin-top: 0;
+    margin-bottom: 1.5rem;            /* generous gap before paragraph begins */
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 0.8rem;
 }
 
-/* Gold accent vertical bar beside heading */
+/* ── Gold accent bar — restrained, 2px, fades toward base ─────────────── */
 .rug-editorial-heading-accent {
     display: inline-block;
-    width: 3px;
-    height: 1.2em;
+    flex-shrink: 0;
+    width: 2px;
+    /* height matches one cap-height line of the heading font */
+    height: 1.1em;
+    margin-top: 0.12em;
+    border-radius: 2px;
     background: linear-gradient(
         to bottom,
-        var(--color-primary) 0%,
-        rgba(212, 175, 55, 0.3) 100%
+        rgba(212, 175, 55, 0.85)  0%,
+        rgba(212, 175, 55, 0.1)  100%
     );
-    border-radius: 2px;
-    flex-shrink: 0;
-    margin-top: 0.1em;
-    align-self: flex-start;
 }
 
-/* Body paragraph: comfortable reading width, relaxed line height */
+/* ── Body paragraphs — sans-serif, light, spacious ────────────────────── */
 .rug-editorial-body {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.85;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.94rem;             /* slightly smaller than headings */
+    font-weight: 300;               /* visibly lighter than the 600-weight heading */
+    line-height: 1.95;              /* generous — never cramped */
     color: var(--color-text-muted);
-    margin-bottom: 1rem;
-    max-width: 68ch;   /* ~68 characters — optimal readability */
-    font-weight: 300;
+    max-width: 66ch;                /* ~66 chars — comfortable reading measure */
+    margin-bottom: 1.1rem;
+    letter-spacing: 0.01em;
 }
 
 .rug-editorial-body:last-child {
     margin-bottom: 0;
 }
 
-/* Subtle italic emphasis on key phrases — not bold, not gold, just refined */
+/* ── Subtle emphasis on key heritage phrases ──────────────────────────── */
 .rug-editorial-em {
-    font-style: italic;
-    font-weight: 400;
-    color: rgba(212, 175, 55, 0.8); /* very soft gold — barely noticeable */
     font-style: normal;
-    letter-spacing: 0.01em;
+    font-weight: 400;               /* one step above body weight — barely noticeable */
+    color: rgba(212, 175, 55, 0.65); /* very soft, warm gold */
+    letter-spacing: 0.015em;
 }
 
-/* --- Responsive Adjustments --- */
+/* ── Responsive: tablet ───────────────────────────────────────────────── */
 @media (max-width: 1200px) {
     .rug-editorial-body {
         max-width: 100%;
     }
 }
 
+@media (max-width: 1024px) {
+    .rug-editorial-section {
+        margin-bottom: 3rem;
+    }
+}
+
 @media (max-width: 768px) {
     .rug-editorial-heading {
         font-size: 1.1rem;
+        margin-bottom: 1.25rem;
     }
 
     .rug-editorial-body {
-        font-size: 0.97rem;
+        font-size: 0.93rem;
+        line-height: 1.85;
+    }
+
+    .rug-editorial-section {
+        margin-bottom: 2.5rem;
+    }
+}
+
+/* ── Responsive: mobile ───────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .rug-editorial-heading {
+        font-size: 1.05rem;
+        gap: 0.65rem;
+        margin-bottom: 1.1rem;
+    }
+
+    .rug-editorial-body {
+        font-size: 0.91rem;
         line-height: 1.8;
     }
 
     .rug-editorial-section {
         margin-bottom: 2.25rem;
     }
-}
 
-@media (max-width: 480px) {
-    .rug-editorial-heading {
-        font-size: 1.05rem;
-        gap: 0.6rem;
-    }
-
-    .rug-editorial-body {
-        font-size: 0.95rem;
+    .rug-editorial-article-title {
+        margin-bottom: 2rem;
     }
 }
-
