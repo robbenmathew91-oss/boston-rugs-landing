@@ -933,16 +933,42 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 }
 
-                // Format description text helper supporting section headings
+                // Format description text helper supporting section headings — premium editorial style
                 const renderDescription = (text) => {
                     if (!text) return '';
-                    return text.split('\n\n').map(paragraph => {
-                        if (paragraph.startsWith('### ')) {
-                            const heading = paragraph.replace('### ', '');
-                            return `<h3 style="font-family: var(--font-heading); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--color-text); font-weight: 600; border-left: 2px solid var(--color-primary); padding-left: 0.75rem; letter-spacing: 0.02em;">${heading}</h3>`;
+                    // Split into blocks separated by double newlines
+                    const blocks = text.split('\n\n');
+                    let html = '';
+                    let inSection = false;
+
+                    blocks.forEach((block, idx) => {
+                        if (block.startsWith('### ')) {
+                            // Close previous section if open
+                            if (inSection) html += `</div>`;
+                            const headingText = block.replace('### ', '').trim();
+                            // Open new editorial section with heading
+                            html += `
+                                <div class="rug-editorial-section">
+                                    <h3 class="rug-editorial-heading">
+                                        <span class="rug-editorial-heading-accent"></span>
+                                        ${headingText}
+                                    </h3>
+                            `;
+                            inSection = true;
+                        } else {
+                            // Body paragraph — apply subtle keyword emphasis
+                            const emphasizedBlock = block
+                                .replace(/\b(hand-knotted|handmade|hand knotted|hand-woven|handwoven)\b/gi, '<em class="rug-editorial-em">$1</em>')
+                                .replace(/\b(natural wool|100% natural wool|pure wool|natural lanolin)\b/gi, '<em class="rug-editorial-em">$1</em>')
+                                .replace(/\b(professionally (hand-washed|restored|cleaned)|organic (green )?shampoo)\b/gi, '<em class="rug-editorial-em">$1</em>')
+                                .replace(/\b(one-of-a-kind|unique collector'?s? piece|heritage|cultural heritage|collector'?s? piece)\b/gi, '<em class="rug-editorial-em">$1</em>');
+                            html += `<p class="rug-editorial-body">${emphasizedBlock}</p>`;
                         }
-                        return `<p class="rug-detail-desc" style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; color: var(--color-text-muted);">${paragraph}</p>`;
-                    }).join('');
+                    });
+
+                    // Close last open section
+                    if (inSection) html += `</div>`;
+                    return html;
                 };
 
                 // Dynamic Specification Listing (camelCase keys translated to Title Case)
@@ -1224,10 +1250,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                             </div>
     
-                            <!-- Semantic H2 Headings -->
-                            <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Description</h2>
-                            <div class="rug-detail-description-content" style="margin-bottom: 3.5rem;">
-                                ${renderDescription(rug.description)}
+                            <!-- Description: Premium Editorial Article -->
+                            <div class="rug-editorial-article">
+                                <h2 class="rug-editorial-article-title">Description</h2>
+                                <div class="rug-detail-description-content">
+                                    ${renderDescription(rug.description)}
+                                </div>
                             </div>
     
                             <!-- Storytelling Section -->

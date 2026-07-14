@@ -3906,4 +3906,125 @@ body.lightbox-open {
 }
 
 
+/* ==========================================================================
+   RUG DETAIL — PREMIUM EDITORIAL DESCRIPTION TYPOGRAPHY
+   Scoped to .rug-editorial-* — no global impact
+   ========================================================================== */
+
+/* Top-level article wrapper for the Description block */
+.rug-editorial-article {
+    margin-bottom: 4rem;
+}
+
+/* The "Description" h2 title — understated elegance, no heavy border */
+.rug-editorial-article-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-text);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+}
+
+/* Each ### section becomes a self-contained editorial block */
+.rug-editorial-section {
+    margin-bottom: 2.75rem;
+    padding-top: 0.25rem;
+}
+
+.rug-editorial-section:first-child {
+    margin-top: 0;
+}
+
+/* Section heading: serif, generous spacing, gold accent bar on left */
+.rug-editorial-heading {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+/* Gold accent vertical bar beside heading */
+.rug-editorial-heading-accent {
+    display: inline-block;
+    width: 3px;
+    height: 1.2em;
+    background: linear-gradient(
+        to bottom,
+        var(--color-primary) 0%,
+        rgba(212, 175, 55, 0.3) 100%
+    );
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 0.1em;
+    align-self: flex-start;
+}
+
+/* Body paragraph: comfortable reading width, relaxed line height */
+.rug-editorial-body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+    max-width: 68ch;   /* ~68 characters — optimal readability */
+    font-weight: 300;
+}
+
+.rug-editorial-body:last-child {
+    margin-bottom: 0;
+}
+
+/* Subtle italic emphasis on key phrases — not bold, not gold, just refined */
+.rug-editorial-em {
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(212, 175, 55, 0.8); /* very soft gold — barely noticeable */
+    font-style: normal;
+    letter-spacing: 0.01em;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1200px) {
+    .rug-editorial-body {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .rug-editorial-heading {
+        font-size: 1.1rem;
+    }
+
+    .rug-editorial-body {
+        font-size: 0.97rem;
+        line-height: 1.8;
+    }
+
+    .rug-editorial-section {
+        margin-bottom: 2.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .rug-editorial-heading {
+        font-size: 1.05rem;
+        gap: 0.6rem;
+    }
+
+    .rug-editorial-body {
+        font-size: 0.95rem;
+    }
+}
 
