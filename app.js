@@ -810,20 +810,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
-                // --- SEO: Update Dynamic Metadata ---
-                const finalTitle = rug.seo && rug.seo.title ? rug.seo.title : `${rug.name} | Noor Oriental Rugs`;
-                document.title = finalTitle;
-                
-                // Meta Description
+                // --- SEO: Dynamic Title — rich keywords, within 60 chars limit ---
+                let seoTitle;
+                if (rug.seo && rug.seo.title) {
+                    seoTitle = rug.seo.title;
+                } else {
+                    // Build keyword-rich title: Name | Handmade [Origin] Rug | Noor Oriental Rugs
+                    const originWord = rug.origin ? rug.origin.split(',')[0].trim() : '';
+                    const styleWord  = rug.style  ? rug.style + ' '                : '';
+                    seoTitle = `${rug.name} | Handmade ${originWord} ${styleWord}Rug | Noor Oriental Rugs`;
+                }
+                document.title = seoTitle;
+
+                // --- SEO: Dynamic Meta Description (~140-160 chars) ---
                 let metaDesc = document.querySelector('meta[name="description"]');
                 if (!metaDesc) {
                     metaDesc = document.createElement('meta');
                     metaDesc.name = 'description';
                     document.head.appendChild(metaDesc);
                 }
-                const defaultDesc = (rug.description || 'Browse our handmade Persian and Oriental rugs.').substring(0, 155) + '...';
-                const finalDesc = rug.seo && rug.seo.description ? rug.seo.description : defaultDesc;
+                let finalDesc;
+                if (rug.seo && rug.seo.description) {
+                    finalDesc = rug.seo.description;
+                } else {
+                    // Construct natural ~150 char description from product data
+                    const originShort = rug.origin ? rug.origin.split(',')[0].trim() : '';
+                    const sizeInfo    = rug.size   ? ` (${rug.size})`                : '';
+                    const matShort    = rug.material ? rug.material.split('&')[0].trim() : 'Wool';
+                    finalDesc = `One-of-a-kind handmade ${originShort} rug${sizeInfo}. ${matShort} construction, professionally restored. Available at Noor Oriental Rugs, Cambridge MA.`;
+                    if (finalDesc.length > 160) finalDesc = finalDesc.substring(0, 157) + '...';
+                }
                 metaDesc.content = finalDesc;
+                const finalTitle = seoTitle; // alias for use below
 
                 // Dynamic Canonical Tag
                 let canonical = document.querySelector('link[rel="canonical"]');
@@ -868,34 +886,200 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // --- Update Visible Breadcrumbs ---
                 const breadcrumbContainer = document.getElementById('rug-breadcrumb-container');
+                const originLabel = rug.origin ? (
+                    rug.origin.toLowerCase().includes('turkey') ? 'Turkish' :
+                    rug.origin.toLowerCase().includes('persia') ? 'Persian' :
+                    rug.origin.split(',')[0].trim()
+                ) : 'Oriental';
+                const originFilterLabel = `${originLabel} Rugs`;
                 if (breadcrumbContainer) {
-                    const originLabel = rug.origin === 'Turkey' ? 'Turkish' : (rug.origin === 'Persia' ? 'Persian' : rug.origin);
-                    const intermediate = `${originLabel} Rugs`;
                     breadcrumbContainer.innerHTML = `
-                        <a href="index.html" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link">Home</a>
-                        <span style="margin: 0 0.4rem; color: var(--color-text-muted);">›</span>
-                        <a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link">Rugs for Sale</a>
-                        <span style="margin: 0 0.4rem; color: var(--color-text-muted);">›</span>
-                        <a href="rugs-for-sale.html?origin=${encodeURIComponent(rug.origin)}" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link">${intermediate}</a>
-                        <span style="margin: 0 0.4rem; color: var(--color-text-muted);">›</span>
-                        <span style="color: var(--color-text); font-weight: 500;">${rug.name}</span>
+                        <a href="index.html" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link" aria-label="Home">Home</a>
+                        <span style="margin: 0 0.4rem; color: var(--color-text-muted);" aria-hidden="true">›</span>
+                        <a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link" aria-label="Rugs for Sale">Rugs for Sale</a>
+                        <span style="margin: 0 0.4rem; color: var(--color-text-muted);" aria-hidden="true">›</span>
+                        <a href="rugs-for-sale.html?origin=${encodeURIComponent(rug.origin)}" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link" aria-label="${originFilterLabel}">${originFilterLabel}</a>
+                        <span style="margin: 0 0.4rem; color: var(--color-text-muted);" aria-hidden="true">›</span>
+                        <span style="color: var(--color-text); font-weight: 500;" aria-current="page">${rug.name}</span>
                     `;
                 }
+
+                // --- Image Classification (doc vs gallery) — needed for structured data ---
+                const DOC_KEYWORDS = ['inventory_tag', 'authenticity_label', 'tag', 'label', 'document'];
+                const isDocImage = (file) => DOC_KEYWORDS.some(k => file.toLowerCase().includes(k));
+
+                // --- Structured Data: Helper to inject/replace a JSON-LD script ---
+                const injectJsonLd = (id, data) => {
+                    let el = document.getElementById(id);
+                    if (!el) {
+                        el = document.createElement('script');
+                        el.type = 'application/ld+json';
+                        el.id = id;
+                        document.head.appendChild(el);
+                    }
+                    el.textContent = JSON.stringify(data);
+                };
+
+                // --- Structured Data: Product Schema ---
+                const baseUrl = window.location.origin;
+                const productImages = (rug.images || [])
+                    .filter(img => !isDocImage(img.file))
+                    .map(img => `${baseUrl}/${img.file}`);
+                if (productImages.length === 0) productImages.push(`${baseUrl}/images/showroom.png`);
+
+                const availabilityMap = {
+                    'In Stock':       'https://schema.org/InStock',
+                    'Available':      'https://schema.org/InStock',
+                    'Sold':           'https://schema.org/SoldOut',
+                    'Sold Out':       'https://schema.org/SoldOut',
+                    'On Request':     'https://schema.org/PreOrder',
+                };
+                const schemaAvailability = availabilityMap[rug.availability] || 'https://schema.org/InStock';
+
+                const conditionLabelForSchema = rug.condition ? rug.condition.split('/')[0].trim().toLowerCase() : 'used';
+                const itemCondition = conditionLabelForSchema === 'new' || conditionLabelForSchema === 'pristine'
+                    ? 'https://schema.org/NewCondition'
+                    : 'https://schema.org/UsedCondition';
+
+                const productSchema = {
+                    '@context': 'https://schema.org',
+                    '@type':    'Product',
+                    'name':        rug.name,
+                    'description': finalDesc,
+                    'sku':         rug.inventory_id  || undefined,
+                    'brand': {
+                        '@type': 'Brand',
+                        'name':  'Noor Oriental Rugs'
+                    },
+                    'category':    `Handmade ${rug.style || 'Oriental'} Rugs`,
+                    'material':    rug.material       || undefined,
+                    'countryOfOrigin': rug.origin     || undefined,
+                    'image':       productImages,
+                    'url':         detailUrl,
+                    'offers': {
+                        '@type':           'Offer',
+                        'price':           rug.price,
+                        'priceCurrency':   'USD',
+                        'availability':    schemaAvailability,
+                        'itemCondition':   itemCondition,
+                        'url':             detailUrl,
+                        'seller': {
+                            '@type': 'Organization',
+                            'name':  'Noor Oriental Rugs',
+                            'url':   `${baseUrl}/index.html`
+                        }
+                    },
+                    'additionalProperty': [
+                        rug.size   && { '@type': 'PropertyValue', 'name': 'Size',   'value': rug.size   },
+                        rug.origin && { '@type': 'PropertyValue', 'name': 'Origin', 'value': rug.origin },
+                        rug.age    && { '@type': 'PropertyValue', 'name': 'Age',    'value': rug.age    },
+                        rug.style  && { '@type': 'PropertyValue', 'name': 'Style',  'value': rug.style  },
+                    ].filter(Boolean)
+                };
+                // Remove undefined fields
+                Object.keys(productSchema).forEach(k => productSchema[k] === undefined && delete productSchema[k]);
+                injectJsonLd('ld-product', productSchema);
+
+                // --- Structured Data: BreadcrumbList Schema ---
+                const breadcrumbSchema = {
+                    '@context': 'https://schema.org',
+                    '@type':    'BreadcrumbList',
+                    'itemListElement': [
+                        {
+                            '@type':    'ListItem',
+                            'position': 1,
+                            'name':     'Home',
+                            'item':     `${baseUrl}/index.html`
+                        },
+                        {
+                            '@type':    'ListItem',
+                            'position': 2,
+                            'name':     'Rugs for Sale',
+                            'item':     `${baseUrl}/rugs-for-sale.html`
+                        },
+                        {
+                            '@type':    'ListItem',
+                            'position': 3,
+                            'name':     originFilterLabel,
+                            'item':     `${baseUrl}/rugs-for-sale.html?origin=${encodeURIComponent(rug.origin)}`
+                        },
+                        {
+                            '@type':    'ListItem',
+                            'position': 4,
+                            'name':     rug.name,
+                            'item':     detailUrl
+                        }
+                    ]
+                };
+                injectJsonLd('ld-breadcrumb', breadcrumbSchema);
+
+                // --- Structured Data: FAQPage Schema (built from the same FAQ data) ---
+                const conditionLabelFaq = rug.condition
+                    ? (rug.condition.includes('/') ? rug.condition.split('/')[0].trim() : rug.condition)
+                    : 'Excellent';
+                const faqItems = [
+                    {
+                        q: 'Is this rug handmade?',
+                        a: `Yes. Every rug in our collection is hand-knotted by skilled weavers using traditional techniques. This ${rug.name} features an authentic, meticulous hand-knotted weave, representing months of dedicated artisan craftsmanship.`
+                    },
+                    {
+                        q: 'Is this rug one of a kind?',
+                        a: `Yes, this rug is a one-of-a-kind collector's piece. Because each design is woven by hand from memory and local tradition rather than machine-printed templates, no two patterns are ever identical. Once sold, this exact piece cannot be replaced.`
+                    },
+                    {
+                        q: 'What materials are used?',
+                        a: `This rug is constructed with a warp and weft foundation made of ${rug.material}. The natural wool fibers provide excellent durability, stain resistance, and a rich patina that characteristically soft-tones with age.`
+                    },
+                    {
+                        q: 'Has this rug been professionally washed or restored?',
+                        a: `Yes. To preserve its heritage values and structural integrity, this rug has been professionally hand-washed using organic green shampoo and restored where necessary (reinforced side bindings and fringe securing). It is currently in ${conditionLabelFaq.toLowerCase()} condition and ready for immediate placement.`
+                    },
+                    {
+                        q: 'Can I view this rug in person?',
+                        a: `Yes, you can view the ${rug.name} at our physical showroom in Cambridge, MA (serving the greater Boston area). We invite you to inspect the weave and organic colors under natural light, or schedule a complimentary 3-day in-home trial.`
+                    },
+                    {
+                        q: 'Do you provide additional photographs or videos?',
+                        a: `Absolutely. If you need close-up photographs of specific pattern segments, side edges, backing knots, or a custom video tour showing the rug's true light profile, please contact our support team or request a video tour.`
+                    },
+                    {
+                        q: 'How should I care for this rug?',
+                        a: `We recommend vacuuming regularly without a beater bar and blotting liquid spills immediately with a dry cloth and cold water. Professional hand-washing is advised every 3 to 5 years depending on the room's foot traffic.`
+                    },
+                    {
+                        q: 'Can Noor Oriental Rugs help with future cleaning or restoration?',
+                        a: `Yes. We provide full-service professional organic cleaning, repair, fringe restoration, and appraisal services. We are committed to preserving the value and beauty of your handmade rugs for decades.`
+                    }
+                ];
+                const faqSchema = {
+                    '@context': 'https://schema.org',
+                    '@type':    'FAQPage',
+                    'mainEntity': faqItems.map(({ q, a }) => ({
+                        '@type':          'Question',
+                        'name':           q,
+                        'acceptedAnswer': { '@type': 'Answer', 'text': a }
+                    }))
+                };
+                injectJsonLd('ld-faq', faqSchema);
 
                 // --- Content Generation ---
 
                 // Separate customer gallery images from documentation images
-                // Documentation images: inventory tags, labels, paperwork — not for the main gallery
-                const DOC_KEYWORDS = ['inventory_tag', 'authenticity_label', 'tag', 'label', 'document'];
-                const isDocImage = (file) => DOC_KEYWORDS.some(k => file.toLowerCase().includes(k));
-
                 const allImages    = rug.images || [];
                 const mainImages   = allImages.filter((img, idx) => idx === 0 || !isDocImage(img.file));
                 const docImages    = allImages.filter(img => isDocImage(img.file));
 
-                // Use first main image as hero
+                // Use first main image as hero — SEO-rich descriptive alt text
                 const imgSrc = mainImages.length > 0 ? mainImages[0].file : 'images/showroom.png';
-                const imgAlt = mainImages.length > 0 && mainImages[0].alt ? mainImages[0].alt : rug.name;
+                const buildImgAlt = (img, viewIdx) => {
+                    if (img && img.alt && img.alt.trim()) return img.alt.trim();
+                    const originStr = rug.origin  ? rug.origin.split(',')[0].trim() : '';
+                    const matStr    = rug.material ? rug.material.split('&')[0].trim() : '';
+                    const sizeStr   = rug.size     ? `, ${rug.size}`                   : '';
+                    const viewStr   = viewIdx > 0  ? ` — View ${viewIdx + 1}`          : '';
+                    return `${rug.name} — Handmade ${originStr} ${matStr} Rug${sizeStr}${viewStr}`.trim();
+                };
+                const imgAlt = buildImgAlt(mainImages[0], 0);
                 const formatPrice = `$${rug.price.toLocaleString()}`;
 
                 // Build customer gallery thumbnails (only non-doc images)
@@ -905,9 +1089,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     thumbnailsHTML += `<div class="rug-detail-thumbnails">`;
                     mainImages.forEach((img) => {
                         const origIdx = allImages.indexOf(img);
+                        const thumbAlt = buildImgAlt(img, origIdx);
                         thumbnailsHTML += `
-                            <button class="rug-thumb-btn ${origIdx === 0 ? 'active' : ''}" data-index="${origIdx}" aria-label="View image: ${img.alt || img.file}">
-                                <img src="${img.file}" alt="${img.alt}" loading="lazy">
+                            <button class="rug-thumb-btn ${origIdx === 0 ? 'active' : ''}" data-index="${origIdx}" aria-label="View ${rug.name} — image ${origIdx + 1} of ${mainImages.length}">
+                                <img src="${img.file}" alt="${thumbAlt}" loading="lazy">
                             </button>
                         `;
                     });
