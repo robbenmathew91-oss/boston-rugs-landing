@@ -4045,3 +4045,93 @@ body.lightbox-open {
         margin-bottom: 2rem;
     }
 }
+
+/* ==========================================================================
+   RUG DETAIL — MOBILE RESPONSIVE OVERRIDES (BUG FIXES)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* Optimize outer container padding for wider mobile screen space */
+    .container {
+        padding: 0 1.5rem !important;
+    }
+
+    /* Refine purchase card padding on mobile */
+    .luxury-purchase-card {
+        padding: 1.5rem !important;
+        gap: 1.25rem !important;
+    }
+
+    /* Wrap button text and tweak typography parameters to fit narrow screens */
+    .luxury-purchase-card .btn {
+        white-space: normal !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        font-size: 0.95rem !important;
+        letter-spacing: 0.5px !important;
+        word-wrap: break-word !important;
+        word-break: keep-all !important;
+        line-height: 1.4 !important;
+    }
+
+    .luxury-purchase-card .btn-outline {
+        font-size: 0.85rem !important;
+        padding: 0.75rem 0.5rem !important;
+        flex-wrap: wrap !important;
+    }
+
+    /* Adjust main zoom container max height for mobile viewports */
+    .rug-detail-image-wrapper {
+        max-height: 50vh !important;
+    }
+    
+    .rug-detail-main-img {
+        max-height: calc(50vh - 20px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Maximize container real estate on narrow phones */
+    .container {
+        padding: 0 1rem !important;
+    }
+
+    .luxury-purchase-card {
+        padding: 1.25rem !important;
+        gap: 1rem !important;
+    }
+
+    /* Specs card responsive grid: 2 columns */
+    .rug-glance-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+        margin-bottom: 2rem !important;
+    }
+
+    .rug-glance-card {
+        padding: 0.75rem !important;
+        gap: 0.5rem !important;
+    }
+
+    /* Make the 5th card span 2 columns to fill the row symmetrically */
+    .rug-glance-card:nth-child(5) {
+        grid-column: span 2 !important;
+    }
+    
+    /* Slightly reduce heading size on small mobile screen */
+    .rug-detail-title {
+        font-size: 2rem !important;
+    }
+}
+
+@media (max-width: 360px) {
+    /* Collapse specs grid to single column on extra-small mobile viewports */
+    .rug-glance-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .rug-glance-card:nth-child(5) {
+        grid-column: span 1 !important;
+    }
+}
+
