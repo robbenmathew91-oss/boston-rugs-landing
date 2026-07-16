@@ -190,15 +190,15 @@ All product template renders must undergo verification across the following stan
 
 *Validation Criteria*: Zero horizontal overflow scrollbars, typography wraps legibly, buttons remain bound inside their parents, and layout respects the 62% gallery / 38% content desktop grid proportion.
 
----
-
 ## Canonical Product Page
 
-The following product page is the approved production reference implementation for all current and future rug pages on the Noor Oriental Rugs website:
+The approved reference implementation is:
 
-👉 **[rug-detail.html?slug=antique-turkmen-gul-rug-11117](http://localhost:8083/rug-detail.html?slug=antique-turkmen-gul-rug-11117)**
+rug-detail.html?slug=antique-turkmen-gul-rug-11117
 
-All newly imported product pages must match this canonical reference in layout spacing, typography, card behavior, and overall visual hierarchy. Any structural variations to the design system must be validated against this page first.
+Before modifying the product template, compare any proposed changes against this page.
+
+Future rug pages should match this implementation in design, layout, spacing, typography, behavior, accessibility, and responsiveness.
 
 ---
 
