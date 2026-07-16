@@ -4138,3 +4138,12 @@ body.lightbox-open {
     }
 }
 
+/* Align 'Rug at a Glance' card content to the top (all viewports) */
+.rug-glance-card {
+    align-items: flex-start !important;
+}
+
+/* Align icons vertically with the first line of the label text */
+.rug-glance-card > div:first-child {
+    margin-top: 0.15rem;
+}
