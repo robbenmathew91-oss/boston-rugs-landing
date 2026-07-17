@@ -1,0 +1,325 @@
+﻿/* ==========================================================================
+   WARM LUXURY — THEME OVERRIDE STYLESHEET
+   Loads after styles.css. Overrides only the visual properties that differ
+   from the production dark theme. Layout, structure, JavaScript, SEO, and
+   all dynamic rendering remain identical to the production page.
+
+   Palette
+   ─────────────────────────────────────────────
+   Background     #faf7f2   Warm ivory
+   Card bg        #f0ebe0   Warm linen
+   Card hover     #e8e1d3   Deeper linen
+   Accent         #8b6914   Rich dark brass  (replaces metallic gold on dark)
+   Accent hover   #725610   Deeper brass
+   Text           #1c120a   Deep espresso
+   Text muted     #6b5544   Warm medium brown
+   Border         rgba(139,105,20, 0.18)
+   Border hover   rgba(139,105,20, 0.40)
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. CSS CUSTOM PROPERTY OVERRIDES
+   Cascades automatically to every rule that uses var(--color-*)
+   -------------------------------------------------------------------------- */
+:root {
+    /* Backgrounds */
+    --color-bg:           #faf7f2;
+    --color-card-bg:      #f0ebe0;
+    --color-card-hover:   #e8e1d3;
+
+    /* Brass accent — reads clearly on light ivory */
+    --color-primary:       #8b6914;
+    --color-primary-hover: #725610;
+
+    /* Text */
+    --color-text:       #1c120a;
+    --color-text-muted: #6b5544;
+
+    /* Borders */
+    --color-border:       rgba(139, 105, 20, 0.18);
+    --color-border-hover: rgba(139, 105, 20, 0.40);
+}
+
+
+/* --------------------------------------------------------------------------
+   2. BASE
+   -------------------------------------------------------------------------- */
+html {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+body {
+    background-color: var(--color-bg);
+}
+
+
+/* --------------------------------------------------------------------------
+   3. HEADER — override hardcoded rgba(11,11,11,...) backgrounds
+   -------------------------------------------------------------------------- */
+.header {
+    background: rgba(250, 247, 242, 0.88);
+    border-bottom: 1px solid rgba(139, 105, 20, 0.12);
+}
+
+.header.scrolled {
+    background: rgba(250, 247, 242, 0.97);
+    box-shadow: 0 4px 24px rgba(60, 30, 10, 0.08);
+}
+
+
+/* --------------------------------------------------------------------------
+   4. MOBILE NAV — override hardcoded rgba(11,11,11,...) panel background
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+    .nav {
+        background-color: rgba(250, 247, 242, 0.98);
+        border-bottom-color: var(--color-border);
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   5. DROPDOWN MENU — override hardcoded dark glass background
+   -------------------------------------------------------------------------- */
+.dropdown-menu {
+    background: rgba(240, 235, 224, 0.98);
+    border: 1px solid var(--color-border);
+    border-top: 2px solid var(--color-primary);
+    box-shadow: 0 10px 30px rgba(60, 30, 10, 0.12);
+}
+
+.dropdown-item:hover {
+    background: rgba(139, 105, 20, 0.06);
+}
+
+/* Mobile: replace dark left-border tint with brass tint */
+@media (max-width: 1200px) {
+    .dropdown-menu {
+        border-left: 2px solid rgba(139, 105, 20, 0.25);
+        background: transparent;
+        box-shadow: none;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   6. BUTTONS — override hardcoded dark text and box-shadow values
+   -------------------------------------------------------------------------- */
+
+/* Primary button: was dark text on bright gold; now light text on dark brass */
+.btn-primary {
+    color: #faf7f2;
+}
+
+.btn-primary:hover {
+    color: #faf7f2;
+    box-shadow: 0 10px 20px rgba(139, 105, 20, 0.22);
+}
+
+/* Outline fill on hover: keep text light for contrast against brass fill */
+.btn-outline:hover {
+    color: #faf7f2;
+}
+
+/* Secondary button borders on light bg */
+.btn-secondary {
+    border-color: rgba(28, 18, 10, 0.22);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(28, 18, 10, 0.05);
+}
+
+
+/* --------------------------------------------------------------------------
+   7. FOOTER — override hardcoded #080808 background
+   -------------------------------------------------------------------------- */
+.footer {
+    background-color: #e8e1d3;
+    border-top: 1px solid var(--color-border);
+}
+
+.footer-bottom-bar {
+    border-top-color: var(--color-border);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. RUG DETAIL — GLANCE CARDS
+   JS generates inline background: rgba(255,255,255,0.02) invisible on light.
+   Override with warm-tinted equivalents.
+   -------------------------------------------------------------------------- */
+.rug-glance-card {
+    background: rgba(28, 18, 10, 0.04) !important;
+    border-color: var(--color-border) !important;
+}
+
+.rug-glance-card:hover {
+    background: rgba(28, 18, 10, 0.07) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   9. RUG DETAIL — LUXURY PURCHASE CARD
+   -------------------------------------------------------------------------- */
+.luxury-purchase-card {
+    background: rgba(28, 18, 10, 0.03) !important;
+}
+
+.luxury-purchase-card:hover {
+    border-color: rgba(139, 105, 20, 0.30) !important;
+    box-shadow: 0 12px 30px rgba(60, 30, 10, 0.08);
+}
+
+
+/* --------------------------------------------------------------------------
+   10. RUG DETAIL — TRUST CARDS
+   -------------------------------------------------------------------------- */
+.rug-trust-card {
+    background: rgba(28, 18, 10, 0.03) !important;
+}
+
+.rug-trust-card:hover {
+    background: rgba(28, 18, 10, 0.06) !important;
+    box-shadow: 0 8px 24px rgba(139, 105, 20, 0.07);
+}
+
+
+/* --------------------------------------------------------------------------
+   11. RUG DETAIL — FAQ ACCORDION
+   -------------------------------------------------------------------------- */
+.rug-faq-item {
+    background: rgba(28, 18, 10, 0.03);
+}
+
+.rug-faq-item:hover {
+    border-color: rgba(139, 105, 20, 0.30);
+}
+
+.rug-faq-item[open] {
+    background: rgba(28, 18, 10, 0.05);
+    border-color: var(--color-primary);
+}
+
+.rug-faq-content {
+    border-top-color: rgba(28, 18, 10, 0.07);
+    color: var(--color-text-muted);
+}
+
+
+/* --------------------------------------------------------------------------
+   12. RUG DETAIL — RELATED RUGS
+   -------------------------------------------------------------------------- */
+.related-rug-card-link:hover .related-rug-card {
+    box-shadow: 0 8px 24px rgba(139, 105, 20, 0.10);
+}
+
+
+/* --------------------------------------------------------------------------
+   13. RUG DETAIL — THUMBNAIL GALLERY
+   -------------------------------------------------------------------------- */
+.rug-thumb-btn {
+    background: var(--color-card-bg);
+}
+
+.rug-thumb-btn.active {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(139, 105, 20, 0.25);
+}
+
+.rug-thumb-btn:not(.active):hover {
+    border-color: rgba(139, 105, 20, 0.50);
+}
+
+.rug-detail-thumbnails {
+    scrollbar-color: var(--color-primary) rgba(28, 18, 10, 0.08);
+}
+
+.rug-detail-thumbnails::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+}
+
+
+/* --------------------------------------------------------------------------
+   14. RUG DETAIL — AVAILABILITY BADGE
+   -------------------------------------------------------------------------- */
+.availability-badge-alert {
+    background-color: rgba(139, 105, 20, 0.08) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   15. RUG EDITORIAL — DESCRIPTION TYPOGRAPHY
+   Override hardcoded rgba(212,175,55,...) values in production
+   -------------------------------------------------------------------------- */
+
+/* Accent bar beside section headings */
+.rug-editorial-heading-accent {
+    background: linear-gradient(
+        to bottom,
+        rgba(139, 105, 20, 0.85) 0%,
+        rgba(139, 105, 20, 0.08) 100%
+    );
+}
+
+/* Inline emphasis on heritage phrases */
+.rug-editorial-em {
+    color: rgba(139, 105, 20, 0.72);
+}
+
+
+/* --------------------------------------------------------------------------
+   16. DOCUMENTATION SECTION
+   -------------------------------------------------------------------------- */
+.rug-detail-documentation {
+    border-top-color: var(--color-border);
+}
+
+
+/* --------------------------------------------------------------------------
+   17. LIGHTBOX — keep dark overlay (correct for all backgrounds)
+   The lightbox rgba(11,11,11,0.95) is intentionally preserved.
+   Only override the interactive button accent colors.
+   -------------------------------------------------------------------------- */
+.rug-lightbox-btn:hover {
+    color: #1c120a;
+}
+
+.rug-lightbox-close:hover {
+    color: var(--color-primary);
+}
+
+
+/* --------------------------------------------------------------------------
+   18. SHOWROOM CARD (class assigned by app.js output)
+   -------------------------------------------------------------------------- */
+.showroom-card {
+    background: rgba(28, 18, 10, 0.03) !important;
+    border-left-color: var(--color-primary) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   19. SERVICE ICON WRAPPER — adjusts rgba(212,175,55,...) tint for light bg
+   -------------------------------------------------------------------------- */
+.service-icon-wrapper {
+    background-color: rgba(139, 105, 20, 0.08);
+    border-color: rgba(139, 105, 20, 0.20);
+}
+
+.service-card:hover .service-icon-wrapper {
+    color: #faf7f2;
+    box-shadow: 0 0 20px rgba(139, 105, 20, 0.25);
+}
+
+
+/* --------------------------------------------------------------------------
+   20. SECTION UTILITY
+   -------------------------------------------------------------------------- */
+.section-dark {
+    background-color: var(--color-card-bg);
+}
