@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    WARM LUXURY — THEME OVERRIDE STYLESHEET
    Loads after styles.css. Overrides only the visual properties that differ
    from the production dark theme. Layout, structure, JavaScript, SEO, and
@@ -323,3 +323,189 @@ body {
 .section-dark {
     background-color: var(--color-card-bg);
 }
+
+
+/* ==========================================================================
+   21. HOMEPAGE OVERRIDES
+   Visual overrides for home page elements to remove legacy dark styles
+   ========================================================================== */
+
+/* ── Hero Section ── */
+.hero {
+    background-color: var(--color-bg);
+}
+.hero-bg {
+    /* Wash the dark linear-gradient with a light ivory wash to support deep espresso text */
+    background-image: linear-gradient(rgba(250, 247, 242, 0.82), rgba(250, 247, 242, 0.88)), url('images/showroom.png') !important;
+}
+.hero-title {
+    color: var(--color-text);
+    text-shadow: none; /* remove legacy heavy dark text-shadow */
+}
+.hero-description {
+    color: var(--color-text-muted) !important; /* overrides #dfdfdf */
+    text-shadow: none; /* remove legacy dark shadow */
+}
+.hero-badges {
+    border-top: 1px solid var(--color-border);
+}
+.badge-item span {
+    color: var(--color-text);
+}
+
+/* ── Heritage & Quality Section ── */
+.heritage {
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+}
+.border-overlay {
+    border: 2px solid var(--color-primary);
+}
+.heritage-img {
+    box-shadow: 20px 20px 0 var(--color-card-bg) !important; /* overrides hardcoded dark shadow #121212 */
+}
+.heritage-img:hover {
+    box-shadow: 15px 15px 0 var(--color-card-bg) !important;
+}
+
+/* ── Collections Portfolio ── */
+.collections {
+    background-color: var(--color-bg);
+}
+.collection-card {
+    background-color: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+}
+.collection-card:hover {
+    border-color: var(--color-border-hover);
+    background-color: var(--color-card-hover);
+    box-shadow: 0 20px 40px rgba(60, 30, 10, 0.08) !important; /* replace dark legacy shadow */
+}
+.card-overlay {
+    background-color: rgba(240, 235, 224, 0.88) !important; /* overrides legacy dark overlay rgba(11,11,11,0.4) */
+}
+.card-details {
+    border-top: 1px solid var(--color-border) !important; /* overrides rgba(255,255,255,0.05) */
+}
+
+/* ── Interactive Virtual Showroom Section ── */
+.visualizer-section {
+    background-color: var(--color-card-bg) !important; /* linen background for section banding */
+    border-top: 1px solid var(--color-border) !important;
+    border-bottom: 1px solid var(--color-border) !important;
+}
+.visualizer-canvas-container {
+    border: 1px solid var(--color-border) !important;
+    background-color: var(--color-bg) !important; /* ivory canvas background */
+}
+.visualizer-header-badge {
+    background: rgba(250, 247, 242, 0.85) !important;
+    border: 1px solid var(--color-primary) !important;
+    color: var(--color-text) !important;
+}
+.visualizer-viewport {
+    background-color: var(--color-bg) !important;
+}
+.visualizer-loader {
+    background-color: rgba(250, 247, 242, 0.6) !important;
+}
+.spinner {
+    border: 3px solid rgba(139, 105, 20, 0.1) !important;
+    border-top: 3px solid var(--color-primary) !important;
+}
+.rug-select-btn {
+    background-color: var(--color-bg) !important;
+    border: 1px solid var(--color-border) !important;
+}
+.rug-select-btn:hover {
+    background-color: var(--color-card-bg) !important;
+    border-color: var(--color-border-hover) !important;
+}
+.rug-select-btn.active {
+    background-color: rgba(139, 105, 20, 0.06) !important;
+    border-color: var(--color-primary) !important;
+}
+.selector-thumb {
+    border: 1px solid var(--color-border) !important;
+}
+.rug-specs-card {
+    background: rgba(28, 18, 10, 0.03) !important;
+    border: 1px solid var(--color-border) !important;
+}
+.spec-row {
+    border-bottom: 1px solid var(--color-border) !important;
+}
+
+/* ── Charitable Giving Section ── */
+.charity {
+    border-bottom: 1px solid var(--color-border) !important;
+    background-color: var(--color-bg) !important;
+}
+
+/* ── Testimonials Section ── */
+.testimonials {
+    background: linear-gradient(var(--color-bg), var(--color-card-bg)) !important; /* replace dark gradient */
+    border-top: 1px solid var(--color-border) !important;
+}
+.testimonial-card {
+    background-color: var(--color-bg) !important;
+    border: 1px solid var(--color-border) !important;
+}
+.testimonial-card:hover {
+    border-color: var(--color-border-hover) !important;
+    box-shadow: 0 15px 30px rgba(60, 30, 10, 0.08) !important; /* soften shadow */
+}
+.testimonial-quote-icon {
+    color: rgba(139, 105, 20, 0.08) !important; /* brass override */
+}
+
+/* ── Contact Booking Section ── */
+.contact {
+    background-color: var(--color-bg) !important;
+    border-top: 1px solid var(--color-border) !important;
+}
+.detail-icon {
+    background-color: rgba(28, 18, 10, 0.03) !important;
+    border: 1px solid var(--color-border) !important;
+}
+.boston-badge {
+    background-color: rgba(139, 105, 20, 0.04) !important;
+    border-left: 3px solid var(--color-primary) !important;
+}
+.contact-form-container {
+    background-color: var(--color-card-bg) !important;
+    border: 1px solid var(--color-border) !important;
+}
+.form-group input, .form-group select, .form-group textarea {
+    background-color: rgba(28, 18, 10, 0.02) !important;
+    border: 1px solid var(--color-border) !important;
+    color: var(--color-text) !important;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    background-color: rgba(28, 18, 10, 0.04) !important;
+    border-color: var(--color-primary) !important;
+}
+.form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b6914' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important; /* brass stroke */
+}
+.form-group select option {
+    background-color: var(--color-card-bg) !important;
+    color: var(--color-text) !important;
+}
+.form-success-message {
+    background-color: var(--color-card-bg) !important;
+}
+.file-upload-label {
+    background: rgba(28, 18, 10, 0.03) !important;
+    border: 1px dashed var(--color-border) !important;
+}
+
+/* ── Charitable Outreach Accordion ── */
+.accordion-item {
+    border: 1px solid var(--color-border) !important;
+}
+.accordion-item.active {
+    background-color: rgba(139, 105, 20, 0.02) !important;
+    box-shadow: 0 10px 30px rgba(60, 30, 10, 0.06) !important;
+}
+
