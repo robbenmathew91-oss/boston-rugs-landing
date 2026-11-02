@@ -251,22 +251,22 @@
       "permanent": true
     },
     {
-      "source": "/gallery/:path+",
+      "source": "/gallery/(.+)",
       "destination": "/restoration-gallery.html",
       "permanent": true
     },
     {
-      "source": "/charitable-giving/:path+",
+      "source": "/charitable-giving/(.+)",
       "destination": "/community-impact.html",
       "permanent": true
     },
     {
-      "source": "/product/:path+",
+      "source": "/product/(.+)",
       "destination": "/rugs-for-sale.html",
       "permanent": true
     },
     {
-      "source": "/product-category/:path*",
+      "source": "/product-category/(.*)",
       "destination": "/rugs-for-sale.html",
       "permanent": true
     }
