@@ -1,0 +1,274 @@
+{
+  "redirects": [
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/our-company",
+      "destination": "/#heritage",
+      "permanent": true
+    },
+    {
+      "source": "/our-company/",
+      "destination": "/#heritage",
+      "permanent": true
+    },
+    {
+      "source": "/testimonials",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/testimonials/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/#contact",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us/",
+      "destination": "/#contact",
+      "permanent": true
+    },
+    {
+      "source": "/history-of-handmade-rugs",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/history-of-handmade-rugs/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/rug-doctors-advice",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/rug-doctors-advice/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/introduction",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/introduction/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/wool-from-the-mountains",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/wool-from-the-mountains/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/dyes",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/dyes/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/weaving-rugs",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/weaving-rugs/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/beautiful-flaws",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/beautiful-flaws/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/how-rugs-are-classified",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/how-rugs-are-classified/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/authenticity",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/authenticity/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/rugs-as-human-document",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/rugs-as-human-document/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/category/history",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/category/history/",
+      "destination": "/blog.html",
+      "permanent": true
+    },
+    {
+      "source": "/rug-restoration",
+      "destination": "/rug-restoration.html",
+      "permanent": true
+    },
+    {
+      "source": "/rug-restoration/",
+      "destination": "/rug-restoration.html",
+      "permanent": true
+    },
+    {
+      "source": "/custom-services",
+      "destination": "/rug-restoration.html",
+      "permanent": true
+    },
+    {
+      "source": "/custom-services/",
+      "destination": "/rug-restoration.html",
+      "permanent": true
+    },
+    {
+      "source": "/rug-maintenance",
+      "destination": "/rug-cleaning.html",
+      "permanent": true
+    },
+    {
+      "source": "/rug-maintenance/",
+      "destination": "/rug-cleaning.html",
+      "permanent": true
+    },
+    {
+      "source": "/gallery",
+      "destination": "/gallery.html",
+      "permanent": true
+    },
+    {
+      "source": "/gallery/",
+      "destination": "/gallery.html",
+      "permanent": true
+    },
+    {
+      "source": "/charitable-giving",
+      "destination": "/community-impact.html",
+      "permanent": true
+    },
+    {
+      "source": "/charitable-giving/",
+      "destination": "/community-impact.html",
+      "permanent": true
+    },
+    {
+      "source": "/shop",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    },
+    {
+      "source": "/shop/",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    },
+    {
+      "source": "/cart",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    },
+    {
+      "source": "/cart/",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    },
+    {
+      "source": "/checkout",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    },
+    {
+      "source": "/checkout/",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    },
+    {
+      "source": "/my-account",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    },
+    {
+      "source": "/my-account/",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    },
+    {
+      "source": "/product/royal-bokhara-4-2-x-5-11",
+      "destination": "/rug-detail.html?slug=royal-bokhara-rug-4-2x5-11",
+      "permanent": true
+    },
+    {
+      "source": "/product/royal-bokhara-4-2-x-5-11/",
+      "destination": "/rug-detail.html?slug=royal-bokhara-rug-4-2x5-11",
+      "permanent": true
+    },
+    {
+      "source": "/gallery/:path+",
+      "destination": "/restoration-gallery.html",
+      "permanent": true
+    },
+    {
+      "source": "/charitable-giving/:path+",
+      "destination": "/community-impact.html",
+      "permanent": true
+    },
+    {
+      "source": "/product/:path+",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    },
+    {
+      "source": "/product-category/:path*",
+      "destination": "/rugs-for-sale.html",
+      "permanent": true
+    }
+  ]
+}

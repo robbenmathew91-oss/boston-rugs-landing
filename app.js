@@ -2,6 +2,10 @@
    NOOR ORIENTAL RUGS - JS Interactivity & Web Application Logic
    ========================================================================== */
 
+// The site's permanent address. Canonical, share and structured-data URLs use it on every host
+// (Vercel previews included), so search engines always see one address per page.
+const SITE_ORIGIN = 'https://noororientalrugs.com';
+
 // Small copies in images/thumbs/ (made by make_thumbs.py) for cards and thumbnail strips.
 function thumbOf(file) {
     const m = /^images\/([^/]+)\.(jpe?g|png|webp)$/i.exec(file || '');
@@ -910,12 +914,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 metaDesc.content = finalDesc;
                 const finalTitle = seoTitle; // alias for use below
 
-                // Dynamic Canonical Tag
+                // Dynamic Canonical Tag: one clean address per rug (no extra query parameters)
                 let canonical = document.querySelector('link[rel="canonical"]');
-                const detailUrl = window.location.href;
-                if (canonical) {
-                    canonical.href = detailUrl;
+                const detailUrl = `${SITE_ORIGIN}/rug-detail.html?slug=${encodeURIComponent(rug.slug)}`;
+                if (!canonical) {
+                    canonical = document.createElement('link');
+                    canonical.rel = 'canonical';
+                    document.head.appendChild(canonical);
                 }
+                canonical.href = detailUrl;
 
                 // Dynamic Open Graph & Twitter Tags for Premium Sharing Previews
                 const updateMetaProperty = (property, content) => {
@@ -1033,7 +1040,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         'seller': {
                             '@type': 'Organization',
                             'name':  'Noor Oriental Rugs',
-                            'url':   `${baseUrl}/index.html`
+                            'url':   `${SITE_ORIGIN}/index.html`
                         }
                     },
                     'additionalProperty': [
@@ -1056,19 +1063,19 @@ document.addEventListener('DOMContentLoaded', () => {
                             '@type':    'ListItem',
                             'position': 1,
                             'name':     'Home',
-                            'item':     `${baseUrl}/index.html`
+                            'item':     `${SITE_ORIGIN}/index.html`
                         },
                         {
                             '@type':    'ListItem',
                             'position': 2,
                             'name':     'Rugs for Sale',
-                            'item':     `${baseUrl}/rugs-for-sale.html`
+                            'item':     `${SITE_ORIGIN}/rugs-for-sale.html`
                         },
                         {
                             '@type':    'ListItem',
                             'position': 3,
                             'name':     originFilterLabel,
-                            'item':     `${baseUrl}/rugs-for-sale.html`
+                            'item':     `${SITE_ORIGIN}/rugs-for-sale.html`
                         },
                         {
                             '@type':    'ListItem',
