@@ -391,6 +391,34 @@ document.addEventListener('DOMContentLoaded', () => {
             renderCheckboxes(filterSizeContainer, sizes, 'size');
             renderCheckboxes(filterMaterialContainer, materials, 'material');
 
+            // Catalog sorting. Rugs without a price or size always sort last.
+            const SORT_OPTIONS = ['featured', 'price-asc', 'price-desc', 'size-asc', 'size-desc', 'name-asc', 'newest'];
+            let activeSort = 'featured';
+            const sortSelect = document.getElementById('inventory-sort');
+            const priceOf = (rug) => (typeof rug.price === 'number' && rug.price > 0) ? rug.price : null;
+            const areaOf = (rug) => {
+                const dims = rug.specifications && rug.specifications.dimensions;
+                return dims && dims.widthFeet && dims.lengthFeet ? dims.widthFeet * dims.lengthFeet : null;
+            };
+            const byValue = (get, dir) => (a, b) => {
+                const va = get(a), vb = get(b);
+                if (va === null && vb === null) return 0;
+                if (va === null) return 1;
+                if (vb === null) return -1;
+                return dir * (va > vb ? 1 : va < vb ? -1 : 0);
+            };
+            const sortRugs = (rugs) => {
+                const comparators = {
+                    'price-asc': byValue(priceOf, 1),
+                    'price-desc': byValue(priceOf, -1),
+                    'size-asc': byValue(areaOf, 1),
+                    'size-desc': byValue(areaOf, -1),
+                    'name-asc': (a, b) => a.name.localeCompare(b.name),
+                    'newest': (a, b) => b.id - a.id,
+                };
+                return comparators[activeSort] ? [...rugs].sort(comparators[activeSort]) : rugs;
+            };
+
             // 3. Sync Logic & Event Listeners
             const updateURL = () => {
                 const params = new URLSearchParams();
@@ -402,6 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     params.set('price', `${activeFilters.price.min}-${activeFilters.price.max}`);
                 }
                 if (activeFilters.collection.size > 0) params.set('collection', Array.from(activeFilters.collection).join(','));
+                if (activeSort !== 'featured') params.set('sort', activeSort);
                 
                 const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
                 window.history.pushState({ filters: true }, '', newUrl);
@@ -416,6 +445,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeFilters.price = null;
                 activeFilters.collection.clear();
                 
+                const sortParam = params.get('sort');
+                activeSort = SORT_OPTIONS.includes(sortParam) ? sortParam : 'featured';
+                if (sortSelect) sortSelect.value = activeSort;
+
                 const styleParam = params.get('style');
                 if (styleParam) styleParam.split(',').forEach(s => activeFilters.style.add(s));
                 
@@ -563,6 +596,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 // Handle browser Back/Forward navigation
+                if (sortSelect) {
+                    sortSelect.addEventListener('change', () => {
+                        activeSort = SORT_OPTIONS.includes(sortSelect.value) ? sortSelect.value : 'featured';
+                        updateURL();
+                        renderGrid();
+                    });
+                }
+
                 window.addEventListener('popstate', () => {
                     loadFiltersFromURL();
                     renderGrid();
@@ -608,6 +649,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         return true;
                     });
                 }
+
+                filteredRugs = sortRugs(filteredRugs);
 
                 const updateFilterCounts = () => {
                     const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');

@@ -2463,6 +2463,46 @@ body.modal-open {
     align-items: center;
 }
 
+.inventory-results-header {
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+}
+
+.inventory-sort {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.inventory-sort select {
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    background: var(--color-card-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.inventory-sort select:hover {
+    border-color: var(--color-border-hover);
+}
+
+.inventory-sort select:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* 16px stops iPhones from zooming the page when the menu is tapped */
+@media (max-width: 576px) {
+    .inventory-sort select {
+        font-size: 16px;
+    }
+}
+
 /* --- Dynamic Rug Detail Page --- */
 .rug-detail-layout {
     display: grid;
