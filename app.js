@@ -599,6 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (activeFilters.price) {
                     filteredRugs = filteredRugs.filter(rug => {
                         const price = rug.price;
+                        if (typeof price !== 'number' || price <= 0) return true; // "Price on request" rugs always stay visible
                         const min = activeFilters.price.min;
                         const max = activeFilters.price.max;
                         
@@ -620,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (filterType !== 'style' && activeFilters.style.size > 0 && !activeFilters.style.has(rug.style)) matchesOther = false;
                             if (filterType !== 'size' && activeFilters.size.size > 0 && !activeFilters.size.has(rug.size)) matchesOther = false;
                             if (filterType !== 'material' && activeFilters.material.size > 0 && !activeFilters.material.has(rug.material)) matchesOther = false;
-                            if (activeFilters.price) {
+                            if (activeFilters.price && typeof rug.price === 'number' && rug.price > 0) {
                                 if (rug.price < activeFilters.price.min) matchesOther = false;
                                 if (activeFilters.price.max < 10000 && rug.price > activeFilters.price.max) matchesOther = false;
                             }
@@ -688,7 +689,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         clearBtn.className = 'filter-chip clear-all';
                         clearBtn.textContent = 'Clear All';
                         clearBtn.addEventListener('click', () => {
-                            const clearSidebarBtn = document.getElementById('clear-filters');
+                            const clearSidebarBtn = document.getElementById('clear-filters-btn');
                             if (clearSidebarBtn) clearSidebarBtn.click();
                         });
                         chipContainer.appendChild(clearBtn);
@@ -903,7 +904,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span style="margin: 0 0.4rem; color: var(--color-text-muted);" aria-hidden="true">›</span>
                         <a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link" aria-label="Rugs for Sale">Rugs for Sale</a>
                         <span style="margin: 0 0.4rem; color: var(--color-text-muted);" aria-hidden="true">›</span>
-                        <a href="rugs-for-sale.html?origin=${encodeURIComponent(rug.origin)}" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link" aria-label="${originFilterLabel}">${originFilterLabel}</a>
+                        <a href="rugs-for-sale.html" style="color: var(--color-text-muted); text-decoration: none;" class="cta-sub-link" aria-label="${originFilterLabel}">${originFilterLabel}</a>
                         <span style="margin: 0 0.4rem; color: var(--color-text-muted);" aria-hidden="true">›</span>
                         <span style="color: var(--color-text); font-weight: 500;" aria-current="page">${rug.name}</span>
                     `;
@@ -1006,7 +1007,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             '@type':    'ListItem',
                             'position': 3,
                             'name':     originFilterLabel,
-                            'item':     `${baseUrl}/rugs-for-sale.html?origin=${encodeURIComponent(rug.origin)}`
+                            'item':     `${baseUrl}/rugs-for-sale.html`
                         },
                         {
                             '@type':    'ListItem',
