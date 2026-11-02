@@ -19,7 +19,7 @@ const SIZE_GROUPS = [
     { key: 'medium', label: 'Medium (about 5\' x 7\' to 6\' x 10\')' },
     { key: 'large', label: 'Large (about 8\' x 10\' to 9\' x 13\')' },
     { key: 'oversized', label: 'Oversized (10\' x 14\' and up)' },
-    { key: 'tbc', label: 'Size to be confirmed' },
+    { key: 'tbc', label: 'Size coming soon' },
 ];
 function sizeLabelOf(key) {
     const group = SIZE_GROUPS.find(g => g.key === key);
@@ -38,9 +38,9 @@ function sizeGroupOf(rug) {
     return 'oversized';
 }
 
-// Rugs without a confirmed price show "Price on request" instead of breaking the page.
+// Rugs without a confirmed price show "Coming soon" instead of breaking the page.
 function formatRugPrice(price, prefix = '') {
-    return (typeof price === 'number' && price > 0) ? `${prefix}$${price.toLocaleString()}` : 'Price on request';
+    return (typeof price === 'number' && price > 0) ? `${prefix}$${price.toLocaleString()}` : 'Coming soon';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -120,7 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch('inventory.json');
                 if (!response.ok) throw new Error('Network response was not ok');
-                this.inventory = await response.json();
+                // Sample listings ("is_placeholder": true) stay in inventory.json but are never shown.
+                this.inventory = (await response.json()).filter(rug => !rug.is_placeholder);
                 return this.inventory;
             } catch (error) {
                 console.error("Could not load inventory data:", error);
@@ -1007,6 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Sold':           'https://schema.org/SoldOut',
                     'Sold Out':       'https://schema.org/SoldOut',
                     'On Request':     'https://schema.org/PreOrder',
+                    'Coming Soon':    'https://schema.org/PreOrder',
                 };
                 const schemaAvailability = availabilityMap[rug.availability] || 'https://schema.org/InStock';
 
@@ -1030,9 +1032,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     'countryOfOrigin': rug.origin     || undefined,
                     'image':       productImages,
                     'url':         detailUrl,
-                    'offers': {
+                    'offers': (typeof rug.price === 'number' && rug.price > 0) ? {
                         '@type':           'Offer',
-                        'price':           (typeof rug.price === 'number' && rug.price > 0) ? rug.price : undefined,
+                        'price':           rug.price,
                         'priceCurrency':   'USD',
                         'availability':    schemaAvailability,
                         'itemCondition':   itemCondition,
@@ -1042,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             'name':  'Noor Oriental Rugs',
                             'url':   `${SITE_ORIGIN}/index.html`
                         }
-                    },
+                    } : undefined,
                     'additionalProperty': [
                         rug.size   && { '@type': 'PropertyValue', 'name': 'Size',   'value': rug.size   },
                         rug.origin && { '@type': 'PropertyValue', 'name': 'Origin', 'value': rug.origin },
@@ -1090,7 +1092,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // --- Structured Data: FAQPage Schema (built from the same FAQ data) ---
                 // FAQ answers follow the rug's recorded data; missing facts are stated as being confirmed.
                 const faqSpecs = rug.specifications || {};
-                const isUnconfirmed = (v) => !v || /to be confirmed|not specified|not confirmed|unknown/i.test(String(v));
+                const isUnconfirmed = (v) => !v || /to be confirmed|coming soon|not specified|not confirmed|unknown/i.test(String(v));
                 const construction = String(faqSpecs.construction || '').toLowerCase();
                 const isFlatWoven = construction.includes('flat');
                 const isHandKnotted = construction ? construction.includes('knotted') : /pile/i.test(rug.material || '');
@@ -1292,6 +1294,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <i class="fa-solid fa-gem" style="font-size: 0.9em;"></i> One-of-a-Kind Handmade Rug
                             </span>
                             <span style="font-size: 0.8rem; color: var(--color-text-muted); font-weight: 400; display: block;">Once sold, this exact piece cannot be replaced.</span>
+                        </div>
+                    `
+                    : rug.availability === 'Coming Soon'
+                    ? `
+                        <div style="display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.25rem;">
+                            <span class="availability-badge-alert" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.08); color: var(--color-primary); border: 1px solid rgba(212, 175, 55, 0.2); padding: 0.35rem 0.75rem; border-radius: 4px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; width: fit-content; margin-bottom: 2px;">
+                                <i class="fa-solid fa-clock" style="font-size: 0.9em;"></i> Coming Soon
+                            </span>
+                            <span style="font-size: 0.8rem; color: var(--color-text-muted); font-weight: 400; display: block;">Details and price are being finalised. Contact us to be notified when it is available.</span>
                         </div>
                     `
                     : '';
