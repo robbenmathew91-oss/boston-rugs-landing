@@ -2,6 +2,11 @@
    NOOR ORIENTAL RUGS - JS Interactivity & Web Application Logic
    ========================================================================== */
 
+// Rugs without a confirmed price show "Price on request" instead of breaking the page.
+function formatRugPrice(price, prefix = '') {
+    return (typeof price === 'number' && price > 0) ? `${prefix}$${price.toLocaleString()}` : 'Price on request';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. Header Scroll Effect ---
@@ -123,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.className = `rug-select-btn ${isFirst ? 'active' : ''}`;
                 
                 const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
-                const formatPrice = `From $${rug.price.toLocaleString()}`;
+                const formatPrice = formatRugPrice(rug.price, 'From ');
                 
                 btn.setAttribute('data-rug-src', imgSrc);
                 btn.setAttribute('data-title', rug.name);
@@ -710,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.className = 'rug-card';
                     
                     const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
-                    const formatPrice = `$${rug.price.toLocaleString()}`;
+                    const formatPrice = formatRugPrice(rug.price);
                     
                     card.innerHTML = `
                         <div class="rug-card-img-wrapper">
@@ -958,7 +963,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'url':         detailUrl,
                     'offers': {
                         '@type':           'Offer',
-                        'price':           rug.price,
+                        'price':           (typeof rug.price === 'number' && rug.price > 0) ? rug.price : undefined,
                         'priceCurrency':   'USD',
                         'availability':    schemaAvailability,
                         'itemCondition':   itemCondition,
@@ -1014,13 +1019,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 injectJsonLd('ld-breadcrumb', breadcrumbSchema);
 
                 // --- Structured Data: FAQPage Schema (built from the same FAQ data) ---
-                const conditionLabelFaq = rug.condition
-                    ? (rug.condition.includes('/') ? rug.condition.split('/')[0].trim() : rug.condition)
-                    : 'Excellent';
+                // FAQ answers follow the rug's recorded data; missing facts are stated as being confirmed.
+                const faqSpecs = rug.specifications || {};
+                const isUnconfirmed = (v) => !v || /to be confirmed|not specified|not confirmed|unknown/i.test(String(v));
+                const construction = String(faqSpecs.construction || '').toLowerCase();
+                const isFlatWoven = construction.includes('flat');
+                const isHandKnotted = construction ? construction.includes('knotted') : /pile/i.test(rug.material || '');
+                const washedValue = faqSpecs.handWashed || faqSpecs.professionallyWashed;
+                const isWashed = !isUnconfirmed(washedValue) && /^yes/i.test(washedValue);
+                const isRestored = !isUnconfirmed(faqSpecs.professionallyRestored) && /^yes/i.test(faqSpecs.professionallyRestored);
+                const conditionLabelFaq = isUnconfirmed(rug.condition)
+                    ? ''
+                    : (rug.condition.includes('/') ? rug.condition.split('/')[0].trim() : rug.condition);
+                const faqHandmade = isFlatWoven
+                    ? `Yes. This ${rug.name} is a handmade flat-weave: the design is woven into the fabric itself, without a knotted pile.`
+                    : isHandKnotted
+                        ? `Yes. This ${rug.name} is hand-knotted by skilled weavers using traditional techniques, representing months of dedicated artisan craftsmanship.`
+                        : `Construction details for this ${rug.name} are being confirmed. Please contact us and we will be glad to share them.`;
+                const faqMaterials = isUnconfirmed(rug.material)
+                    ? 'Material details for this rug are being confirmed. Please contact us for the latest information.'
+                    : `This rug is made of ${rug.material}.` + (/wool/i.test(rug.material) ? ' Wool provides excellent durability, natural stain resistance, and a rich patina that softens beautifully with age.' : '');
+                const faqCare = (isWashed && isRestored
+                    ? 'Yes. This rug has been professionally hand-washed using organic green shampoo and restored where necessary.'
+                    : isWashed
+                        ? 'Yes. This rug has been professionally hand-washed using organic green shampoo.'
+                        : 'Cleaning and restoration details for this rug are being confirmed. Please contact us for details.')
+                    + (conditionLabelFaq ? ` It is currently in ${conditionLabelFaq.toLowerCase()} condition.` : '');
                 const faqItems = [
                     {
                         q: 'Is this rug handmade?',
-                        a: `Yes. Every rug in our collection is hand-knotted by skilled weavers using traditional techniques. This ${rug.name} features an authentic, meticulous hand-knotted weave, representing months of dedicated artisan craftsmanship.`
+                        a: faqHandmade
                     },
                     {
                         q: 'Is this rug one of a kind?',
@@ -1028,11 +1056,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     {
                         q: 'What materials are used?',
-                        a: `This rug is constructed with a warp and weft foundation made of ${rug.material}. The natural wool fibers provide excellent durability, stain resistance, and a rich patina that characteristically soft-tones with age.`
+                        a: faqMaterials
                     },
                     {
                         q: 'Has this rug been professionally washed or restored?',
-                        a: `Yes. To preserve its heritage values and structural integrity, this rug has been professionally hand-washed using organic green shampoo and restored where necessary (reinforced side bindings and fringe securing). It is currently in ${conditionLabelFaq.toLowerCase()} condition and ready for immediate placement.`
+                        a: faqCare
                     },
                     {
                         q: 'Can I view this rug in person?',
@@ -1080,7 +1108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return `${rug.name} — Handmade ${originStr} ${matStr} Rug${sizeStr}${viewStr}`.trim();
                 };
                 const imgAlt = buildImgAlt(mainImages[0], 0);
-                const formatPrice = `$${rug.price.toLocaleString()}`;
+                const formatPrice = formatRugPrice(rug.price);
 
                 // Build customer gallery thumbnails (only non-doc images)
                 // We still track original indices so the lightbox stays in sync with allImages
@@ -1265,7 +1293,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                         
                                         <div style="border-top: 1px solid var(--color-border); padding-top: 1rem; margin-top: auto; display: flex; flex-direction: column; gap: 0.75rem;">
                                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                                <span style="color: var(--color-primary); font-weight: 600; font-size: 1.2rem;">$${item.price.toLocaleString()}</span>
+                                                <span style="color: var(--color-primary); font-weight: 600; font-size: 1.2rem;">${formatRugPrice(item.price)}</span>
                                                 <!-- One-of-a-Kind badge -->
                                                 <span style="font-size: 0.7rem; background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.2); padding: 0.2rem 0.5rem; border-radius: 3px; color: var(--color-primary); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.3rem;"><i class="fa-solid fa-gem" style="font-size: 0.85em;"></i> Unique</span>
                                             </div>
@@ -1322,14 +1350,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
                 // Dynamic FAQ Accordion generation
-                const conditionLabel = rug.condition ? (rug.condition.includes('/') ? rug.condition.split('/')[0].trim() : rug.condition) : 'Excellent';
                 const faqHTML = `
                     <h2 style="font-family: var(--font-heading); font-size: 1.65rem; margin-top: 3.5rem; margin-bottom: 1.25rem; color: var(--color-text); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Frequently Asked Questions</h2>
                     <div class="rug-faq-accordion">
                         <details class="rug-faq-item">
                             <summary class="rug-faq-summary">Is this rug handmade?</summary>
                             <div class="rug-faq-content">
-                                Yes. Every rug in our collection is hand-knotted by skilled weavers using traditional techniques. This ${rug.name} features an authentic, meticulous hand-knotted weave, representing months of dedicated artisan craftsmanship.
+                                ${faqHandmade}
                             </div>
                         </details>
                         <details class="rug-faq-item">
@@ -1341,13 +1368,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         <details class="rug-faq-item">
                             <summary class="rug-faq-summary">What materials are used?</summary>
                             <div class="rug-faq-content">
-                                This rug is constructed with a warp and weft foundation made of ${rug.material}. The natural wool fibers provide excellent durability, stain resistance, and a rich patina that characteristically soft-tones with age.
+                                ${faqMaterials}
                             </div>
                         </details>
                         <details class="rug-faq-item">
                             <summary class="rug-faq-summary">Has this rug been professionally washed or restored?</summary>
                             <div class="rug-faq-content">
-                                Yes. To preserve its heritage values and structural integrity, this rug has been professionally hand-washed using organic green shampoo and restored where necessary (reinforced side bindings and fringe securing). It is currently in ${conditionLabel.toLowerCase()} condition and ready for immediate placement.
+                                ${faqCare}
                             </div>
                         </details>
                         <details class="rug-faq-item">
