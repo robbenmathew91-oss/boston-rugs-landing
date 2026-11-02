@@ -8,6 +8,32 @@ function thumbOf(file) {
     return m ? `images/thumbs/${m[1]}.jpg` : file;
 }
 
+// Size groups for the catalog filter, worked out from specifications.dimensions (feet).
+const SIZE_GROUPS = [
+    { key: 'runner', label: 'Runners (2\'–3\' wide)' },
+    { key: 'small', label: 'Small (up to about 4\' x 7\')' },
+    { key: 'medium', label: 'Medium (about 5\' x 7\' to 6\' x 10\')' },
+    { key: 'large', label: 'Large (about 8\' x 10\' to 9\' x 13\')' },
+    { key: 'oversized', label: 'Oversized (10\' x 14\' and up)' },
+    { key: 'tbc', label: 'Size to be confirmed' },
+];
+function sizeLabelOf(key) {
+    const group = SIZE_GROUPS.find(g => g.key === key);
+    return group ? group.label : key;
+}
+function sizeGroupOf(rug) {
+    const dims = rug.specifications && rug.specifications.dimensions;
+    if (!dims || !dims.widthFeet || !dims.lengthFeet) return 'tbc';
+    const short = Math.min(dims.widthFeet, dims.lengthFeet);
+    const long = Math.max(dims.widthFeet, dims.lengthFeet);
+    const area = short * long;
+    if (short <= 3.5 && long >= 6) return 'runner';
+    if (area < 32) return 'small';
+    if (area < 72) return 'medium';
+    if (area < 125) return 'large';
+    return 'oversized';
+}
+
 // Rugs without a confirmed price show "Price on request" instead of breaking the page.
 function formatRugPrice(price, prefix = '') {
     return (typeof price === 'number' && price > 0) ? `${prefix}$${price.toLocaleString()}` : 'Price on request';
@@ -347,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rugs.forEach(rug => {
                 if (rug.collection) collections.add(rug.collection);
                 if (rug.style) styles.add(rug.style);
-                if (rug.size) sizes.add(rug.size);
+                sizes.add(sizeGroupOf(rug));
                 if (rug.material) materials.add(rug.material);
             });
 
@@ -357,25 +383,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 let sortedItems = Array.from(items);
                 if (filterType === 'size') {
-                    const sizeOrder = [
-                        'Runner',
-                        "3' x 5'",
-                        "4' x 6'",
-                        "5' x 8'",
-                        "6' x 9'",
-                        "8' x 10'",
-                        "9' x 12'",
-                        "10' x 14'",
-                        "Oversized"
-                    ];
-                    sortedItems.sort((a, b) => {
-                        let idxA = sizeOrder.indexOf(a);
-                        let idxB = sizeOrder.indexOf(b);
-                        if (idxA === -1) idxA = 999;
-                        if (idxB === -1) idxB = 999;
-                        if (idxA === idxB) return a.localeCompare(b);
-                        return idxA - idxB;
-                    });
+                    const order = SIZE_GROUPS.map(g => g.key);
+                    sortedItems.sort((a, b) => order.indexOf(a) - order.indexOf(b));
                 } else {
                     sortedItems.sort();
                 }
@@ -385,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     label.className = 'filter-label';
                     label.innerHTML = `<input type="checkbox" value="${item}" data-filter-type="${filterType}">
                         <div class="checkbox-custom"></div>
-                        <span class="filter-name">${item}</span>
+                        <span class="filter-name">${filterType === 'size' ? sizeLabelOf(item) : item}</span>
                         <span class="filter-count">(0)</span>`;
                     container.appendChild(label);
                 });
@@ -459,7 +468,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (styleParam) styleParam.split(',').forEach(s => activeFilters.style.add(s));
                 
                 const sizeParam = params.get('size');
-                if (sizeParam) sizeParam.split(',').forEach(s => activeFilters.size.add(s));
+                if (sizeParam) sizeParam.split(',').forEach(s => {
+                    if (SIZE_GROUPS.some(g => g.key === s)) activeFilters.size.add(s);
+                });
                 
                 const materialParam = params.get('material');
                 if (materialParam) materialParam.split(',').forEach(m => activeFilters.material.add(m));
@@ -634,7 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Apply Sizes
                 if (activeFilters.size.size > 0) {
-                    filteredRugs = filteredRugs.filter(rug => activeFilters.size.has(rug.size));
+                    filteredRugs = filteredRugs.filter(rug => activeFilters.size.has(sizeGroupOf(rug)));
                 }
 
                 // Apply Materials
@@ -668,13 +679,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             let matchesOther = true;
                             if (filterType !== 'collection' && activeFilters.collection.size > 0 && !activeFilters.collection.has(rug.collection)) matchesOther = false;
                             if (filterType !== 'style' && activeFilters.style.size > 0 && !activeFilters.style.has(rug.style)) matchesOther = false;
-                            if (filterType !== 'size' && activeFilters.size.size > 0 && !activeFilters.size.has(rug.size)) matchesOther = false;
+                            if (filterType !== 'size' && activeFilters.size.size > 0 && !activeFilters.size.has(sizeGroupOf(rug))) matchesOther = false;
                             if (filterType !== 'material' && activeFilters.material.size > 0 && !activeFilters.material.has(rug.material)) matchesOther = false;
                             if (activeFilters.price && typeof rug.price === 'number' && rug.price > 0) {
                                 if (rug.price < activeFilters.price.min) matchesOther = false;
                                 if (activeFilters.price.max < 10000 && rug.price > activeFilters.price.max) matchesOther = false;
                             }
-                            if (matchesOther && rug[filterType] === value) count++;
+                            const rugValue = filterType === 'size' ? sizeGroupOf(rug) : rug[filterType];
+                            if (matchesOther && rugValue === value) count++;
                         });
                         
                         const countSpan = cb.parentElement.querySelector('.filter-count');
@@ -724,7 +736,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     activeFilters.collection.forEach(val => addChip(val, 'collection', val));
                     activeFilters.style.forEach(val => addChip(val, 'style', val));
-                    activeFilters.size.forEach(val => addChip(val, 'size', val));
+                    activeFilters.size.forEach(val => addChip(sizeLabelOf(val), 'size', val));
                     activeFilters.material.forEach(val => addChip(val, 'material', val));
                     
                     if (activeFilters.price && (activeFilters.price.min > 0 || activeFilters.price.max < 10000)) {
