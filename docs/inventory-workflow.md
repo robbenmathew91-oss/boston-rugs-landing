@@ -37,6 +37,11 @@ def optimize_jpeg(input_path, output_path):
 
 ---
 
+### Thumbnails
+After adding or replacing rug photos and updating `inventory.json`, run `python3 make_thumbs.py` from the repository root. It writes small copies (max 720px) to `images/thumbs/`, which the catalog cards, related-rug cards and gallery thumbnail strips load. The rug page shows the small copy first and swaps in the full photo once it has downloaded. If a thumbnail is missing, the site falls back to the full image.
+
+---
+
 ## 3. Administrative vs. Customer Image Filtering
 
 To preserve a luxury storefront appearance, administrative inventory logs (such as paper documents or orange authenticity tags) must be kept separate from the client-facing product gallery.

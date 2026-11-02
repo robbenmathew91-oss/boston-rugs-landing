@@ -2,6 +2,12 @@
    NOOR ORIENTAL RUGS - JS Interactivity & Web Application Logic
    ========================================================================== */
 
+// Small copies in images/thumbs/ (made by make_thumbs.py) for cards and thumbnail strips.
+function thumbOf(file) {
+    const m = /^images\/([^/]+)\.(jpe?g|png|webp)$/i.exec(file || '');
+    return m ? `images/thumbs/${m[1]}.jpg` : file;
+}
+
 // Rugs without a confirmed price show "Price on request" instead of breaking the page.
 function formatRugPrice(price, prefix = '') {
     return (typeof price === 'number' && price > 0) ? `${prefix}$${price.toLocaleString()}` : 'Price on request';
@@ -137,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 btn.innerHTML = `
                     <div class="selector-thumb">
-                        <img src="${imgSrc}" alt="${rug.name} Thumbnail" width="1024" height="1024">
+                        <img src="${thumbOf(imgSrc)}" alt="${rug.name} Thumbnail" width="720" height="720" decoding="async" onerror="this.onerror=null;this.src='${imgSrc}'">
                     </div>
                     <div class="selector-info">
                         <h3>${rug.name}</h3>
@@ -763,7 +769,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     card.innerHTML = `
                         <div class="rug-card-img-wrapper">
-                            <img src="${imgSrc}" alt="${rug.name}" class="rug-card-image" loading="lazy">
+                            <img src="${thumbOf(imgSrc)}" alt="${rug.name}" class="rug-card-image" loading="lazy" decoding="async" width="720" height="540" onerror="this.onerror=null;this.src='${imgSrc}'">
                         </div>
                         <div class="rug-card-content">
                             <div class="rug-card-header">
@@ -1164,7 +1170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const thumbAlt = buildImgAlt(img, origIdx);
                         thumbnailsHTML += `
                             <button class="rug-thumb-btn ${origIdx === 0 ? 'active' : ''}" data-index="${origIdx}" aria-label="View ${rug.name} — image ${origIdx + 1} of ${mainImages.length}">
-                                <img src="${img.file}" alt="${thumbAlt}" loading="lazy">
+                                <img src="${thumbOf(img.file)}" alt="${thumbAlt}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${img.file}'">
                             </button>
                         `;
                     });
@@ -1178,7 +1184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const origIdx = allImages.indexOf(img);
                         return `
                             <button class="rug-thumb-btn" data-index="${origIdx}" aria-label="View documentation: ${img.alt || img.file}">
-                                <img src="${img.file}" alt="${img.alt}" loading="lazy">
+                                <img src="${thumbOf(img.file)}" alt="${img.alt}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${img.file}'">
                             </button>
                         `;
                     }).join('');
@@ -1318,7 +1324,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <a href="rug-detail.html?slug=${item.slug}" style="text-decoration: none; color: inherit; display: block;" class="related-rug-card-link">
                                 <div class="related-rug-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; transition: var(--transition-quick); height: 100%; display: flex; flex-direction: column; position: relative;">
                                     <div style="aspect-ratio: 4/3; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; position: relative;">
-                                        <img src="${itemImg}" alt="${itemAlt}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" class="related-card-img" loading="lazy">
+                                        <img src="${thumbOf(itemImg)}" alt="${itemAlt}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" class="related-card-img" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${itemImg}'">
                                     </div>
                                     <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 1.25rem;">
                                         <div>
@@ -1456,7 +1462,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <!-- Elegant loading spinner behind the image -->
                                 <div class="gallery-spinner" style="position: absolute; color: var(--color-primary); font-size: 1.5rem; z-index: 1;"><i class="fa-solid fa-spinner fa-spin"></i></div>
                                 
-                                <img src="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0" style="position: relative; z-index: 2; cursor: zoom-in; opacity: 1;">
+                                <img src="${thumbOf(imgSrc)}" data-full="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='${imgSrc}'" style="position: relative; z-index: 2; cursor: zoom-in; opacity: 1;">
                                 
                                 <!-- Elegant Image Counter overlay -->
                                 <div id="gallery-counter" style="position: absolute; bottom: 1rem; right: 1rem; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); color: #fff; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 3; transition: opacity 0.25s ease;">
@@ -1634,6 +1640,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 // --- Bind Interactive Gallery & Lightbox Event Listeners ---
                 const mainImg = document.getElementById('main-rug-img');
                 const mainWrapper = document.getElementById('main-zoom-wrapper');
+
+                // The main photo starts as the small copy; switch to the full photo once it has downloaded
+                // (unless the visitor has already picked another photo).
+                if (mainImg && mainImg.dataset.full) {
+                    const fullSrc = mainImg.dataset.full;
+                    const full = new Image();
+                    full.onload = () => {
+                        if (mainImg.getAttribute('data-index') === '0') mainImg.src = fullSrc;
+                    };
+                    full.src = fullSrc;
+                }
                 const thumbBtns = document.querySelectorAll('.rug-thumb-btn');
 
                 const updateGalleryCounter = (index) => {
