@@ -103,7 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, {
-        threshold: 0.15,
+        // Reveal as soon as any part is on screen: a percentage threshold never
+        // triggers for sections taller than the screen (e.g. the full rug catalog).
+        threshold: 0,
         rootMargin: '0px 0px -50px 0px'
     });
     
