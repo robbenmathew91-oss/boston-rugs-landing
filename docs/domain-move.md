@@ -1,7 +1,13 @@
 # Moving noororientalrugs.com to this site
 
-**Status (2026-11-01):** noororientalrugs.com still serves the old WordPress site (behind Cloudflare). This site runs on Vercel at boston-rugs-landing.vercel.app. Everything here is already prepared for the switch:
+**Status (2026-11-05): switched.** noororientalrugs.com now serves this site from Vercel (Let's Encrypt certificate), and www.noororientalrugs.com 308-redirects to it. Cloudflare changes, both set to DNS only (grey cloud):
 
+- `noororientalrugs.com` A: `107.20.173.90` (Proxied, old WordPress) → `76.76.21.21`. Vercel shows "DNS Change Recommended" because it now prefers a CNAME to `ba453d8321877bea.vercel-dns-017.com`, but the A record keeps working.
+- `www` CNAME: `noororientalrugs.com` (Proxied) → `ba453d8321877bea.vercel-dns-017.com`.
+
+Every other record was left alone: Microsoft 365 email (MX, autodiscover, SPF/DMARC TXT), iContact, EarthLink ftp/pop, and `staging` (still the old WordPress server). To undo, put the two old values back with the orange cloud on.
+
+Everything here was prepared before the switch:
 - Every page's canonical, `og:url` and structured-data URL uses `https://noororientalrugs.com` (`SITE_ORIGIN` in app.js).
 - `sitemap.xml` and `robots.txt` list the noororientalrugs.com addresses (`python3 make_sitemap.py` rebuilds them).
 - `vercel.json` holds 54 permanent redirects from the old WordPress addresses (pages, blog posts, shop, product categories) to the new pages, so Google rankings carry over.
