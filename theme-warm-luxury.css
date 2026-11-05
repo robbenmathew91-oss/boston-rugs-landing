@@ -509,3 +509,74 @@ body {
     box-shadow: 0 10px 30px rgba(60, 30, 10, 0.06) !important;
 }
 
+
+
+/* ==========================================================================
+   22. INNER PAGES (catalog, services, galleries, blog, community)
+   ========================================================================== */
+
+/* ── Subpage hero banner: ivory wash over the showroom photo ── */
+.blog-hero {
+    background: linear-gradient(rgba(250, 247, 242, 0.84), rgba(250, 247, 242, 0.9)), url('images/showroom.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* ── Before/after and case-study photo labels ── */
+.ba-label,
+.case-img-label {
+    background: rgba(250, 247, 242, 0.88);
+    color: var(--color-text);
+}
+
+/* ── Blog search and article popup ── */
+.blog-search-input {
+    background: var(--color-card-bg);
+    color: var(--color-text);
+    box-shadow: 0 10px 30px rgba(60, 30, 10, 0.08);
+}
+
+.blog-search-input:focus {
+    background: var(--color-bg);
+}
+
+.blog-modal {
+    background-color: rgba(28, 18, 10, 0.55);
+}
+
+.blog-modal-content {
+    background-color: var(--color-bg);
+    box-shadow: 0 30px 60px rgba(60, 30, 10, 0.25);
+}
+
+.blog-modal-close {
+    background: rgba(240, 235, 224, 0.95);
+    color: var(--color-text);
+}
+
+.blog-modal-close:hover {
+    color: #faf7f2;
+}
+
+/* ── Catalog filter checkbox tick: light on brass ── */
+.filter-label .checkbox-custom:after {
+    border-color: #faf7f2;
+}
+
+/* ── Premium cards inside linen sections ── */
+.section-dark .premium-card,
+.section-dark .premium-card-wide {
+    background: var(--color-bg);
+}
+
+.section-dark .premium-title {
+    color: var(--color-text);
+}
+
+.section-dark .premium-text {
+    color: var(--color-text-muted);
+}
+
+.section-dark .premium-support-img {
+    border-color: var(--color-bg);
+}
