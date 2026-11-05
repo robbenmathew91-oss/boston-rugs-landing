@@ -62,82 +62,82 @@
     },
     {
       "source": "/introduction",
-      "destination": "/blog.html",
+      "destination": "/blog/introduction.html",
       "permanent": true
     },
     {
       "source": "/introduction/",
-      "destination": "/blog.html",
+      "destination": "/blog/introduction.html",
       "permanent": true
     },
     {
       "source": "/wool-from-the-mountains",
-      "destination": "/blog.html",
+      "destination": "/blog/wool-from-the-mountains.html",
       "permanent": true
     },
     {
       "source": "/wool-from-the-mountains/",
-      "destination": "/blog.html",
+      "destination": "/blog/wool-from-the-mountains.html",
       "permanent": true
     },
     {
       "source": "/dyes",
-      "destination": "/blog.html",
+      "destination": "/blog/dyes.html",
       "permanent": true
     },
     {
       "source": "/dyes/",
-      "destination": "/blog.html",
+      "destination": "/blog/dyes.html",
       "permanent": true
     },
     {
       "source": "/weaving-rugs",
-      "destination": "/blog.html",
+      "destination": "/blog/weaving-rugs.html",
       "permanent": true
     },
     {
       "source": "/weaving-rugs/",
-      "destination": "/blog.html",
+      "destination": "/blog/weaving-rugs.html",
       "permanent": true
     },
     {
       "source": "/beautiful-flaws",
-      "destination": "/blog.html",
+      "destination": "/blog/beautiful-flaws.html",
       "permanent": true
     },
     {
       "source": "/beautiful-flaws/",
-      "destination": "/blog.html",
+      "destination": "/blog/beautiful-flaws.html",
       "permanent": true
     },
     {
       "source": "/how-rugs-are-classified",
-      "destination": "/blog.html",
+      "destination": "/blog/how-rugs-are-classified.html",
       "permanent": true
     },
     {
       "source": "/how-rugs-are-classified/",
-      "destination": "/blog.html",
+      "destination": "/blog/how-rugs-are-classified.html",
       "permanent": true
     },
     {
       "source": "/authenticity",
-      "destination": "/blog.html",
+      "destination": "/blog/authenticity.html",
       "permanent": true
     },
     {
       "source": "/authenticity/",
-      "destination": "/blog.html",
+      "destination": "/blog/authenticity.html",
       "permanent": true
     },
     {
       "source": "/rugs-as-human-document",
-      "destination": "/blog.html",
+      "destination": "/blog/rugs-as-human-document.html",
       "permanent": true
     },
     {
       "source": "/rugs-as-human-document/",
-      "destination": "/blog.html",
+      "destination": "/blog/rugs-as-human-document.html",
       "permanent": true
     },
     {

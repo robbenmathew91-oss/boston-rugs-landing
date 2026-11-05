@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# Markdown sources of the blog posts; the built pages are in /blog/
+Disallow: /blog/posts/
 
 Sitemap: https://noororientalrugs.com/sitemap.xml
