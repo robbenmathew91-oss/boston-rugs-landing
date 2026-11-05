@@ -2,10 +2,10 @@
 
 **Status (2026-11-05): switched.** noororientalrugs.com now serves this site from Vercel (Let's Encrypt certificate), and www.noororientalrugs.com 308-redirects to it. Cloudflare changes, both set to DNS only (grey cloud):
 
-- `noororientalrugs.com` A: `107.20.173.90` (Proxied, old WordPress) → `76.76.21.21`. Vercel shows "DNS Change Recommended" because it now prefers a CNAME to `ba453d8321877bea.vercel-dns-017.com`, but the A record keeps working.
+- `noororientalrugs.com`: A `107.20.173.90` (Proxied, old WordPress) → CNAME `ba453d8321877bea.vercel-dns-017.com` (Cloudflare flattens it at the root). On 2026-11-05 it briefly used the legacy A `76.76.21.21`; it was switched to the CNAME Vercel recommends, and all three Vercel domains show Valid Configuration.
 - `www` CNAME: `noororientalrugs.com` (Proxied) → `ba453d8321877bea.vercel-dns-017.com`.
 
-Every other record was left alone: Microsoft 365 email (MX, autodiscover, SPF/DMARC TXT), iContact, EarthLink ftp/pop, and `staging` (still the old WordPress server). To undo, put the two old values back with the orange cloud on.
+Every other record was left alone: Microsoft 365 email (MX, autodiscover, SPF/DMARC TXT), iContact, EarthLink ftp/pop, and `staging` (still the old WordPress server). To undo, put the two old values back (`@` as A `107.20.173.90`, `www` as CNAME `noororientalrugs.com`) with the orange cloud on.
 
 Everything here was prepared before the switch:
 - Every page's canonical, `og:url` and structured-data URL uses `https://noororientalrugs.com` (`SITE_ORIGIN` in app.js).
