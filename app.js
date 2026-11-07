@@ -307,6 +307,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Accept': 'application/json' }
                 });
                 if (!response.ok) throw new Error(`Formspree returned ${response.status}`);
+                if (typeof gtag === 'function') {
+                    gtag('event', 'generate_lead', { request_type: requestType });
+                }
                 showSuccess();
             } catch (err) {
                 submitBtn.disabled = false;

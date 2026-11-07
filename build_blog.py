@@ -225,6 +225,10 @@ def post_page(post, related, header, footer):
     <link rel="stylesheet" href="/theme-warm-luxury.css?v={THEME_VERSION}">
 
 {schema_html}
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X26TYP7R4L"></script>
+    <script src="/analytics.js?v=1"></script>
 </head>
 <body>
 
