@@ -102,7 +102,7 @@ SERVICES = {
 }
 
 # FAQ sections shown on the service pages. The visible questions and answers on
-# rug-cleaning.html, rug-restoration.html and rug-appraisals.html use exactly this text: change both together.
+# service pages and rugs-for-sale.html use exactly this text: change both together.
 # Facts confirmed by Mr. Noor on 2026-11-06 or already stated on the homepage.
 FAQS = {
     'rug-cleaning.html': [
@@ -121,6 +121,20 @@ FAQS = {
         ('Can you repair damage found during cleaning?',
          'Yes. Worn fringes, moth damage, holes and worn pile can be restored by master weaver Mo Nooraee. '
          'See our rug restoration service.'),
+    ],
+    'rugs-for-sale.html': [
+        ('Do your rugs come with a certificate of authenticity?',
+         'Yes. Every rug comes with a certificate of authenticity.'),
+        ('How does the lifetime trade-in work?',
+         'You can trade in the rug just by paying the price difference of the rugs.'),
+        ('Can I try a rug in my home before buying?',
+         'Yes. We offer a free 3-day in-home trial, available in all areas.'),
+        ('What types of Persian and Oriental rugs do you carry?',
+         'Antique, vintage and traditional rugs, including Tabriz, Heriz, Kashan, Nain, Isfahan and Gabbeh rugs, '
+         'silk rugs, Kilims, runners and large room-size rugs, and more.'),
+        ('Can I see the rugs in person?',
+         'Yes. Visit our showroom at 769 Concord Ave, Cambridge, MA, open Tuesday, Wednesday, Friday and '
+         'Saturday from 8:00 AM to 3:00 PM.'),
     ],
     'rug-appraisals.html': [
         ('How long does a rug appraisal take?',
@@ -218,7 +232,7 @@ def page_schema(page):
         if page in FAQS:
             graph.append(faq_page(page, FAQS[page]))
     elif page == 'rugs-for-sale.html':
-        graph = [breadcrumb(page, 'Rugs for Sale')]
+        graph = [breadcrumb(page, 'Rugs for Sale'), faq_page(page, FAQS[page])]
     elif page == 'index.html':
         graph = [service_node(p, info) for p, info in SERVICES.items()]
     else:
