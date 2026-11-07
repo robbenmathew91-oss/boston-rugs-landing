@@ -24,6 +24,7 @@ PAGES = [
     ('/restoration-gallery.html', '0.6'),
     ('/community-impact.html', '0.5'),
     ('/blog.html', '0.5'),
+    ('/privacy-policy.html', '0.2'),
 ]
 
 
