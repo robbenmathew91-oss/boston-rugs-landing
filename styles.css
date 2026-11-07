@@ -313,7 +313,7 @@ h1, h2, h3, h4 {
 .nav-list {
     display: flex;
     list-style: none;
-    gap: 0.8rem; /* Compact gap for 6 items in header */
+    gap: 1.5rem; /* Owner asked for more space between items; still fits on one line at 1201px+ */
     align-items: center;
 }
 
