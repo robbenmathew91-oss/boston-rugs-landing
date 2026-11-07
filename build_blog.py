@@ -19,6 +19,8 @@ import json
 import os
 import re
 
+from make_schema import ORG_ID, site_schema
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 POSTS_DIR = os.path.join(ROOT, 'blog', 'posts')
 OUT_DIR = os.path.join(ROOT, 'blog')
@@ -162,11 +164,7 @@ def post_page(post, related, header, footer):
         'datePublished': post['date'],
         'dateModified': post.get('updated', post['date']),
         'author': {'@type': 'Person', 'name': post.get('author', AUTHOR)},
-        'publisher': {'@type': 'LocalBusiness', 'name': BUSINESS, 'url': SITE + '/',
-                      'telephone': '+1-617-868-6667',
-                      'address': {'@type': 'PostalAddress', 'streetAddress': '769 Concord Ave.',
-                                  'addressLocality': 'Cambridge', 'addressRegion': 'MA',
-                                  'postalCode': '02138', 'addressCountry': 'US'}},
+        'publisher': {'@id': ORG_ID},
         'mainEntityOfPage': url,
         'articleSection': post['category'],
     }, {
@@ -224,6 +222,7 @@ def post_page(post, related, header, footer):
     <link rel="stylesheet" href="/styles.css?v={STYLES_VERSION}">
     <link rel="stylesheet" href="/theme-warm-luxury.css?v={THEME_VERSION}">
 
+{site_schema()}
 {schema_html}
 
     <!-- Google Analytics -->

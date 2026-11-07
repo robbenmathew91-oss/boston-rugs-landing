@@ -402,7 +402,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         inventoryManager.fetchInventory().then(rugs => {
             allRugs = rugs;
-            
+
+            // Structured data: the full catalog (names and pages only; prices stay on each rug's Product schema).
+            const catalogSchema = document.createElement('script');
+            catalogSchema.type = 'application/ld+json';
+            catalogSchema.id = 'catalog-itemlist-schema';
+            catalogSchema.textContent = JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'ItemList',
+                '@id': `${SITE_ORIGIN}/rugs-for-sale.html#catalog`,
+                'name': 'Handmade Persian & Oriental Rugs for Sale',
+                'numberOfItems': rugs.length,
+                'itemListElement': rugs.map((rug, i) => ({
+                    '@type': 'ListItem',
+                    'position': i + 1,
+                    'name': rug.name,
+                    'url': `${SITE_ORIGIN}/rug-detail.html?slug=${rug.slug}`
+                }))
+            });
+            document.head.appendChild(catalogSchema);
+
             // 1. Extract dynamic filter options
             const collections = new Set();
             const styles = new Set();
@@ -1073,11 +1092,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         'availability':    schemaAvailability,
                         'itemCondition':   itemCondition,
                         'url':             detailUrl,
-                        'seller': {
-                            '@type': 'Organization',
-                            'name':  'Noor Oriental Rugs',
-                            'url':   `${SITE_ORIGIN}/index.html`
-                        }
+                        // Same business node as the site-wide schema in <head> (make_schema.py).
+                        'seller': { '@id': `${SITE_ORIGIN}/#organization` }
                     } : undefined,
                     'additionalProperty': [
                         rug.size   && { '@type': 'PropertyValue', 'name': 'Size',   'value': rug.size   },

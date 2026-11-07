@@ -26,6 +26,50 @@
     <link rel="stylesheet" href="/theme-warm-luxury.css?v=2.1">
 
     <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": [
+            "Organization",
+            "LocalBusiness",
+            "HomeGoodsStore"
+          ],
+          "@id": "https://noororientalrugs.com/#organization",
+          "name": "Noor Oriental Rugs, Inc.",
+          "url": "https://noororientalrugs.com/",
+          "image": "https://noororientalrugs.com/images/showroom.png",
+          "telephone": "+1-617-868-6667",
+          "email": "info@noororientalrugs.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "769 Concord Ave.",
+            "addressLocality": "Cambridge",
+            "addressRegion": "MA",
+            "postalCode": "02138",
+            "addressCountry": "US"
+          },
+          "sameAs": [
+            "https://www.facebook.com/noororientalrugs/",
+            "https://www.instagram.com/noororientalrugs/",
+            "https://www.yelp.com/biz/noor-oriental-rugs-cambridge-2",
+            "https://www.bbb.org/us/ma/cambridge/profile/new-carpet/noor-oriental-rugs-inc-0021-22320"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://noororientalrugs.com/#website",
+          "url": "https://noororientalrugs.com/",
+          "name": "Noor Oriental Rugs",
+          "inLanguage": "en-US",
+          "publisher": {
+            "@id": "https://noororientalrugs.com/#organization"
+          }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -39,18 +83,7 @@
     "name": "Mohammad (Mo) Nooraee"
   },
   "publisher": {
-    "@type": "LocalBusiness",
-    "name": "Noor Oriental Rugs, Inc.",
-    "url": "https://noororientalrugs.com/",
-    "telephone": "+1-617-868-6667",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "769 Concord Ave.",
-      "addressLocality": "Cambridge",
-      "addressRegion": "MA",
-      "postalCode": "02138",
-      "addressCountry": "US"
-    }
+    "@id": "https://noororientalrugs.com/#organization"
   },
   "mainEntityOfPage": "https://noororientalrugs.com/blog/donation-of-rugs-for-charitable-purposes.html",
   "articleSection": "Community Impact"

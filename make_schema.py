@@ -1,0 +1,182 @@
+"""Write the site's shared structured data (JSON-LD) into the HTML pages.
+
+One business identity is used everywhere: the node with @id
+https://noororientalrugs.com/#organization. The homepage keeps the full
+version (hours, geo, founder) in its own LocalBusiness block, which carries
+the same @id; every other block refers to it by @id instead of repeating a
+second, different business.
+
+What this writes, between marker comments in each page's <head>:
+  SITE-SCHEMA  every public page: the business node + the WebSite node
+  PAGE-SCHEMA  service pages: Service + BreadcrumbList;
+               rugs-for-sale: BreadcrumbList; homepage: the three Services
+
+Blog posts get the SITE-SCHEMA block from build_blog.py, which imports it
+from here. Rug detail pages add Product and BreadcrumbList at runtime in
+app.js and point the seller at the same @id.
+
+Usage:  python3 make_schema.py      (re-run after changing anything below)
+"""
+import json
+import os
+import re
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+SITE = 'https://noororientalrugs.com'
+ORG_ID = f'{SITE}/#organization'
+WEBSITE_ID = f'{SITE}/#website'
+
+# Business facts: must match the homepage LocalBusiness block and the footer.
+ORGANIZATION = {
+    '@type': ['Organization', 'LocalBusiness', 'HomeGoodsStore'],
+    '@id': ORG_ID,
+    'name': 'Noor Oriental Rugs, Inc.',
+    'url': f'{SITE}/',
+    'image': f'{SITE}/images/showroom.png',
+    'telephone': '+1-617-868-6667',
+    'email': 'info@noororientalrugs.com',
+    'address': {
+        '@type': 'PostalAddress',
+        'streetAddress': '769 Concord Ave.',
+        'addressLocality': 'Cambridge',
+        'addressRegion': 'MA',
+        'postalCode': '02138',
+        'addressCountry': 'US',
+    },
+    'sameAs': [
+        'https://www.facebook.com/noororientalrugs/',
+        'https://www.instagram.com/noororientalrugs/',
+        'https://www.yelp.com/biz/noor-oriental-rugs-cambridge-2',
+        'https://www.bbb.org/us/ma/cambridge/profile/new-carpet/noor-oriental-rugs-inc-0021-22320',
+    ],
+}
+
+WEBSITE = {
+    '@type': 'WebSite',
+    '@id': WEBSITE_ID,
+    'url': f'{SITE}/',
+    'name': 'Noor Oriental Rugs',
+    'inLanguage': 'en-US',
+    'publisher': {'@id': ORG_ID},
+}
+
+# Service areas as listed in the homepage contact section.
+AREA_SERVED = [{'@type': 'City', 'name': f'{town}, MA'} for town in
+               ('Cambridge', 'Boston', 'Brookline', 'Newton', 'Belmont', 'Lexington', 'Wellesley')]
+AREA_SERVED.append({'@type': 'AdministrativeArea', 'name': 'Greater Boston'})
+
+# Descriptions repeat what each service page already says; offers repeat the homepage.
+SERVICES = {
+    'rug-restoration.html': {
+        'name': 'Oriental Rug Restoration & Repair',
+        'serviceType': 'Rug restoration and repair',
+        'description': 'Museum-quality conservation, fringe repair, pile re-weaving, moth damage restoration, '
+                       'and color touch-ups of fine Persian and Oriental rugs.',
+        'offer': 'Complimentary virtual estimation and evaluations.',
+        'crumb': 'Rug Restoration',
+    },
+    'rug-cleaning.html': {
+        'name': 'Persian & Oriental Rug Cleaning',
+        'serviceType': 'Rug cleaning',
+        'description': 'A seven-step green cleaning process for Persian and Oriental rugs: thorough dusting, '
+                       'color testing and gentle hand washing with biodegradable shampoo, stain treatment, '
+                       'deodorizing and disinfecting, cotton foundation treatment, mothproofing, and fiber '
+                       'conditioning.',
+        'offer': 'Complimentary local pickup and delivery service.',
+        'crumb': 'Rug Cleaning',
+    },
+    'rug-appraisals.html': {
+        'name': 'Certified Rug Appraisals & Valuations',
+        'serviceType': 'Rug appraisal',
+        'description': 'Certified Oriental rug appraisals for insurance, estates, and IRS Form 8283 charitable '
+                       'tax deductions by Harvard Law alumnus Mo Nooraee.',
+        'offer': None,
+        'crumb': 'Rug Appraisals',
+    },
+}
+
+# Public pages that get the shared block (blog posts get it from build_blog.py).
+SITE_PAGES = ['index.html', 'rugs-for-sale.html', 'rug-detail.html', 'rug-cleaning.html',
+              'rug-restoration.html', 'rug-appraisals.html', 'gallery.html', 'restoration-gallery.html',
+              'community-impact.html', 'blog.html', 'privacy-policy.html']
+
+
+def script(data, indent='    '):
+    body = json.dumps(data, indent=2, ensure_ascii=False)
+    body = '\n'.join(indent + line for line in body.splitlines())
+    return f'{indent}<script type="application/ld+json">\n{body}\n{indent}</script>'
+
+
+def site_schema(indent='    '):
+    return script({'@context': 'https://schema.org', '@graph': [ORGANIZATION, WEBSITE]}, indent)
+
+
+def service_node(page, info):
+    node = {
+        '@type': 'Service',
+        '@id': f'{SITE}/{page}#service',
+        'name': info['name'],
+        'serviceType': info['serviceType'],
+        'url': f'{SITE}/{page}',
+        'description': info['description'],
+        'provider': {'@id': ORG_ID},
+        'areaServed': AREA_SERVED,
+    }
+    if info['offer']:
+        node['offers'] = {'@type': 'Offer', 'priceCurrency': 'USD', 'description': info['offer']}
+    return node
+
+
+def breadcrumb(page, name):
+    return {
+        '@type': 'BreadcrumbList',
+        '@id': f'{SITE}/{page}#breadcrumb',
+        'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': f'{SITE}/'},
+            {'@type': 'ListItem', 'position': 2, 'name': name, 'item': f'{SITE}/{page}'},
+        ],
+    }
+
+
+def page_schema(page):
+    if page in SERVICES:
+        info = SERVICES[page]
+        graph = [service_node(page, info), breadcrumb(page, info['crumb'])]
+    elif page == 'rugs-for-sale.html':
+        graph = [breadcrumb(page, 'Rugs for Sale')]
+    elif page == 'index.html':
+        graph = [service_node(p, info) for p, info in SERVICES.items()]
+    else:
+        return None
+    return script({'@context': 'https://schema.org', '@graph': graph})
+
+
+def put_block(html, name, block):
+    start = f'<!-- {name}:START (generated by make_schema.py) -->'
+    end = f'<!-- {name}:END -->'
+    new = f'    {start}\n{block}\n    {end}'
+    pattern = re.compile(r'    ' + re.escape(start) + r'.*?' + re.escape(end), re.S)
+    if pattern.search(html):
+        return pattern.sub(lambda m: new, html)
+    # First run: insert just before the Google Analytics tag (end of <head>).
+    anchor = '    <!-- Google Analytics -->'
+    if anchor not in html:
+        anchor = '</head>'
+    return html.replace(anchor, new + '\n\n' + anchor, 1)
+
+
+def main():
+    for page in SITE_PAGES:
+        path = os.path.join(ROOT, page)
+        html = open(path, encoding='utf-8').read()
+        html = put_block(html, 'SITE-SCHEMA', site_schema())
+        block = page_schema(page)
+        if block:
+            html = put_block(html, 'PAGE-SCHEMA', block)
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write(html)
+    print(f'Structured data written to {len(SITE_PAGES)} pages. Run build_blog.py to refresh blog posts.')
+
+
+if __name__ == '__main__':
+    main()
