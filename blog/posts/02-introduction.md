@@ -1,7 +1,7 @@
 ---
 title: Introduction
-seo_title: An Introduction to Handmade Persian and Oriental Rugs
-description: Traditional Eastern art forms blend form, decoration, and function within an integrated whole, converging beautifully in handmade rugs.
+seo_title: Introduction to Persian & Oriental Rugs
+description: An introduction to handmade Persian and Oriental rugs: how form, decoration and function come together, from nomadic floor coverings to Safavid court carpets.
 date: 2026-11-05
 category: History & Art
 image: images/blog_intro.jpg

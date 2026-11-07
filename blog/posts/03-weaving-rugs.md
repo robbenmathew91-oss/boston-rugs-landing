@@ -1,7 +1,7 @@
 ---
 title: Weaving Rugs
-seo_title: How Persian Rugs Are Woven: City Workshops vs. Village and Nomadic Weaving
-description: Rugs are woven either in city workshops or by villagers and nomads who make rugs part-time for functional and artistic purposes.
+seo_title: How Persian Rugs Are Woven by Hand
+description: How Persian rugs are woven: city workshops with pre-drawn designs on vertical looms, and village and nomadic weavers working from memory on portable looms.
 date: 2026-11-05
 category: Techniques
 image: images/blog_weaving.jpg

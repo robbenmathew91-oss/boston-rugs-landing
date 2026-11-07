@@ -1,7 +1,7 @@
 ---
 title: Rugs as Human Document
-seo_title: Rugs as Human Documents: The Story Woven Into Every Handmade Rug
-description: Every part of a rug tells a story. The wool and dye reveal its origin, water sources, local flora, and herds, reflecting a weaver's unique soul.
+seo_title: Rugs as Human Documents: Woven Stories
+description: Every part of a handmade rug tells a story: the wool and dyes reveal its origin, landscape and herds, while the design reflects a weaver's tradition and soul.
 date: 2026-11-05
 category: History & Art
 image: images/blog_document.jpg

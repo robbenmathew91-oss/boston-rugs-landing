@@ -33,12 +33,12 @@
     },
     "images": [
       {
-        "file": "images/classic_rug.png",
+        "file": "images/classic_rug.jpg",
         "alt": "Noor Esfahan Classic - Image 1",
         "order": 1
       },
       {
-        "file": "images/showroom.png",
+        "file": "images/showroom.jpg",
         "alt": "Noor Esfahan Classic - Image 2",
         "order": 2
       }
@@ -83,7 +83,7 @@
     },
     "images": [
       {
-        "file": "images/classic_rug.png",
+        "file": "images/classic_rug.jpg",
         "alt": "Kashan Royal Medallion - Image 1",
         "order": 1
       }
@@ -128,7 +128,7 @@
     },
     "images": [
       {
-        "file": "images/classic_rug.png",
+        "file": "images/classic_rug.jpg",
         "alt": "Tabriz Mahi Garden - Image 1",
         "order": 1
       }
@@ -173,7 +173,7 @@
     },
     "images": [
       {
-        "file": "images/classic_rug.png",
+        "file": "images/classic_rug.jpg",
         "alt": "Nain Habibian Reserve - Image 1",
         "order": 1
       }
@@ -218,7 +218,7 @@
     },
     "images": [
       {
-        "file": "images/classic_rug.png",
+        "file": "images/classic_rug.jpg",
         "alt": "Heriz Serapi Grandeur - Image 1",
         "order": 1
       }
@@ -263,12 +263,12 @@
     },
     "images": [
       {
-        "file": "images/modern_rug.png",
+        "file": "images/modern_rug.jpg",
         "alt": "Seaport Abstract Slate - Image 1",
         "order": 1
       },
       {
-        "file": "images/showroom.png",
+        "file": "images/showroom.jpg",
         "alt": "Seaport Abstract Slate - Image 2",
         "order": 2
       }
@@ -313,7 +313,7 @@
     },
     "images": [
       {
-        "file": "images/modern_rug.png",
+        "file": "images/modern_rug.jpg",
         "alt": "Luna Monochrome Minimalist - Image 1",
         "order": 1
       }
@@ -358,7 +358,7 @@
     },
     "images": [
       {
-        "file": "images/modern_rug.png",
+        "file": "images/modern_rug.jpg",
         "alt": "Strata Linear Gold - Image 1",
         "order": 1
       }
@@ -403,7 +403,7 @@
     },
     "images": [
       {
-        "file": "images/modern_rug.png",
+        "file": "images/modern_rug.jpg",
         "alt": "Eclipse Circular Taupe - Image 1",
         "order": 1
       }
@@ -448,7 +448,7 @@
     },
     "images": [
       {
-        "file": "images/modern_rug.png",
+        "file": "images/modern_rug.jpg",
         "alt": "Zen Transitional Sky - Image 1",
         "order": 1
       }
@@ -592,7 +592,7 @@
     },
     "images": [
       {
-        "file": "images/vintage_rug.png",
+        "file": "images/vintage_rug.jpg",
         "alt": "Sultanabad Majestique - Image 1",
         "order": 1
       }
@@ -637,7 +637,7 @@
     },
     "images": [
       {
-        "file": "images/vintage_rug.png",
+        "file": "images/vintage_rug.jpg",
         "alt": "Kerman Lavar Botanica - Image 1",
         "order": 1
       }
@@ -682,7 +682,7 @@
     },
     "images": [
       {
-        "file": "images/vintage_rug.png",
+        "file": "images/vintage_rug.jpg",
         "alt": "Tabriz Hadji Jalili Revival - Image 1",
         "order": 1
       }
@@ -727,7 +727,7 @@
     },
     "images": [
       {
-        "file": "images/vintage_rug.png",
+        "file": "images/vintage_rug.jpg",
         "alt": "Heriz Tribal Runner - Image 1",
         "order": 1
       }

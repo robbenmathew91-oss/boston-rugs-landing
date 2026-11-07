@@ -1,7 +1,7 @@
 ---
 title: Dyes
-seo_title: Natural Dyes in Persian and Oriental Rugs
-description: Dyeing is more art-form than science. Master dyers occupy elevated positions in weaving societies, passing secrets down families.
+seo_title: Natural Dyes in Persian & Oriental Rugs
+description: Why natural dyes matter in Persian and Oriental rugs: master dyers use plants, minerals and insects to make light-fast colors that age gracefully for decades.
 date: 2026-11-05
 category: Materials
 image: images/blog_dyes.jpg

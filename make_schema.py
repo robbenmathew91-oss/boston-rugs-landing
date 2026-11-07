@@ -32,7 +32,7 @@ ORGANIZATION = {
     '@id': ORG_ID,
     'name': 'Noor Oriental Rugs, Inc.',
     'url': f'{SITE}/',
-    'image': f'{SITE}/images/showroom.png',
+    'image': f'{SITE}/images/showroom.jpg',
     'telephone': '+1-617-868-6667',
     'email': 'info@noororientalrugs.com',
     'address': {

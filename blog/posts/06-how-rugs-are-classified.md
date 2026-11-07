@@ -1,7 +1,7 @@
 ---
 title: How Rugs are Classified
-seo_title: How Oriental Rugs Are Classified: Origin, Age and Weave
-description: Rugs may be categorized according to various criteria including place of origin, weaving category, age, or composition.
+seo_title: How Oriental Rugs Are Classified
+description: How Oriental rugs are classified by place of origin, weaving category, age and composition, and why it matters when you buy, insure or appraise a fine rug.
 date: 2026-11-05
 category: Education
 image: images/blog_classification.jpg

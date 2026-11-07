@@ -1,7 +1,7 @@
 ---
 title: Wool from the Mountains
-seo_title: Mountain Wool: Why Wool Quality Matters in Persian Rugs
-description: Geography and climate play a paramount role in rug wool quality. Explore the resilient highland wool of the Zagros Mountains.
+seo_title: Mountain Wool in Persian Rugs
+description: Why wool quality matters in Persian rugs: how geography and climate shape the fleece, and why lanolin-rich highland wool from the Zagros Mountains is prized.
 date: 2026-11-05
 category: Materials
 image: images/blog_wool.jpg

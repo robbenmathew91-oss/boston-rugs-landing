@@ -19,7 +19,7 @@ THUMBS = os.path.join(ROOT, 'images', 'thumbs')
 MAX_SIDE = 720
 QUALITY = 72
 # Fallback image the site uses when a rug has no photos.
-EXTRA = ['images/showroom.png']
+EXTRA = ['images/showroom.jpg']
 
 
 def thumb_path(file):

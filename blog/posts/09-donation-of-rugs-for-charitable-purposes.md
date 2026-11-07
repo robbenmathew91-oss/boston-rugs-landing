@@ -1,7 +1,7 @@
 ---
 title: Donation of Rugs for Charitable Purposes
-seo_title: Donating Rugs to Charity in Boston: Options, IRS Form 8283 and Appraisals
-description: Learn how Noor Oriental Rugs coordinates rug donations to 501(c)(3) charities, directly supports families in need, and handles IRS Form 8283 and certified appraisals.
+seo_title: Donating Rugs to Charity in Boston
+description: How to donate a rug to charity in Boston through Noor Oriental Rugs: 501(c)(3) charities, direct help for families, IRS Form 8283 and certified appraisals.
 date: 2026-11-05
 category: Community Impact
 image: images/charity_sufi_service.jpg

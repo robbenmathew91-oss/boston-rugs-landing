@@ -336,7 +336,7 @@ body {
 }
 .hero-bg {
     /* Wash the dark linear-gradient with a light ivory wash to support deep espresso text */
-    background-image: linear-gradient(rgba(250, 247, 242, 0.82), rgba(250, 247, 242, 0.88)), url('images/showroom.png') !important;
+    background-image: linear-gradient(rgba(250, 247, 242, 0.82), rgba(250, 247, 242, 0.88)), url('images/showroom.jpg') !important;
 }
 .hero-title {
     color: var(--color-text);
@@ -517,7 +517,7 @@ body {
 
 /* ── Subpage hero banner: ivory wash over the showroom photo ── */
 .blog-hero {
-    background: linear-gradient(rgba(250, 247, 242, 0.84), rgba(250, 247, 242, 0.9)), url('images/showroom.png');
+    background: linear-gradient(rgba(250, 247, 242, 0.84), rgba(250, 247, 242, 0.9)), url('images/showroom.jpg');
     background-size: cover;
     background-position: center;
 }

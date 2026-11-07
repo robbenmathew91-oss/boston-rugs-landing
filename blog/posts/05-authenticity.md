@@ -1,7 +1,7 @@
 ---
 title: Authenticity
-seo_title: How to Tell an Authentic Handmade Oriental Rug
-description: Authenticity is based on three key components: handspun wool, organic vegetable dyes, and traditional hand-knotting methods.
+seo_title: How to Tell an Authentic Handmade Rug
+description: How to tell an authentic handmade Oriental rug: handspun wool, organic vegetable dyes and traditional hand-knotting, versus machine-made rugs and synthetics.
 date: 2026-11-05
 category: Education
 image: images/blog_authenticity.jpg

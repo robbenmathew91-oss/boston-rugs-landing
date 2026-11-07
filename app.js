@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btn = document.createElement('button');
                 btn.className = `rug-select-btn ${isFirst ? 'active' : ''}`;
                 
-                const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
+                const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.jpg';
                 const formatPrice = formatRugPrice(rug.price, 'From ');
                 
                 btn.setAttribute('data-rug-src', imgSrc);
@@ -834,7 +834,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const card = document.createElement('article');
                     card.className = 'rug-card';
                     
-                    const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png';
+                    const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.jpg';
                     const formatPrice = formatRugPrice(rug.price);
                     
                     card.innerHTML = `
@@ -999,7 +999,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     meta.content = content;
                 };
 
-                const mainImageAbsolute = window.location.origin + '/' + (rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.png');
+                const mainImageAbsolute = window.location.origin + '/' + (rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.jpg');
 
                 updateMetaProperty('og:title', finalTitle);
                 updateMetaProperty('og:description', finalDesc);
@@ -1053,7 +1053,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const productImages = (rug.images || [])
                     .filter(img => !isDocImage(img.file))
                     .map(img => `${baseUrl}/${img.file}`);
-                if (productImages.length === 0) productImages.push(`${baseUrl}/images/showroom.png`);
+                if (productImages.length === 0) productImages.push(`${baseUrl}/images/showroom.jpg`);
 
                 const availabilityMap = {
                     'In Stock':       'https://schema.org/InStock',
@@ -1219,7 +1219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const docImages    = allImages.filter(img => isDocImage(img.file));
 
                 // Use first main image as hero — SEO-rich descriptive alt text
-                const imgSrc = mainImages.length > 0 ? mainImages[0].file : 'images/showroom.png';
+                const imgSrc = mainImages.length > 0 ? mainImages[0].file : 'images/showroom.jpg';
                 const buildImgAlt = (img, viewIdx) => {
                     if (img && img.alt && img.alt.trim()) return img.alt.trim();
                     const originStr = rug.origin  ? rug.origin.split(',')[0].trim() : '';
@@ -1387,7 +1387,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="related-rugs-grid">
                     `;
                     displayRelated.forEach(item => {
-                        const itemImg = item.images && item.images.length > 0 ? item.images[0].file : 'images/showroom.png';
+                        const itemImg = item.images && item.images.length > 0 ? item.images[0].file : 'images/showroom.jpg';
                         const itemAlt = item.images && item.images.length > 0 ? item.images[0].alt : item.name;
                         
                         // Determine recommendation label dynamically

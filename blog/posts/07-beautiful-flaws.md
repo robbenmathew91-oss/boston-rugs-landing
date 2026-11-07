@@ -1,7 +1,7 @@
 ---
 title: Beautiful “Flaws”
-seo_title: Beautiful "Flaws": Why Imperfections Add Value to Handmade Rugs
-description: Variations in color, pattern symmetry, or knotting tightness are reminders of handcrafting, adding unique value to a rug.
+seo_title: Why Rug Imperfections Add Value
+description: Beautiful flaws in handmade rugs: why variations in color, pattern symmetry and knotting are signs of hand craftsmanship that add character and unique value.
 date: 2026-11-05
 category: History & Art
 image: images/blog_flaws.jpg
