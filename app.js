@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 btn.innerHTML = `
                     <div class="selector-thumb">
-                        <img src="${thumbOf(imgSrc)}" alt="${rug.name} Thumbnail" width="720" height="720" decoding="async" onerror="this.onerror=null;this.src='${imgSrc}'">
+                        <img src="${thumbOf(imgSrc)}" alt="${rug.name} Thumbnail" width="720" height="720" decoding="async" data-fallback="${imgSrc}">
                     </div>
                     <div class="selector-info">
                         <h3>${rug.name}</h3>
@@ -771,7 +771,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         hasFilters = true;
                         const chip = document.createElement('div');
                         chip.className = 'filter-chip';
-                        chip.innerHTML = `<span>${text}</span> <i class="fa-solid fa-xmark"></i>`;
+                        // Filter values can come from the address bar: insert them as text, never as HTML.
+                        const label = document.createElement('span');
+                        label.textContent = text;
+                        const icon = document.createElement('i');
+                        icon.className = 'fa-solid fa-xmark';
+                        chip.append(label, ' ', icon);
                         chip.addEventListener('click', () => {
                             if (type === 'price') {
                                 activeFilters.price = null;
@@ -783,7 +788,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
                             } else {
                                 activeFilters[type].delete(val);
-                                const cb = document.querySelector(`.filter-options input[data-filter-type="${type}"][value="${val}"]`);
+                                const cb = document.querySelector(`.filter-options input[data-filter-type="${type}"][value="${CSS.escape(val)}"]`);
                                 if (cb) cb.checked = false;
                             }
                             updateURL();
@@ -839,7 +844,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     card.innerHTML = `
                         <div class="rug-card-img-wrapper">
-                            <img src="${thumbOf(imgSrc)}" alt="${rug.name}" class="rug-card-image" loading="lazy" decoding="async" width="720" height="540" onerror="this.onerror=null;this.src='${imgSrc}'">
+                            <img src="${thumbOf(imgSrc)}" alt="${rug.name}" class="rug-card-image" loading="lazy" decoding="async" width="720" height="540" data-fallback="${imgSrc}">
                         </div>
                         <div class="rug-card-content">
                             <div class="rug-card-header">
@@ -1241,7 +1246,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const thumbAlt = buildImgAlt(img, origIdx);
                         thumbnailsHTML += `
                             <button class="rug-thumb-btn ${origIdx === 0 ? 'active' : ''}" data-index="${origIdx}" aria-label="View ${rug.name} — image ${origIdx + 1} of ${mainImages.length}">
-                                <img src="${thumbOf(img.file)}" alt="${thumbAlt}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${img.file}'">
+                                <img src="${thumbOf(img.file)}" alt="${thumbAlt}" loading="lazy" decoding="async" data-fallback="${img.file}">
                             </button>
                         `;
                     });
@@ -1255,7 +1260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const origIdx = allImages.indexOf(img);
                         return `
                             <button class="rug-thumb-btn" data-index="${origIdx}" aria-label="View documentation: ${img.alt || img.file}">
-                                <img src="${thumbOf(img.file)}" alt="${img.alt}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${img.file}'">
+                                <img src="${thumbOf(img.file)}" alt="${img.alt}" loading="lazy" decoding="async" data-fallback="${img.file}">
                             </button>
                         `;
                     }).join('');
@@ -1404,7 +1409,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <a href="rug-detail.html?slug=${item.slug}" style="text-decoration: none; color: inherit; display: block;" class="related-rug-card-link">
                                 <div class="related-rug-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--color-border); border-radius: 4px; overflow: hidden; transition: var(--transition-quick); height: 100%; display: flex; flex-direction: column; position: relative;">
                                     <div style="aspect-ratio: 4/3; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; position: relative;">
-                                        <img src="${thumbOf(itemImg)}" alt="${itemAlt}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" class="related-card-img" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${itemImg}'">
+                                        <img src="${thumbOf(itemImg)}" alt="${itemAlt}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" class="related-card-img" loading="lazy" decoding="async" data-fallback="${itemImg}">
                                     </div>
                                     <div style="padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 1.25rem;">
                                         <div>
@@ -1542,7 +1547,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <!-- Elegant loading spinner behind the image -->
                                 <div class="gallery-spinner" style="position: absolute; color: var(--color-primary); font-size: 1.5rem; z-index: 1;"><i class="fa-solid fa-spinner fa-spin"></i></div>
                                 
-                                <img src="${thumbOf(imgSrc)}" data-full="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='${imgSrc}'" style="position: relative; z-index: 2; cursor: zoom-in; opacity: 1;">
+                                <img src="${thumbOf(imgSrc)}" data-full="${imgSrc}" alt="${imgAlt}" class="rug-detail-main-img" id="main-rug-img" data-index="0" fetchpriority="high" decoding="async" data-fallback="${imgSrc}" style="position: relative; z-index: 2; cursor: zoom-in; opacity: 1;">
                                 
                                 <!-- Elegant Image Counter overlay -->
                                 <div id="gallery-counter" style="position: absolute; bottom: 1rem; right: 1rem; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); color: #fff; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; pointer-events: none; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 3; transition: opacity 0.25s ease;">
@@ -1975,7 +1980,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (rugParam) {
         const messageTextArea = document.getElementById('message');
         if (messageTextArea) {
-            const decodedRug = decodeURIComponent(rugParam);
+            const decodedRug = rugParam; // URLSearchParams already decodes; a second decode could throw on "%"
             if (interestParam === 'trial') {
                 messageTextArea.value = `I am interested in arranging a 3-Day In-Home Trial for the rug: "${decodedRug}". Please contact me to coordinate.`;
             } else if (interestParam === 'evaluation') {
@@ -1985,4 +1990,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+});
+
+
+// Image fallback: when a thumbnail is missing, load the full image named in data-fallback.
+// (Replaces inline onerror="" handlers so the Content-Security-Policy can forbid inline scripts.)
+document.addEventListener('error', (e) => {
+    const img = e.target;
+    if (img instanceof HTMLImageElement && img.dataset.fallback) {
+        const fallback = img.dataset.fallback;
+        delete img.dataset.fallback;
+        img.src = fallback;
+    }
+}, true);
+
+// Clickable cards marked with data-href (replaces inline onclick="" handlers).
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-href]').forEach(el => {
+        const go = () => { window.location.href = el.dataset.href; };
+        el.addEventListener('click', go);
+        el.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+    });
 });

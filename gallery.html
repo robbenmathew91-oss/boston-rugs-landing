@@ -30,7 +30,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <!-- FontAwesome for Premium Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <link rel="stylesheet" href="styles.css?v=1.7.0">
     
@@ -190,7 +190,7 @@
             
             <div class="grid grid-3 reveal">
                 <!-- Beacon Hill -->
-                <div onclick="window.location.href='rugs-for-sale.html?collection=Beacon%20Hill'" style="background: var(--color-card-bg); border: 1px solid var(--color-border); padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: var(--transition-quick);" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
+                <div data-href="rugs-for-sale.html?collection=Beacon%20Hill" role="link" tabindex="0" style="background: var(--color-card-bg); border: 1px solid var(--color-border); padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: var(--transition-quick);" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
                     <div>
                         <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-primary); margin-bottom: 0.8rem;">Beacon Hill Collection</h3>
                         <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Elegant Persian masterpieces suited for traditional homes, historic residences, executive offices, and formal interiors.</p>
@@ -208,7 +208,7 @@
                 </div>
                 
                 <!-- Back Bay -->
-                <div onclick="window.location.href='rugs-for-sale.html?collection=Back%20Bay'" style="background: var(--color-card-bg); border: 1px solid var(--color-border); padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: var(--transition-quick);" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
+                <div data-href="rugs-for-sale.html?collection=Back%20Bay" role="link" tabindex="0" style="background: var(--color-card-bg); border: 1px solid var(--color-border); padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: var(--transition-quick);" onmouseover="this.style.borderColor='var(--color-primary)'" onmouseout="this.style.borderColor='var(--color-border)'">
                     <div>
                         <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-primary); margin-bottom: 0.8rem;">Back Bay Collection</h3>
                         <p style="color: var(--color-text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Vintage, antique, and professionally restored heirloom rugs with timeless character and collector appeal.</p>
@@ -276,6 +276,6 @@
         </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=50"></script>
 </body>
 </html>
