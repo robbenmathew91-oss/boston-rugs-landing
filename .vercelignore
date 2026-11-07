@@ -1,0 +1,13 @@
+# Internal project files: kept in the repository for building and
+# maintaining the site, but not published on noororientalrugs.com.
+# Everything a visitor's browser needs (HTML, CSS, JS, images,
+# inventory.json, sitemap.xml, robots.txt) is still deployed.
+docs/
+blog/posts/
+scraped_images/
+__pycache__/
+*.py
+*.md
+extracted_text.txt
+.DS_Store
+.claude/
