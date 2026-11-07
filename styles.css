@@ -4462,3 +4462,48 @@ p.hero-title {
         font-size: 2.5rem !important;
     }
 }
+
+/* BBB accreditation (verified on bbb.org 2026-11-06: accredited since 12/8/1989) */
+a.badge-item {
+    color: inherit;
+    text-decoration: none;
+}
+
+a.badge-item:hover span {
+    color: var(--color-primary);
+}
+
+.hero-badges {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1024px) {
+    .hero-badges {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-badges {
+        grid-template-columns: 1fr;
+    }
+}
+
+.footer-bbb {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.footer-bbb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+}
+
+.footer-bbb a:hover {
+    color: var(--color-primary);
+}
+
+.footer-bbb i {
+    color: var(--color-primary);
+    margin-right: 0.35rem;
+}
