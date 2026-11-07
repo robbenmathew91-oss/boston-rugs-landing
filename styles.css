@@ -85,6 +85,13 @@ h1, h2, h3, h4 {
     gap: 2.5rem;
 }
 
+/* Let grid columns shrink to the screen: without this a wide child (a long
+   button or heading) forces the column wider than a phone screen and the
+   text is cut off at the right edge. */
+.grid > * {
+    min-width: 0;
+}
+
 .grid-2 {
     grid-template-columns: repeat(2, 1fr);
 }
@@ -4441,4 +4448,17 @@ p.hero-title {
 
 .showroom-map-directions:hover {
     color: var(--color-primary-hover);
+}
+
+/* Phones: long button labels wrap instead of running off the screen, and
+   inner-page banner headings (sized inline at 3.5-4rem) fit the width. */
+@media (max-width: 600px) {
+    .btn {
+        white-space: normal;
+        text-align: center;
+    }
+
+    .blog-hero .section-title {
+        font-size: 2.5rem !important;
+    }
 }
