@@ -8,7 +8,7 @@ second, different business.
 
 What this writes, between marker comments in each page's <head>:
   SITE-SCHEMA  every public page: the business node + the WebSite node
-  PAGE-SCHEMA  service pages: Service + BreadcrumbList;
+  PAGE-SCHEMA  service pages: Service + BreadcrumbList (+ FAQPage from FAQS);
                rugs-for-sale: BreadcrumbList; homepage: the three Services
 
 Blog posts get the SITE-SCHEMA block from build_blog.py, which imports it
@@ -101,6 +101,48 @@ SERVICES = {
     },
 }
 
+# FAQ sections shown on the service pages. The visible questions and answers on
+# rug-cleaning.html and rug-restoration.html use exactly this text: change both together.
+# Facts confirmed by Mr. Noor on 2026-11-06 or already stated on the homepage.
+FAQS = {
+    'rug-cleaning.html': [
+        ('How long does Persian rug cleaning take?',
+         'Our 7-step cleaning process takes somewhere between 2 and 4 weeks, depending on many factors, '
+         'such as the rug\'s size, material type and stains.'),
+        ('How often should Persian rugs be cleaned?',
+         'Fine handmade Persian and Oriental rugs should be professionally hand washed every 3 to 5 years, '
+         'depending on foot traffic, to keep abrasive soil from damaging the foundation fibers.'),
+        ('Do you pick up and deliver rugs?',
+         'Yes. We offer free pickup and delivery in the Greater Boston area.'),
+        ('What does your rug cleaning include?',
+         'Seven steps: thorough dusting, color testing and gentle hand washing with biodegradable shampoo, '
+         'stain treatment, deodorizing and disinfecting, cotton foundation treatment, mothproofing, and fiber '
+         'conditioning.'),
+        ('Can you repair damage found during cleaning?',
+         'Yes. Worn fringes, moth damage, holes and worn pile can be restored by master weaver Mo Nooraee. '
+         'See our rug restoration service.'),
+    ],
+    'rug-restoration.html': [
+        ('How much does Oriental rug restoration cost?',
+         'The cost of rug restoration is determined by the size of the damaged area, knot density (KPSI), and '
+         'the materials required, such as matching handspun wool and organic dyes. Noor provides complimentary '
+         'evaluations to establish a precise estimate.'),
+        ('How long does rug restoration take?',
+         'Depending on the complexity of the re-weaving and matching raw materials, restoration typically takes '
+         'anywhere from 4 weeks to several months for extensive, museum-quality conservation.'),
+        ('Will the repaired area be visible?',
+         'Our restoration follows ten rules so the repair blends in: wool from the same region, hand-spun and '
+         'organically dyed, several shades spun together for a patina of age, the same knot as the original '
+         'weave (Turkish or Persian), and the same yarn thickness.'),
+        ('Are antique rugs worth restoring?',
+         'Yes. Antique hand-knotted rugs represent valuable artistic and historical legacies. Restoring them '
+         'preserves their structural integrity, aesthetic value, and resale worth.'),
+        ('Do you pick up and deliver rugs?',
+         'Yes. We offer free pickup and delivery in the Greater Boston area.'),
+    ],
+}
+
+
 # Public pages that get the shared block (blog posts get it from build_blog.py).
 SITE_PAGES = ['index.html', 'rugs-for-sale.html', 'rug-detail.html', 'rug-cleaning.html',
               'rug-restoration.html', 'rug-appraisals.html', 'gallery.html', 'restoration-gallery.html',
@@ -144,10 +186,21 @@ def breadcrumb(page, name):
     }
 
 
+def faq_page(page, pairs):
+    return {
+        '@type': 'FAQPage',
+        '@id': f'{SITE}/{page}#faq',
+        'mainEntity': [{'@type': 'Question', 'name': q,
+                        'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in pairs],
+    }
+
+
 def page_schema(page):
     if page in SERVICES:
         info = SERVICES[page]
         graph = [service_node(page, info), breadcrumb(page, info['crumb'])]
+        if page in FAQS:
+            graph.append(faq_page(page, FAQS[page]))
     elif page == 'rugs-for-sale.html':
         graph = [breadcrumb(page, 'Rugs for Sale')]
     elif page == 'index.html':
