@@ -102,7 +102,7 @@ SERVICES = {
 }
 
 # FAQ sections shown on the service pages. The visible questions and answers on
-# rug-cleaning.html and rug-restoration.html use exactly this text: change both together.
+# rug-cleaning.html, rug-restoration.html and rug-appraisals.html use exactly this text: change both together.
 # Facts confirmed by Mr. Noor on 2026-11-06 or already stated on the homepage.
 FAQS = {
     'rug-cleaning.html': [
@@ -121,6 +121,22 @@ FAQS = {
         ('Can you repair damage found during cleaning?',
          'Yes. Worn fringes, moth damage, holes and worn pile can be restored by master weaver Mo Nooraee. '
          'See our rug restoration service.'),
+    ],
+    'rug-appraisals.html': [
+        ('How long does a rug appraisal take?',
+         'It usually takes 1 to 2 weeks for us to issue the final appraisal document.'),
+        ('How does an Oriental rug appraisal work?',
+         'We take pictures and measurements of the rug and prepare a detailed document.'),
+        ('What does the appraisal document include?',
+         'The appraisal document includes all the detailed specifications of the rug, and its estimated '
+         'monetary value.'),
+        ('What is a certified rug appraisal used for?',
+         'A certified rug appraisal is required for insurance coverage, estate distribution, and tax '
+         'deductions on donations over $500 (IRS Form 8283).'),
+        ('Can you appraise a rug I want to donate?',
+         'Yes. For donated rugs worth more than $500, the IRS requires a certified appraiser to complete '
+         'Section III of Form 8283, and Mo Nooraee provides certified appraisals for donors. Read more in '
+         'our rug donation guide.'),
     ],
     'rug-restoration.html': [
         ('How much does Oriental rug restoration cost?',
