@@ -5,8 +5,8 @@ description: Persian rug cleaning before and after: what professional hand washi
 date: 2026-11-07
 category: Rug Care
 author: Noor Oriental Rugs
-image: images/restoration-gallery/hero-cleaning-after.jpg
-image_alt: Hand-knotted Tabriz rug after professional hand washing at Noor Oriental Rugs
+image: images/persian-rug-cleaning-after.jpg
+image_alt: Clean Persian wool rug displaying its floral pattern and detailed weave
 cta_text: Request a Free Rug Evaluation
 cta_link: index.html#contact
 ---
@@ -15,10 +15,7 @@ Persian rug cleaning before and after photographs show how professional rug wash
 
 For homeowners in Cambridge and the greater Boston area, Noor Oriental Rugs offers [professional hand washing](rug-cleaning.html) using natural and organic shampoos. Each Persian and Oriental rug deserves an appropriate cleaning approach based on its fibers, dyes, construction, and condition. Professional cleaning can help maintain the rug's appearance and support its long-term care.
 
-<div class="grid grid-2" style="gap: 1rem; margin-bottom: 1.5rem;">
-<figure style="margin: 0; min-width: 0;"><img src="/images/restoration-gallery/hero-cleaning-before.jpg" alt="Before: soiled and faded discoloration on a hand-knotted Tabriz rug" width="1200" height="900" loading="lazy" style="width: 100%; height: auto; display: block; margin: 0; border: 1px solid var(--color-border);"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); text-align: center;">Before cleaning</figcaption></figure>
-<figure style="margin: 0; min-width: 0;"><img src="/images/restoration-gallery/hero-cleaning-after.jpg" alt="After: the same Tabriz rug after professional hand washing at Noor Oriental Rugs" width="1200" height="900" loading="lazy" style="width: 100%; height: auto; display: block; margin: 0; border: 1px solid var(--color-border);"><figcaption style="margin-top: 0.5rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--color-primary); text-align: center;">After cleaning</figcaption></figure>
-</div>
+<figure style="margin: 0 0 1.75rem;"><img src="/images/persian-rug-cleaning-before.jpg" alt="Persian wool rug showing accumulated dirt before professional cleaning" width="1000" height="750" loading="lazy" style="width: 100%; height: auto; display: block; margin: 0; border: 1px solid var(--color-border);"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; font-style: italic; color: var(--color-text-muted); text-align: center;">A closer look at a Persian rug before professional washing.</figcaption></figure>
 
 ## What Makes Persian Rug Cleaning Before and After Results Noticeable?
 
@@ -32,6 +29,8 @@ A Persian rug cleaning before and after comparison can reveal several changes:
 - **Cleaner fringes:** Professional attention to the fringe can improve the overall presentation of the rug.
 
 Cleaning results depend on the rug's condition, fiber type, dye stability, and the nature of the stains. Some permanent discoloration, fading, and fiber damage cannot be reversed through washing alone.
+
+<figure style="margin: 0 0 1.75rem;"><img src="/images/persian-rug-cleaning-after.jpg" alt="Clean Persian wool rug displaying its floral pattern and detailed weave" width="1000" height="750" loading="lazy" style="width: 100%; height: auto; display: block; margin: 0; border: 1px solid var(--color-border);"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; font-style: italic; color: var(--color-text-muted); text-align: center;">The rug&rsquo;s pattern and surface after professional cleaning.</figcaption></figure>
 
 ## About Professional Cleaning of Fine Oriental Rugs
 
@@ -131,6 +130,8 @@ Moth damage is a concern for homeowners who own wool and other natural-fiber rug
 
 Small signs of damage may appear as thinning pile, bare patches, or loose fibers.
 
+<figure style="margin: 0 0 1.75rem;"><img src="/images/persian-rug-wool-fiber-detail.jpg" alt="Close-up of wool fibers and hand-knotted construction in a Persian rug" width="1000" height="750" loading="lazy" style="width: 100%; height: auto; display: block; margin: 0; border: 1px solid var(--color-border);"><figcaption style="margin-top: 0.5rem; font-size: 0.9rem; font-style: italic; color: var(--color-text-muted); text-align: center;">Fiber and construction details help determine appropriate rug care.</figcaption></figure>
+
 Noor Oriental Rugs offers mothproofing as part of its rug-care services. Mothproofing can be considered when evaluating the care needs of a wool or Oriental rug, particularly when the rug has been stored or shows signs of moth activity. Existing moth damage can be repaired through our [rug restoration service](rug-restoration.html).
 
 Regular inspection, proper storage, and professional evaluation can help homeowners identify potential problems before additional damage occurs.
@@ -139,7 +140,7 @@ Regular inspection, proper storage, and professional evaluation can help homeown
 
 Noor Oriental Rugs serves homeowners looking for professional Persian and Oriental rug care in Cambridge and the greater Boston area.
 
-The business focuses on hand-washed rugs using natural and organic shampoos. Whether you own a traditional Persian rug, a hand-knotted wool rug, or an Oriental rug that needs attention, an evaluation can help determine its cleaning requirements.
+The business focuses on hand-washed rugs using natural and organic shampoos. Whether you own a traditional Persian rug, a hand-knotted wool rug, or an Oriental rug that needs attention, an evaluation can help determine its cleaning requirements. Looking for a new rug as well? Browse our [Persian rugs for sale](rugs-for-sale.html).
 
 Professional cleaning is recommended every 3–5 years, depending on the rug's use and condition.
 
