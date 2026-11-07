@@ -267,26 +267,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('consultation-form');
     const successMsg = document.getElementById('form-success');
     
+    const errorMsg = document.getElementById('form-error');
+
     if (form && successMsg) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent actual submission
-            
-            // Simulate sending animation
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Request...';
-            
-            setTimeout(() => {
-                // Hide the form with a nice fade out
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+            if (errorMsg) errorMsg.hidden = true;
+
+            const showSuccess = () => {
                 form.style.opacity = '0';
-                
-                // Show the success panel
                 setTimeout(() => {
                     form.style.display = 'none';
                     successMsg.classList.add('active');
                 }, 400);
-            }, 1500);
+            };
+
+            const data = new FormData(form);
+            // Spam trap filled in: pretend it worked and send nothing.
+            if (data.get('_gotcha')) {
+                showSuccess();
+                return;
+            }
+            const select = document.getElementById('interest');
+            const requestType = select ? select.options[select.selectedIndex].text : '';
+            data.set('request_type', requestType);
+            data.set('_subject', `Website enquiry: ${requestType} (${data.get('name')})`);
+            data.set('page', window.location.href);
+
+            try {
+                // Enquiries are delivered by Formspree to the business inbox.
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!response.ok) throw new Error(`Formspree returned ${response.status}`);
+                showSuccess();
+            } catch (err) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                if (errorMsg) {
+                    errorMsg.innerHTML = 'Sorry, your request could not be sent. Please try again, call <a href="tel:+16178686667">617-868-6667</a>, or email <a href="mailto:info@noororientalrugs.com">info@noororientalrugs.com</a>.';
+                    errorMsg.hidden = false;
+                }
+            }
         });
     }
 

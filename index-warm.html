@@ -31,7 +31,7 @@
     <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="styles.css?v=1.2.0">
+    <link rel="stylesheet" href="styles.css?v=1.3.0">
     <link rel="stylesheet" href="theme-warm-luxury.css?v=1.0">
     
     <!-- Local Business Structured Data (JSON-LD) -->
@@ -622,26 +622,26 @@
                 
                 <div class="contact-form-container reveal">
                     <h3>Request Free Rug Evaluation</h3>
-                    <form id="consultation-form" class="consultation-form">
+                    <form id="consultation-form" class="consultation-form" action="https://formspree.io/f/xkjjajzl" method="POST">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Full Name</label>
-                                <input type="text" id="name" required placeholder="Alexander Mercer">
+                                <input type="text" id="name" name="name" autocomplete="name" required placeholder="Alexander Mercer">
                             </div>
                         </div>
                         <div class="form-row grid grid-2-simple">
                             <div class="form-group">
                                 <label for="email">Email Address</label>
-                                <input type="email" id="email" required placeholder="alexander@domain.com">
+                                <input type="email" id="email" name="email" autocomplete="email" required placeholder="alexander@domain.com">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" required placeholder="(617) 555-0199">
+                                <input type="tel" id="phone" name="phone" autocomplete="tel" required placeholder="(617) 555-0199">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="interest">Request Type</label>
-                            <select id="interest">
+                            <select id="interest" name="request_type">
                                 <option value="evaluation" selected>Request Free Rug Evaluation (Complimentary)</option>
                                 <option value="showroom">Private Showroom Appointment</option>
                                 <option value="trial" id="opt-trial">In-Home Trial Request (3 Days)</option>
@@ -655,22 +655,22 @@
                         </div>
                         <div class="form-group">
                             <label for="message">Your Message / Preferred Rug Style / Damaged Areas</label>
-                            <textarea id="message" rows="4" placeholder="Let us know your preferences, rug size, or describe any damage/cleaning needs..."></textarea>
+                            <textarea id="message" name="message" rows="4" placeholder="Let us know your preferences, rug size, or describe any damage/cleaning needs..."></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="rug-photos" class="file-upload-label">
-                                <i class="fa-solid fa-cloud-arrow-up"></i> Upload Rug Photos (For Free Evaluation)
-                            </label>
-                            <input type="file" id="rug-photos" name="rug-photos" multiple accept="image/*" style="display:none;">
-                            <span class="file-name-display" id="file-name-display">No files selected</span>
+                        <p class="form-photo-note"><i class="fa-solid fa-camera"></i> Have photos of your rug? Email them to <a href="mailto:info@noororientalrugs.com">info@noororientalrugs.com</a> after sending this form for a faster estimate.</p>
+                        <!-- Spam trap: hidden from people, bots fill it in -->
+                        <div class="form-honeypot" aria-hidden="true">
+                            <label for="company-website">Leave this empty</label>
+                            <input type="text" id="company-website" name="_gotcha" tabindex="-1" autocomplete="off">
                         </div>
+                        <p class="form-error-message" id="form-error" role="alert" hidden></p>
                         <button type="submit" class="btn btn-primary btn-block">Submit Request</button>
                     </form>
                     
                     <div class="form-success-message" id="form-success">
                         <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
                         <h3>Request Received</h3>
-                        <p>Thank you. A Noor Oriental Rugs consultant will reach out to you within 24 hours to confirm your consultation detail.</p>
+                        <p>Thank you. Your request has been sent to Noor Oriental Rugs. We will get back to you soon. For anything urgent, call <a href="tel:+16178686667">617-868-6667</a>.</p>
                     </div>
                 </div>
             </div>
@@ -733,6 +733,6 @@
         </div>
     </footer>
 
-    <script src="app.js?v=7"></script>
+    <script src="app.js?v=8"></script>
 </body>
 </html>
