@@ -163,7 +163,9 @@ def post_page(post, related, header, footer):
         'image': image_url,
         'datePublished': post['date'],
         'dateModified': post.get('updated', post['date']),
-        'author': {'@type': 'Person', 'name': post.get('author', AUTHOR)},
+        # A post credited to the business itself points at the shared business node.
+        'author': ({'@id': ORG_ID} if post.get('author') == 'Noor Oriental Rugs'
+                   else {'@type': 'Person', 'name': post.get('author', AUTHOR)}),
         'publisher': {'@id': ORG_ID},
         'mainEntityOfPage': url,
         'articleSection': post['category'],

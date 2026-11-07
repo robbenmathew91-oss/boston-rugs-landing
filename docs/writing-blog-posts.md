@@ -28,7 +28,7 @@ Every article is one Markdown file in `blog/posts/`. `build_blog.py` turns each 
 | `category` | yes | For example `Rug Care`, `Buying Guide`, `History & Art`, `Materials`, `Community Impact`. |
 | `image` | yes | Cover photo path, e.g. `images/blog_dyes.jpg`. |
 | `image_alt` | no | Describes the photo. Defaults to `title`. |
-| `author` | no | Defaults to Mohammad (Mo) Nooraee. |
+| `author` | no | Defaults to Mohammad (Mo) Nooraee. Use `Noor Oriental Rugs` for articles written for the business rather than by Mo himself. |
 | `cta_text`, `cta_link` | no | The main button at the end, e.g. `Book a Rug Cleaning` / `rug-cleaning.html`. |
 | `draft` | no | `yes` keeps the post off the site. |
 
