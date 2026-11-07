@@ -43,6 +43,12 @@ ORGANIZATION = {
         'postalCode': '02138',
         'addressCountry': 'US',
     },
+    'priceRange': '$$$$',
+    'geo': {'@type': 'GeoCoordinates', 'latitude': 42.3907993, 'longitude': -71.1543205},
+    'openingHoursSpecification': [
+        {'@type': 'OpeningHoursSpecification', 'dayOfWeek': day, 'opens': '08:00', 'closes': '15:00'}
+        for day in ('Tuesday', 'Wednesday', 'Friday', 'Saturday')
+    ],
     'sameAs': [
         'https://www.facebook.com/noororientalrugs/',
         'https://www.instagram.com/noororientalrugs/',
