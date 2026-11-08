@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => revealObserver.observe(el));
 
 
-    // --- 4. Interactive Virtual Showroom Rug Visualizer (Dynamic Integration) ---
+    // --- 4. Inventory loader (used by the catalog, rug pages and featured rugs) ---
     class InventoryManager {
         constructor() {
             this.inventory = [];
@@ -136,109 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const visualizerContainer = document.getElementById('visualizer-options-container');
-    const activeOverlay = document.getElementById('active-rug-overlay');
-    const visualizerLoader = document.getElementById('visualizer-loader');
-    
-    const specTitle = document.getElementById('spec-title');
-    const specOrigin = document.getElementById('spec-origin');
-    const specPrice = document.getElementById('spec-price');
-    
-    if (visualizerContainer) {
-        const inventoryManager = new InventoryManager();
-        
-        inventoryManager.fetchInventory().then(rugs => {
-            if (rugs.length === 0) {
-                visualizerContainer.innerHTML = '<p style="color: var(--color-text-muted); padding: 1rem;">Failed to load collections.</p>';
-                return;
-            }
-            
-            // Get featured rugs to show as options
-            const featuredOptions = inventoryManager.getFeaturedRugs(3);
-            
-            // Clear loading text
-            visualizerContainer.innerHTML = '';
-            
-            // Generate buttons
-            featuredOptions.forEach((rug, index) => {
-                const isFirst = index === 0;
-                
-                const btn = document.createElement('button');
-                btn.className = `rug-select-btn ${isFirst ? 'active' : ''}`;
-                
-                const imgSrc = rug.images && rug.images.length > 0 ? rug.images[0].file : 'images/showroom.jpg';
-                const formatPrice = formatRugPrice(rug.price, 'From ');
-                
-                btn.setAttribute('data-rug-src', imgSrc);
-                btn.setAttribute('data-title', rug.name);
-                btn.setAttribute('data-price', formatPrice);
-                btn.setAttribute('data-origin', rug.origin);
-                
-                btn.innerHTML = `
-                    <div class="selector-thumb">
-                        <img src="${thumbOf(imgSrc)}" alt="${rug.name} Thumbnail" width="720" height="720" decoding="async" data-fallback="${imgSrc}">
-                    </div>
-                    <div class="selector-info">
-                        <h3>${rug.name}</h3>
-                        <p>${rug.style}</p>
-                    </div>
-                `;
-                
-                visualizerContainer.appendChild(btn);
-            });
-            
-            // Wire up event listeners
-            const generatedButtons = document.querySelectorAll('.rug-select-btn');
-            
-            generatedButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (btn.classList.contains('active')) return;
-                    
-                    generatedButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    
-                    visualizerLoader.classList.add('active');
-                    if (activeOverlay) activeOverlay.style.opacity = '0';
-                    
-                    const targetSrc = btn.getAttribute('data-rug-src');
-                    const targetTitle = btn.getAttribute('data-title');
-                    const targetPrice = btn.getAttribute('data-price');
-                    const targetOrigin = btn.getAttribute('data-origin');
-                    
-                    const tempImg = new Image();
-                    tempImg.src = targetSrc;
-                    tempImg.onload = () => {
-                        if (activeOverlay) {
-                            activeOverlay.setAttribute('src', targetSrc);
-                            activeOverlay.style.opacity = '0.95';
-                        }
-                        
-                        if (specTitle) specTitle.textContent = targetTitle;
-                        if (specOrigin) specOrigin.textContent = targetOrigin;
-                        if (specPrice) specPrice.textContent = targetPrice;
-                        
-                        setTimeout(() => {
-                            if (visualizerLoader) visualizerLoader.classList.remove('active');
-                        }, 300);
-                    };
-                });
-            });
-            
-            // Trigger initial specs card population based on the first featured rug
-            if (generatedButtons.length > 0) {
-                const firstBtn = generatedButtons[0];
-                if (specTitle) specTitle.textContent = firstBtn.getAttribute('data-title');
-                if (specOrigin) specOrigin.textContent = firstBtn.getAttribute('data-origin');
-                if (specPrice) specPrice.textContent = firstBtn.getAttribute('data-price');
-                if (activeOverlay) {
-                    activeOverlay.setAttribute('src', firstBtn.getAttribute('data-rug-src'));
-                    activeOverlay.style.opacity = '0.95';
-                }
-            }
-        });
-    }
-
-
     // --- 5. "Request In-Home Trial" Linkage ---
     const homeTrialBtn = document.getElementById('btn-request-home-trial');
     const requestSelect = document.getElementById('interest');
@@ -247,15 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (homeTrialBtn && requestSelect && formMessage) {
         homeTrialBtn.addEventListener('click', () => {
-            // Find current selected rug info
-            const activeRug = document.querySelector('.rug-select-btn.active');
-            const activeRugTitle = activeRug ? activeRug.getAttribute('data-title') : 'Noor Esfahan Classic';
-            
             // Select the "In-Home Trial" option in the dropdown
             requestSelect.value = 'trial';
             
             // Auto-fill details in text area
-            formMessage.value = `I would like to request a 3-Day In-Home Trial for: "${activeRugTitle}". Let's arrange a time to review options in my home.`;
+            formMessage.value = `I would like a free 3-day in-home trial. Room size: \nColors/style I like: \nRugs I'm interested in (if any): `;
             
             // Smooth scroll to the contact form
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });

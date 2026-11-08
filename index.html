@@ -556,70 +556,22 @@
         </div>
     </section>
 
-    <!-- Interactive Virtual Showroom Section -->
-    <section id="visualizer" class="visualizer-section">
+    <!-- Free In-Home Trial (replaced the old room visualizer; reuses .visualizer-section for the section band) -->
+    <section id="home-trial" class="visualizer-section">
         <div class="container">
-            <div class="grid grid-custom reveal">
-                
-                <!-- Room Visualizer Canvas -->
-                <div class="visualizer-canvas-container">
-                    <div class="visualizer-header-badge">Virtual Showroom Visualizer</div>
-                    
-                    <div class="visualizer-viewport">
-                        <!-- Main Room Scene Image -->
-                        <img src="images/room_scene.jpg" alt="Luxury living room background" class="room-bg-image" width="1024" height="1024">
-                        
-                        <!-- Transparent rug overlay placed flat on the floor using CSS 3D perspective -->
-                        <div class="rug-overlay-container">
-                            <img id="active-rug-overlay" src="images/classic_rug.jpg" alt="Active Rug" class="rug-overlay-image" width="1024" height="1024">
-                        </div>
-                        
-                        <!-- Floating loading spinner -->
-                        <div class="visualizer-loader" id="visualizer-loader">
-                            <div class="spinner"></div>
-                        </div>
-                    </div>
+            <div class="section-header text-center reveal" style="max-width: 760px; margin: 0 auto;">
+                <span class="section-tag">Free 3-Day In-Home Trial</span>
+                <h2 class="section-title">See the Rug in Your Own Room</h2>
+                <p class="section-desc" style="margin: 0 auto 1.5rem auto;">A photo can't show how a handmade rug looks on your floor, in your light, next to your furniture. So we bring it to you. Choose one or more rugs and live with them at home for three days, free of charge. If it isn't right, we take it back.</p>
+                <ul style="list-style: none; padding: 0; margin: 0 auto 2rem auto; display: grid; gap: 0.6rem; text-align: left; max-width: 520px; color: var(--color-text-muted);">
+                    <li><i class="fa-solid fa-check" style="color: var(--color-primary); margin-right: 0.5rem;"></i>Free, with no obligation to buy</li>
+                    <li><i class="fa-solid fa-check" style="color: var(--color-primary); margin-right: 0.5rem;"></i>Available in all areas we serve</li>
+                    <li><i class="fa-solid fa-check" style="color: var(--color-primary); margin-right: 0.5rem;"></i>Tell us your room size and colors and we'll suggest rugs to try</li>
+                </ul>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-primary" id="btn-request-home-trial"><i class="fa-solid fa-house"></i> Request a Free In-Home Trial</button>
+                    <a href="rugs-for-sale.html" class="btn btn-secondary">Browse Rugs for Sale</a>
                 </div>
-
-                <!-- Control panel -->
-                <div class="visualizer-controls">
-                    <span class="section-tag">Interactive Design Tool</span>
-                    <h2 class="section-title">See It in Your Space</h2>
-                    <p class="section-desc">Toggle between our different collection styles to see how they lie on the floor and harmonise with a premium residential interior.</p>
-                    
-                    <div class="rug-selectors" id="visualizer-options-container">
-                        <!-- Options will be injected here dynamically by app.js from inventory.json -->
-                        <p style="color: var(--color-text-muted); font-size: 0.9rem; padding: 1rem;">Loading curated collections...</p>
-                    </div>
-
-                    <!-- Selected Rug Specs Card -->
-                    <div class="rug-specs-card">
-                        <div class="spec-row">
-                            <span class="spec-label">Selected Style:</span>
-                            <span class="spec-value" id="spec-title">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Origin:</span>
-                            <span class="spec-value" id="spec-origin">...</span>
-                        </div>
-                        <div class="spec-row">
-                            <span class="spec-label">Estimated Value:</span>
-                            <span class="spec-value highlight" id="spec-price">...</span>
-                        </div>
-                        <div class="spec-note">
-                            <i class="fa-solid fa-circle-info"></i>
-                            <span>All rugs are unique pieces. Available in custom dimensions upon request.</span>
-                        </div>
-                    </div>
-
-                    <div class="visualizer-actions">
-                        <a href="#contact" class="btn btn-primary btn-block">Inquire About This Piece</a>
-                        <button class="btn btn-secondary btn-block" id="btn-request-home-trial">
-                            <i class="fa-solid fa-house-laptop"></i> Request 3-Day In-Home Trial
-                        </button>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -930,6 +882,6 @@
         </div>
     </footer>
 
-    <script src="app.js?v=50"></script>
+    <script src="app.js?v=51"></script>
 </body>
 </html>
