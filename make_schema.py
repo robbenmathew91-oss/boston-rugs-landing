@@ -35,6 +35,7 @@ ORGANIZATION = {
     'image': f'{SITE}/images/showroom.jpg',
     'telephone': '+1-617-868-6667',
     'email': 'info@noororientalrugs.com',
+    'foundingDate': '1979',  # confirmed by Mr. Noor, 8 Nov 2026
     'address': {
         '@type': 'PostalAddress',
         'streetAddress': '769 Concord Ave.',
